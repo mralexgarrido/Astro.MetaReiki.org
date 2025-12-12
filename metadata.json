@@ -1,0 +1,7 @@
+{
+  "name": "MetaReiki Astro App",
+  "description": "Una aplicación moderna de Astrología de Signos Enteros con proyecciones anuales.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
