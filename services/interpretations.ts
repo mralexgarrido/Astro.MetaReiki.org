@@ -60,18 +60,62 @@ export const SIGN_ADJECTIVES: Record<string, string> = {
     'Piscis': "compasiva, soñadora y espiritual"
 };
 
-export const PROFECTION_KEYWORDS: Record<string, string> = {
-  'Sol': "Este es un año para brillar, liderar y ser visto. El Sol activa tu deseo de autoexpresión.",
-  'Luna': "Este año trae un enfoque en tu mundo emocional, tus necesidades básicas y tu vida privada.",
-  'Mercurio': "Un año de movimiento, aprendizaje y negociación. Espera mucha actividad mental y comunicativa.",
-  'Venus': "El enfoque se torna hacia las relaciones, el placer, el arte y la armonía. Un buen año para socializar.",
-  'Marte': "Este año se caracteriza por la acción, el impulso y la conquista. Es momento de ser valiente y directo.",
-  'Júpiter': "Un año de crecimiento, oportunidades y sabiduría. Busca expandir tus horizontes.",
-  'Saturno': "Es un tiempo de consolidación, responsabilidad y trabajo duro. Se te pedirá madurez y disciplina.",
-  // Modern planets are rarely Time Lords in traditional profections but included if needed fallback
-  'Urano': "Un año de cambios inesperados y liberación.",
-  'Neptuno': "Un año de sensibilidad espiritual y sueños.",
-  'Plutón': "Un año de transformación profunda y poder."
+// --- RICH INTERPRETATION DATA ---
+
+const MODALITY_INTRO: Record<string, string> = {
+    'Angular': "Este es un año crucial, marcado por la acción y el cambio visible. Los temas centrales de tu vida toman el escenario principal.",
+    'Succedent': "Este es un año de estabilización y desarrollo. Es momento de consolidar lo iniciado y nutrir tus recursos.",
+    'Cadent': "Este es un año de transición, aprendizaje y ajuste. Es ideal para la introspección, la preparación y el cambio de perspectiva."
+};
+
+const PROFECTION_ARCHETYPES: Record<string, { day: string, night: string }> = {
+    'Sol': {
+        day: "Como Señor del Tiempo en tu carta diurna, el Sol brilla con fuerza benéfica. Es un año para liderar, ser visto y clarificar tu propósito vital. Tienes el viento a favor para afirmar tu identidad.",
+        night: "Aunque es una carta nocturna, el Sol trae luz a la oscuridad. Este año ilumina áreas ocultas, exigiendo autenticidad. Puede sentirse intenso, como un reflector potente sobre temas que preferirías mantener privados."
+    },
+    'Luna': {
+        day: "En una carta diurna, la Luna trae un enfoque necesario pero a veces fluctuante sobre tus necesidades. Es un año para escuchar a tu cuerpo y emociones, aunque el mundo exterior te exija pragmatismo.",
+        night: "Como luminaria principal de tu secta nocturna, la Luna es una aliada poderosa. Este año fluye con intuición y soporte emocional. Confía en tus instintos; te guiarán a puertos seguros y nutridos."
+    },
+    'Mercurio': {
+        day: "Mercurio se adapta a la luz del día agudizando tu intelecto para la estrategia y el comercio. Es un año de gran actividad mental, negociación y movimiento rápido. Mantén la claridad.",
+        night: "Bajo el manto de la noche, Mercurio profundiza. Este año favorece la investigación, los secretos y el entendimiento psicológico. Tu mente buscará respuestas en lo profundo más que en lo evidente."
+    },
+    'Venus': {
+        day: "En el día, Venus suaviza las aristas. Aunque no es su reino principal, trae diplomacia y estética a tus esfuerzos visibles. Es un año para buscar alianzas estratégicas y presentar tu mejor cara.",
+        night: "¡Venus reina en la noche! Como benéfica de la secta, este año promete alivio, placer y conexiones genuinas. Es un tiempo excelente para el amor, el arte y la reconciliación. Disfruta la armonía."
+    },
+    'Marte': {
+        day: "Marte es el 'maléfico' de la secta diurna, lo que puede traer fricción. Este año sentirás urgencia y calor. Evita el conflicto innecesario; canaliza esta energía volcánica en trabajo duro y ambición.",
+        night: "En la noche, la espada de Marte protege. Tienes la capacidad de cortar con lo que no sirve y luchar por lo que amas con precisión quirúrgica. Es un año de valentía constructiva y logros directos."
+    },
+    'Júpiter': {
+        day: "¡El Gran Benéfico está en su salsa! En una carta diurna, Júpiter abre puertas, trae mentores y expande tu visión. Es un año de fe y oportunidades doradas. Di sí a la aventura.",
+        night: "Júpiter sigue siendo afortunado en la noche, pero su ayuda es más sutil o espiritual. Este año ofrece crecimiento interior, protección invisible y sabiduría filosófica más que ganancias materiales obvias."
+    },
+    'Saturno': {
+        day: "Saturno es el 'maléfico' constructivo del día. Te pedirá disciplina, pero recompensará tu esfuerzo con estructuras duraderas. Es un año de madurez, construcción lenta y autoridad ganada.",
+        night: "En la noche, Saturno puede sentirse pesado. Es el desafío principal de la secta. Este año podrías enfrentar límites, retrasos o soledad. Paciencia: estas pruebas están forjando tu resiliencia."
+    },
+    // Modern planets fallbacks
+    'Urano': { day: "Un año de disrupción eléctrica.", night: "Un año de liberación súbita." },
+    'Neptuno': { day: "Un año de disolución y sueños.", night: "Un año de inspiración mística." },
+    'Plutón': { day: "Un año de transformación radical.", night: "Un año de empoderamiento profundo." },
+};
+
+const HOUSE_ACTION_VERBS: Record<number, string> = {
+    1: "redefinir quién eres y cómo te presentas al mundo",
+    2: "evaluar y potenciar tus recursos y valores",
+    3: "conectar, aprender y moverte en tu entorno",
+    4: "echar raíces y atender tu vida privada",
+    5: "crear, amar y arriesgarte por lo que te apasiona",
+    6: "organizar, sanar y servir con eficiencia",
+    7: "comprometerte, negociar y ver al otro",
+    8: "transformar, compartir y gestionar crisis",
+    9: "expandir tu mente, viajar y buscar la verdad",
+    10: "alcanzar metas, liderar y construir tu legado",
+    11: "colaborar, soñar y reunirte con tu tribu",
+    12: "soltar, meditar y cerrar ciclos kármicos"
 };
 
 export const generateInterpretation = (
@@ -87,11 +131,20 @@ export const generateInterpretation = (
 export const generateProfectionInterpretation = (
     timeLord: string,
     houseNumber: number,
-    signName: string
+    signName: string,
+    isDayChart: boolean = true // Default to day if unknown, though we should pass it
 ): string => {
-    const houseTopic = HOUSE_THEMES[houseNumber].split(',')[0].toLowerCase();
-    const signQuality = SIGN_ADJECTIVES[signName];
-    const lordMsg = PROFECTION_KEYWORDS[timeLord] || `La energía de ${timeLord} será predominante.`;
+    // 1. Determine Modality
+    const isAngular = [1, 4, 7, 10].includes(houseNumber);
+    const isSuccedent = [2, 5, 8, 11].includes(houseNumber);
+    const modalityText = isAngular ? MODALITY_INTRO['Angular'] : (isSuccedent ? MODALITY_INTRO['Succedent'] : MODALITY_INTRO['Cadent']);
 
-    return `Este año activa la Casa ${houseNumber} (${houseTopic}...), teñida por la energía ${signQuality} de ${signName}. ${lordMsg} ${timeLord} te invita a tomar las riendas de ${HOUSE_THEMES[houseNumber].toLowerCase()}.`;
+    // 2. Determine Archetype based on Sect
+    const sectKey = isDayChart ? 'day' : 'night';
+    const lordText = PROFECTION_ARCHETYPES[timeLord]?.[sectKey] || PROFECTION_ARCHETYPES[timeLord]?.day || `La energía de ${timeLord} será predominante.`;
+
+    // 3. Assemble Narrative
+    // Structure: [Modality Intro] [House Action]. [Time Lord Description] [Sign Flavor].
+
+    return `${modalityText} Este año activa la Casa ${houseNumber}, invitándote a ${HOUSE_ACTION_VERBS[houseNumber]}. ${lordText} Todo esto se tiñe con la cualidad ${SIGN_ADJECTIVES[signName]} de ${signName}.`;
 };
