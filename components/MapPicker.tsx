@@ -17,8 +17,8 @@ export const MapPicker: React.FC<Props> = ({ onLocationSelect, onClose }) => {
 
   useEffect(() => {
     if (mapRef.current && !leafletMap.current) {
-      // Default view: London
-      const map = L.map(mapRef.current).setView([51.505, -0.09], 3);
+      // Default view: Madrid (neutral default)
+      const map = L.map(mapRef.current).setView([40.4168, -3.7038], 4);
       
       L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -37,13 +37,6 @@ export const MapPicker: React.FC<Props> = ({ onLocationSelect, onClose }) => {
         
         setSelectedPos({ lat, lng });
       });
-
-      // Try to get current loc to center map initially
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(pos => {
-          map.setView([pos.coords.latitude, pos.coords.longitude], 10);
-        });
-      }
 
       leafletMap.current = map;
     }

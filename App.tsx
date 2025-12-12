@@ -36,23 +36,24 @@ const App: React.FC = () => {
 
   return (
     // 'print:bg-white print:text-black' overrides global body dark mode styles
-    <div className="min-h-screen text-slate-200 font-sans selection:bg-reiki-cyan/30 pb-20 print:bg-white print:text-black print:pb-0 print:absolute print:top-0 print:left-0 print:w-full">
+    // IMPORTANT: print:h-auto and print:overflow-visible are crucial for multi-page printing
+    <div className="min-h-screen text-slate-200 font-sans selection:bg-reiki-cyan/30 pb-20 print:bg-white print:text-black print:pb-0 print:h-auto print:overflow-visible print:static print:w-full print:block">
       
       {/* Header */}
       <header className="p-6 text-center relative z-10 print:hidden border-b border-reiki-cyan/10 bg-reiki-dark/50 backdrop-blur-sm">
         <div className="inline-flex items-center justify-center gap-3 mb-2">
           {/* Logo Placeholder / Icon */}
           <Sparkles className="text-reiki-cyan w-6 h-6 animate-pulse-slow" />
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-reiki-cyan via-white to-reiki-magenta font-sans">
+          <h1 className="text-3xl md:text-4xl font-extrabold tracking-wider text-reiki-cyan font-sans drop-shadow-[0_0_10px_rgba(0,242,255,0.3)]">
             METAREIKI.ORG
           </h1>
           <Sparkles className="text-reiki-magenta w-6 h-6 animate-pulse-slow" />
         </div>
-        <p className="text-slate-400 text-xs md:text-sm tracking-[0.2em] uppercase font-medium">Astrología de Signos Enteros • Motor de Precisión</p>
+        <p className="text-reiki-cyan text-xs md:text-sm tracking-[0.2em] uppercase font-medium">Astrología de Signos Enteros • Motor de Precisión</p>
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 relative z-10 max-w-7xl print:max-w-none print:px-8 print:py-4 mt-8">
+      <main className="container mx-auto px-4 relative z-10 max-w-7xl print:max-w-none print:px-0 print:py-0 mt-8 print:mt-0 print:block">
         
         {!chartData && !loading && (
           <div className="flex flex-col items-center justify-center min-h-[60vh] animate-fade-in-up print:hidden">
@@ -71,12 +72,13 @@ const App: React.FC = () => {
         )}
 
         {chartData && !loading && (
-          <div className="animate-fade-in space-y-6 print:space-y-8">
+          <div className="animate-fade-in space-y-6 print:space-y-0 print:block">
             
             {/* Print Header */}
-            <div className="hidden print:block text-center mb-8 border-b border-black pb-4">
+            <div className="hidden print:block text-center mb-8 border-b-2 border-black pb-4 pt-4">
                 <h1 className="text-4xl font-bold text-black mb-2">METAREIKI.ORG</h1>
                 <h2 className="text-2xl font-serif text-gray-800">Reporte Astrológico de {chartData.name}</h2>
+                <p className="text-sm text-gray-600 mt-1">Generado el {new Date().toLocaleDateString()}</p>
             </div>
 
             {/* Screen Header for Name */}
@@ -85,20 +87,24 @@ const App: React.FC = () => {
             </div>
 
             {/* Top: Profection (Full Width) */}
-            <ProfectionDisplay data={chartData.profection} />
+            <div className="print:mb-8 print:break-inside-avoid">
+               <ProfectionDisplay data={chartData.profection} />
+            </div>
             
             {/* Middle: Summary Tables */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start break-inside-avoid">
-                <div className="print:border print:border-gray-300 print:rounded-xl print:p-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start print:block print:gap-0 print:space-y-8">
+                <div className="print:border print:border-gray-300 print:rounded-none print:p-0 print:break-inside-avoid">
                     <PlanetList data={chartData} />
                 </div>
-                <div className="print:border print:border-gray-300 print:rounded-xl print:p-4">
+                <div className="print:border print:border-gray-300 print:rounded-none print:p-0 print:break-inside-avoid">
                     <HouseList data={chartData} />
                 </div>
             </div>
 
             {/* Bottom: Detailed Report */}
-            <DetailedReport data={chartData} />
+            <div className="print:mt-8">
+                <DetailedReport data={chartData} />
+            </div>
             
             {/* Footer Buttons */}
             <div className="flex flex-col sm:flex-row justify-center gap-4 pt-8 border-t border-slate-800 print:hidden pb-12">

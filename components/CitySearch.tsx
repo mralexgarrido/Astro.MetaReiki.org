@@ -20,7 +20,7 @@ export const CitySearch: React.FC<Props> = ({ onSelect, selectedName }) => {
   const [results, setResults] = useState<CityResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const debounceRef = useRef<NodeJS.Timeout>(null);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
