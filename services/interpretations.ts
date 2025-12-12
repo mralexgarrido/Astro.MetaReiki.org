@@ -60,6 +60,20 @@ export const SIGN_ADJECTIVES: Record<string, string> = {
     'Piscis': "compasiva, soñadora y espiritual"
 };
 
+export const PROFECTION_KEYWORDS: Record<string, string> = {
+  'Sol': "Este es un año para brillar, liderar y ser visto. El Sol activa tu deseo de autoexpresión.",
+  'Luna': "Este año trae un enfoque en tu mundo emocional, tus necesidades básicas y tu vida privada.",
+  'Mercurio': "Un año de movimiento, aprendizaje y negociación. Espera mucha actividad mental y comunicativa.",
+  'Venus': "El enfoque se torna hacia las relaciones, el placer, el arte y la armonía. Un buen año para socializar.",
+  'Marte': "Este año se caracteriza por la acción, el impulso y la conquista. Es momento de ser valiente y directo.",
+  'Júpiter': "Un año de crecimiento, oportunidades y sabiduría. Busca expandir tus horizontes.",
+  'Saturno': "Es un tiempo de consolidación, responsabilidad y trabajo duro. Se te pedirá madurez y disciplina.",
+  // Modern planets are rarely Time Lords in traditional profections but included if needed fallback
+  'Urano': "Un año de cambios inesperados y liberación.",
+  'Neptuno': "Un año de sensibilidad espiritual y sueños.",
+  'Plutón': "Un año de transformación profunda y poder."
+};
+
 export const generateInterpretation = (
     planet: string,
     sign: string,
@@ -68,4 +82,16 @@ export const generateInterpretation = (
     rulerHouse: number
 ): string => {
     return `Con el ${planet} en ${sign} en la Casa ${house}, hay una energía ${SIGN_ADJECTIVES[sign] || 'única'} ${PLANET_MEANINGS[planet] || 'operando'} en el área de ${HOUSE_THEMES[house].toLowerCase().split(',')[0]}. El regente de esta casa, ${rulerName}, se encuentra en la Casa ${rulerHouse}, lo que sugiere que los asuntos de la Casa ${house} servirán a o dependerán de los temas de la Casa ${rulerHouse} (${HOUSE_THEMES[rulerHouse].toLowerCase().split(',')[0]}).`;
+};
+
+export const generateProfectionInterpretation = (
+    timeLord: string,
+    houseNumber: number,
+    signName: string
+): string => {
+    const houseTopic = HOUSE_THEMES[houseNumber].split(',')[0].toLowerCase();
+    const signQuality = SIGN_ADJECTIVES[signName];
+    const lordMsg = PROFECTION_KEYWORDS[timeLord] || `La energía de ${timeLord} será predominante.`;
+
+    return `Este año activa la Casa ${houseNumber} (${houseTopic}...), teñida por la energía ${signQuality} de ${signName}. ${lordMsg} ${timeLord} te invita a tomar las riendas de ${HOUSE_THEMES[houseNumber].toLowerCase()}.`;
 };

@@ -6,6 +6,7 @@ import { PlanetList } from './components/PlanetList';
 import { HouseList } from './components/HouseList';
 import { ProfectionDisplay } from './components/ProfectionDisplay';
 import { DetailedReport } from './components/DetailedReport';
+import { ProfectionTimeline } from './components/ProfectionTimeline';
 import { Sparkles, Printer } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -104,6 +105,11 @@ const App: React.FC = () => {
             {/* Bottom: Detailed Report */}
             <div className="print:mt-8">
                 <DetailedReport data={chartData} />
+            </div>
+
+            {/* Timeline Report */}
+            <div className="print:mt-8">
+               <ProfectionTimeline data={chartData} />
             </div>
             
             {/* Footer Buttons */}
