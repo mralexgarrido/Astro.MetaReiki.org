@@ -188,15 +188,7 @@ const getDignity = (planetId: PlanetId, signId: number): 'Domicilio' | 'Exaltaci
   return undefined;
 };
 
-const calculateProfection = (birthDate: Date, ascSignId: number): ProfectionData => {
-  const now = new Date();
-  
-  let age = now.getFullYear() - birthDate.getFullYear();
-  const m = now.getMonth() - birthDate.getMonth();
-  if (m < 0 || (m === 0 && now.getDate() < birthDate.getDate())) {
-      age--;
-  }
-
+export const calculateProfectionByAge = (age: number, ascSignId: number): ProfectionData => {
   const housesAdvanced = age % 12;
   const houseNumber = housesAdvanced + 1;
   const signId = (ascSignId + housesAdvanced) % 12;
@@ -212,6 +204,18 @@ const calculateProfection = (birthDate: Date, ascSignId: number): ProfectionData
     timeLord: rulerName,
     theme: HOUSE_THEMES[houseNumber]
   };
+};
+
+const calculateProfection = (birthDate: Date, ascSignId: number): ProfectionData => {
+  const now = new Date();
+
+  let age = now.getFullYear() - birthDate.getFullYear();
+  const m = now.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && now.getDate() < birthDate.getDate())) {
+      age--;
+  }
+
+  return calculateProfectionByAge(age, ascSignId);
 };
 
 export const calculateChart = (birthData: BirthData): ChartData => {
