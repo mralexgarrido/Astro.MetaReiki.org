@@ -28,7 +28,12 @@ export const ProfectionTimeline: React.FC<Props> = ({ data }) => {
          ...profection,
          signName: sign.name,
          signSymbol: sign.symbol,
-         interpretation: generateProfectionInterpretation(profection.timeLord, profection.houseNumber, sign.name)
+         interpretation: generateProfectionInterpretation(
+             profection.timeLord,
+             profection.houseNumber,
+             sign.name,
+             data.isDayChart
+         )
      });
   }
 

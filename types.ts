@@ -72,6 +72,7 @@ export interface ChartData {
   houses: HouseData[]; 
   profection: ProfectionData;
   zodiacOffset: number;
+  isDayChart: boolean;
 }
 
 interface ZodiacSignDef {

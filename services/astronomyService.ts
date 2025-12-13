@@ -9,6 +9,28 @@ const normalizeDegrees = (deg: number): number => {
   return d;
 };
 
+const calculateSect = (ascendantDeg: number, sunDeg: number): boolean => {
+  // A simple approximation for Day Chart: Sun is above the horizon (House 7-12).
+  // In Whole Sign, if Sun is in House 7, 8, 9, 10, 11, 12 relative to Ascendant Sign.
+  // More precisely: If Sun is between Ascendant and Descendant (going via MC).
+
+  // Normalize everything so ASC is 0
+  let sunRel = normalizeDegrees(sunDeg - ascendantDeg);
+
+  // If Sun is in the upper hemisphere (180 to 360 degrees from ASC)
+  // Wait, ASC is rising. MC is ~270 relative to ASC. DSC is 180.
+  // So Sun is above horizon if it is between 180 (DSC) and 360/0 (ASC).
+  // Yes, roughly 180-360 relative to ASC means it's setting or has set?
+  // No. ASC is East. DSC is West.
+  // Sun at 0 (ASC) is rising.
+  // Sun at 90 (IC) is midnight (Night).
+  // Sun at 180 (DSC) is setting.
+  // Sun at 270 (MC) is noon (Day).
+  // So Day is 180 -> 360 (or 0).
+
+  return sunRel >= 180;
+};
+
 // Calculate Ascendant
 const calculateAscendant = (date: Date, lat: number, lng: number): number => {
   const dateObj = new Astronomy.AstroTime(date);
@@ -354,6 +376,8 @@ export const calculateChart = (birthData: BirthData): ChartData => {
   });
 
   const profection = calculateProfection(date, ascSign);
+  const sun = planets.find(p => p.id === PlanetId.Sun);
+  const isDayChart = sun ? calculateSect(ascLongitude, sun.longitude) : true;
 
   return {
     name: birthData.name,
@@ -362,6 +386,7 @@ export const calculateChart = (birthData: BirthData): ChartData => {
     midheaven,
     houses,
     profection,
-    zodiacOffset: ascSign * 30 
+    zodiacOffset: ascSign * 30,
+    isDayChart
   };
 };
