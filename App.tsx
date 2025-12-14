@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BirthData, ChartData } from './types';
+import { BirthData, ChartData, ZODIAC_SIGNS } from './types';
 import { calculateChart } from './services/astronomyService';
 import { BirthForm } from './components/BirthForm';
 import { PlanetList } from './components/PlanetList';
@@ -7,15 +7,19 @@ import { HouseList } from './components/HouseList';
 import { ProfectionDisplay } from './components/ProfectionDisplay';
 import { DetailedReport } from './components/DetailedReport';
 import { ProfectionTimeline } from './components/ProfectionTimeline';
-import { Sparkles, Printer } from 'lucide-react';
+import { HermeticLotsReport } from './components/HermeticLotsReport';
+import { ReikiReport } from './components/ReikiReport';
+import { Sparkles, Printer, FileText, CalendarClock, Lock, HeartPulse } from 'lucide-react';
 
 const App: React.FC = () => {
   const [chartData, setChartData] = useState<ChartData | null>(null);
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState<'natal' | 'profection' | 'lots' | 'reiki'>('natal');
 
   const handleBirthDataSubmit = (data: BirthData) => {
     setLoading(true);
     setChartData(null);
+    setActiveTab('natal');
 
     // Simulate a brief calculation time for UX
     setTimeout(() => {
@@ -87,38 +91,85 @@ const App: React.FC = () => {
                 <h2 className="text-2xl md:text-3xl font-serif text-white">Carta de <span className="text-reiki-cyan font-bold">{chartData.name}</span></h2>
             </div>
 
-            {/* Top: Profection (Full Width) */}
-            <div className="print:mb-8 print:break-inside-avoid">
-               <ProfectionDisplay data={chartData.profection} />
+            {/* Tab Navigation (Screen Only) */}
+            <div className="print:hidden flex flex-wrap justify-center gap-2 mb-8">
+                <button
+                    onClick={() => setActiveTab('natal')}
+                    className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${activeTab === 'natal' ? 'bg-reiki-cyan text-slate-900 shadow-[0_0_15px_rgba(0,242,255,0.4)]' : 'bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700'}`}
+                >
+                   <FileText className="w-4 h-4" /> Carta Natal
+                </button>
+                <button
+                    onClick={() => setActiveTab('profection')}
+                    className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${activeTab === 'profection' ? 'bg-reiki-magenta text-white shadow-[0_0_15px_rgba(255,0,255,0.4)]' : 'bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700'}`}
+                >
+                   <CalendarClock className="w-4 h-4" /> Profecciones
+                </button>
+                <button
+                    onClick={() => setActiveTab('lots')}
+                    className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${activeTab === 'lots' ? 'bg-amber-500 text-slate-900 shadow-[0_0_15px_rgba(245,158,11,0.4)]' : 'bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700'}`}
+                >
+                   <Lock className="w-4 h-4" /> Partes Herméticas
+                </button>
+                <button
+                    onClick={() => setActiveTab('reiki')}
+                    className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${activeTab === 'reiki' ? 'bg-green-500 text-slate-900 shadow-[0_0_15px_rgba(34,197,94,0.4)]' : 'bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700'}`}
+                >
+                   <HeartPulse className="w-4 h-4" /> Reiki y Salud
+                </button>
             </div>
+
+            {/* Content Areas */}
             
-            {/* Middle: Summary Tables */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start print:block print:gap-0 print:space-y-8">
-                <div className="print:border print:border-gray-300 print:rounded-none print:p-0 print:break-inside-avoid">
-                    <PlanetList data={chartData} />
-                </div>
-                <div className="print:border print:border-gray-300 print:rounded-none print:p-0 print:break-inside-avoid">
-                    <HouseList data={chartData} />
-                </div>
-            </div>
+            {/* Natal Chart View */}
+            {(activeTab === 'natal' || loading) && ( // keep visible during loading if needed, but loading state handles that
+               <div className={`space-y-6 ${activeTab !== 'natal' ? 'hidden print:block' : ''}`}>
+                   {/* Middle: Summary Tables */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start print:block print:gap-0 print:space-y-8">
+                        <div className="print:border print:border-gray-300 print:rounded-none print:p-0 print:break-inside-avoid">
+                            <PlanetList data={chartData} />
+                        </div>
+                        <div className="print:border print:border-gray-300 print:rounded-none print:p-0 print:break-inside-avoid">
+                            <HouseList data={chartData} />
+                        </div>
+                    </div>
 
-            {/* Bottom: Detailed Report */}
-            <div className="print:mt-8">
-                <DetailedReport data={chartData} />
-            </div>
+                    {/* Bottom: Detailed Report */}
+                    <div className="print:mt-8">
+                        <DetailedReport data={chartData} />
+                    </div>
+               </div>
+            )}
 
-            {/* Timeline Report */}
-            <div className="print:mt-8">
-               <ProfectionTimeline data={chartData} />
-            </div>
+            {/* Profection View */}
+            {activeTab === 'profection' && (
+                <div className="space-y-6 animate-fade-in">
+                    <ProfectionDisplay data={chartData.profection} />
+                    <ProfectionTimeline data={chartData} />
+                </div>
+            )}
+
+            {/* Hermetic Lots View */}
+            {activeTab === 'lots' && (
+                <div className="animate-fade-in">
+                    <HermeticLotsReport lots={chartData.hermeticLots} zodiacSigns={ZODIAC_SIGNS} />
+                </div>
+            )}
+
+            {/* Reiki Report View */}
+            {activeTab === 'reiki' && (
+                <div className="animate-fade-in">
+                   <ReikiReport data={chartData} />
+                </div>
+            )}
             
             {/* Footer Buttons */}
-            <div className="flex flex-col sm:flex-row justify-center gap-4 pt-8 border-t border-slate-800 print:hidden pb-12">
+            <div className="flex flex-col sm:flex-row justify-center gap-4 pt-8 border-t border-slate-800 print:hidden pb-12 mt-8">
                 <button 
                   onClick={handlePrint}
                   className="px-8 py-3 bg-reiki-card border border-reiki-cyan/30 text-reiki-cyan rounded-xl hover:bg-reiki-cyan/10 hover:border-reiki-cyan transition-all uppercase tracking-widest text-sm font-bold flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,242,255,0.1)] hover:shadow-[0_0_20px_rgba(0,242,255,0.2)]"
                 >
-                  <Printer className="w-4 h-4" /> Imprimir Reporte (PDF)
+                  <Printer className="w-4 h-4" /> Imprimir Vista Actual (PDF)
                 </button>
 
                 <button 

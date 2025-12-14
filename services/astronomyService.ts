@@ -1,5 +1,5 @@
 import * as Astronomy from 'astronomy-engine';
-import { BirthData, ChartData, PlanetId, PlanetPosition, ZODIAC_SIGNS, HouseData, ProfectionData, RulerInfo } from '../types';
+import { BirthData, ChartData, PlanetId, PlanetPosition, ZODIAC_SIGNS, HouseData, ProfectionData, RulerInfo, HermeticLot } from '../types';
 import { HOUSE_THEMES } from './interpretations';
 
 // Helper to normalize degrees to 0-360
@@ -240,6 +240,91 @@ const calculateProfection = (birthDate: Date, ascSignId: number): ProfectionData
   return calculateProfectionByAge(age, ascSignId);
 };
 
+const calculateHermeticLots = (
+  isDayChart: boolean,
+  ascendant: number,
+  planets: PlanetPosition[],
+  ascSign: number
+): HermeticLot[] => {
+
+  const getPos = (id: PlanetId) => planets.find(p => p.id === id)?.longitude || 0;
+
+  const sun = getPos(PlanetId.Sun);
+  const moon = getPos(PlanetId.Moon);
+  const mercury = getPos(PlanetId.Mercury);
+  const venus = getPos(PlanetId.Venus);
+  const mars = getPos(PlanetId.Mars);
+  const jupiter = getPos(PlanetId.Jupiter);
+  const saturn = getPos(PlanetId.Saturn);
+
+  // Lot Formulas
+  let fortune: number;
+  let spirit: number;
+
+  if (isDayChart) {
+    // Day: Asc + Moon - Sun
+    fortune = normalizeDegrees(ascendant + moon - sun);
+    // Day: Asc + Sun - Moon
+    spirit = normalizeDegrees(ascendant + sun - moon);
+  } else {
+    // Night: Asc + Sun - Moon
+    fortune = normalizeDegrees(ascendant + sun - moon);
+    // Night: Asc + Moon - Sun
+    spirit = normalizeDegrees(ascendant + moon - sun);
+  }
+
+  // Other Lots depend on Spirit and Fortune
+  // 3. Eros
+  // Day: Asc + Venus - Spirit | Night: Asc + Spirit - Venus
+  const eros = isDayChart
+      ? normalizeDegrees(ascendant + venus - spirit)
+      : normalizeDegrees(ascendant + spirit - venus);
+
+  // 4. Necessity (Necesidad)
+  // Day: Asc + Fortune - Mercury | Night: Asc + Mercury - Fortune
+  const necessity = isDayChart
+      ? normalizeDegrees(ascendant + fortune - mercury)
+      : normalizeDegrees(ascendant + mercury - fortune);
+
+  // 5. Courage (Coraje/Atrevimiento)
+  // Day: Asc + Fortune - Mars | Night: Asc + Mars - Fortune
+  const courage = isDayChart
+      ? normalizeDegrees(ascendant + fortune - mars)
+      : normalizeDegrees(ascendant + mars - fortune);
+
+  // 6. Victory (Victoria)
+  // Day: Asc + Jupiter - Spirit | Night: Asc + Spirit - Jupiter
+  const victory = isDayChart
+      ? normalizeDegrees(ascendant + jupiter - spirit)
+      : normalizeDegrees(ascendant + spirit - jupiter);
+
+  // 7. Nemesis
+  // Day: Asc + Fortune - Saturn | Night: Asc + Saturn - Fortune
+  const nemesis = isDayChart
+      ? normalizeDegrees(ascendant + fortune - saturn)
+      : normalizeDegrees(ascendant + saturn - fortune);
+
+  const createLot = (key: string, name: string, lon: number, symbol: string, meaning: string): HermeticLot => {
+    const signId = getSign(lon);
+    // Calculate Whole Sign House relative to Ascendant
+    // Asc Sign is ascSign.
+    // House = (LotSign - AscSign + 12) % 12 + 1
+    const house = (signId - ascSign + 12) % 12 + 1;
+
+    return { key, name, longitude: lon, signId, house, symbol, meaning };
+  };
+
+  return [
+    createLot('fortune', 'Fortuna', fortune, '⊗', 'Salud, cuerpo, prosperidad y circunstancias materiales.'),
+    createLot('spirit', 'Espíritu', spirit, '⊙', 'Voluntad, acción, carrera y lo que hacemos activamente.'),
+    createLot('eros', 'Eros', eros, '♥', 'Deseos, apetitos, amor y relaciones sociales.'),
+    createLot('necessity', 'Necesidad', necessity, '⚗', 'Limitaciones, obligaciones, luchas inevitables.'),
+    createLot('courage', 'Coraje', courage, '⚔', 'Audacia, acción atrevida, y toma de riesgos.'),
+    createLot('victory', 'Victoria', victory, '♛', 'Éxito, logros, y la superación de obstáculos.'),
+    createLot('nemesis', 'Némesis', nemesis, '⚖', 'Causas de infortunio, obstáculos y enemigos ocultos.')
+  ];
+};
+
 export const calculateChart = (birthData: BirthData): ChartData => {
   const dateTimeStr = `${birthData.date}T${birthData.time}:00`;
   const date = new Date(dateTimeStr);
@@ -379,6 +464,8 @@ export const calculateChart = (birthData: BirthData): ChartData => {
   const sun = planets.find(p => p.id === PlanetId.Sun);
   const isDayChart = sun ? calculateSect(ascLongitude, sun.longitude) : true;
 
+  const hermeticLots = calculateHermeticLots(isDayChart, ascLongitude, planets, ascSign);
+
   return {
     name: birthData.name,
     planets,
@@ -386,6 +473,7 @@ export const calculateChart = (birthData: BirthData): ChartData => {
     midheaven,
     houses,
     profection,
+    hermeticLots,
     zodiacOffset: ascSign * 30,
     isDayChart
   };
