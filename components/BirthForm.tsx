@@ -16,6 +16,7 @@ export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
   const [city, setCity] = useState('');
   const [lat, setLat] = useState<number | null>(null);
   const [lng, setLng] = useState<number | null>(null);
+  const [timezone, setTimezone] = useState<string>('UTC');
 
   // Storage State
   const [profiles, setProfiles] = useState<StoredProfile[]>([]);
@@ -48,9 +49,8 @@ export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
         setCity(profile.location.city);
         setLat(profile.location.latitude);
         setLng(profile.location.longitude);
+        setTimezone(profile.location.timezone || 'UTC');
       }
-    } else {
-      // Clear form if "Select..." is chosen? Optional, let's keep data to avoid accidental loss
     }
   };
 
@@ -69,7 +69,8 @@ export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
         location: {
           city,
           latitude: lat,
-          longitude: lng
+          longitude: lng,
+          timezone: timezone
         }
       });
       await loadProfiles();
@@ -92,6 +93,7 @@ export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
       setCity('');
       setLat(null);
       setLng(null);
+      setTimezone('UTC');
     }
   };
 
@@ -109,15 +111,17 @@ export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
       location: {
         city,
         latitude: lat,
-        longitude: lng
+        longitude: lng,
+        timezone: timezone
       }
     });
   };
 
-  const handleLocationSelect = (newLat: number, newLng: number, name: string) => {
+  const handleLocationSelect = (newLat: number, newLng: number, name: string, tz: string) => {
       setLat(newLat);
       setLng(newLng);
       setCity(name);
+      setTimezone(tz);
   };
 
   return (

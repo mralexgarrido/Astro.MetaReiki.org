@@ -2,6 +2,7 @@ export interface LocationData {
   latitude: number;
   longitude: number;
   city: string;
+  timezone: string;
 }
 
 export interface BirthData {
@@ -64,6 +65,16 @@ export interface ProfectionData {
   theme: string;
 }
 
+export interface HermeticLot {
+  key: string;
+  name: string;
+  longitude: number;
+  signId: number;
+  house: number;
+  symbol: string; // e.g., '⊗' for Fortune
+  meaning: string;
+}
+
 export interface ChartData {
   name: string;
   planets: PlanetPosition[];
@@ -71,6 +82,7 @@ export interface ChartData {
   midheaven: PlanetPosition;
   houses: HouseData[]; 
   profection: ProfectionData;
+  hermeticLots: HermeticLot[];
   zodiacOffset: number;
   isDayChart: boolean;
 }
