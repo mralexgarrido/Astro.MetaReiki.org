@@ -1,6 +1,6 @@
 import React from 'react';
 import { ChartData, ZODIAC_SIGNS } from '../types';
-import { HOUSE_DEFINITIONS, HOUSE_THEMES, SIGN_ADJECTIVES, PLANET_MEANINGS } from '../services/interpretations';
+import { HOUSE_DEFINITIONS, HOUSE_THEMES, SIGN_ADJECTIVES, PLANET_MEANINGS, getRulerInterpretation } from '../services/interpretations';
 import { BookOpen, Map as MapIcon } from 'lucide-react';
 
 interface Props {
@@ -80,7 +80,7 @@ export const DetailedReport: React.FC<Props> = ({ data }) => {
                                       <span className="text-reiki-magenta font-bold print:text-black">{r.name} ({r.type})</span> está en la <span className="font-bold text-white print:text-black">Casa {r.house}</span>.
                                       <br/>
                                       <span className="text-slate-400 text-xs mt-1 block print:text-gray-600 leading-relaxed">
-                                          Esto conecta los temas de la Casa {house.houseNumber} ({house.theme.split(',')[0]}...) con las experiencias de la Casa {r.house}.
+                                          {getRulerInterpretation(house.houseNumber, r.house)}
                                       </span>
                                   </div>
                               </div>

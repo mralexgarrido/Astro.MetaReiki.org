@@ -1,3 +1,16 @@
+import ruler1 from './interpretations/data/ruler_1.json';
+import ruler2 from './interpretations/data/ruler_2.json';
+import ruler3 from './interpretations/data/ruler_3.json';
+import ruler4 from './interpretations/data/ruler_4.json';
+import ruler5 from './interpretations/data/ruler_5.json';
+import ruler6 from './interpretations/data/ruler_6.json';
+import ruler7 from './interpretations/data/ruler_7.json';
+import ruler8 from './interpretations/data/ruler_8.json';
+import ruler9 from './interpretations/data/ruler_9.json';
+import ruler10 from './interpretations/data/ruler_10.json';
+import ruler11 from './interpretations/data/ruler_11.json';
+import ruler12 from './interpretations/data/ruler_12.json';
+
 export const HOUSE_THEMES: Record<number, string> = {
     1: "La identidad, el cuerpo físico, la apariencia y la primera impresión que das al mundo.",
     2: "Recursos personales, dinero, posesiones materiales, autoestima y valores.",
@@ -116,6 +129,29 @@ const HOUSE_ACTION_VERBS: Record<number, string> = {
     10: "alcanzar metas, liderar y construir tu legado",
     11: "colaborar, soñar y reunirte con tu tribu",
     12: "soltar, meditar y cerrar ciclos kármicos"
+};
+
+const RULER_INTERPRETATIONS: Record<number, Record<string, string>> = {
+    1: ruler1,
+    2: ruler2,
+    3: ruler3,
+    4: ruler4,
+    5: ruler5,
+    6: ruler6,
+    7: ruler7,
+    8: ruler8,
+    9: ruler9,
+    10: ruler10,
+    11: ruler11,
+    12: ruler12
+};
+
+export const getRulerInterpretation = (sourceHouse: number, targetHouse: number): string => {
+    const sourceData = RULER_INTERPRETATIONS[sourceHouse];
+    if (sourceData) {
+        return sourceData[targetHouse.toString()] || "Interpretación no disponible.";
+    }
+    return "Interpretación no disponible.";
 };
 
 export const generateInterpretation = (
