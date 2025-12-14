@@ -52,6 +52,7 @@ export const PLANET_MEANINGS: Record<string, string> = {
     'Urano': "innovando y trayendo cambios repentinos",
     'Neptuno': "disolviendo límites e inspirando sueños",
     'Plutón': "transformando profundamente y empoderando",
+    'Quirón': "señalando la herida que se convierte en maestría",
     'Nodo Norte': "señalando el camino del destino y el crecimiento",
     'Nodo Sur': "revelando talentos innatos y patrones kármicos",
     'Ascendente': "marcando el camino de vida",

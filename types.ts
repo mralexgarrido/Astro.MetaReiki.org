@@ -23,6 +23,7 @@ export enum PlanetId {
   Uranus = 'Urano',
   Neptune = 'Neptuno',
   Pluto = 'Plutón',
+  Chiron = 'Quirón',
   NorthNode = 'Nodo Norte',
   SouthNode = 'Nodo Sur',
   Ascendant = 'Ascendente',
