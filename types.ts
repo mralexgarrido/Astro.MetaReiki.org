@@ -2,6 +2,7 @@ export interface LocationData {
   latitude: number;
   longitude: number;
   city: string;
+  timezone: string;
 }
 
 export interface BirthData {

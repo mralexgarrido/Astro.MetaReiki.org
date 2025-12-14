@@ -1,6 +1,7 @@
 import * as Astronomy from 'astronomy-engine';
 import { BirthData, ChartData, PlanetId, PlanetPosition, ZODIAC_SIGNS, HouseData, ProfectionData, RulerInfo, HermeticLot } from '../types';
 import { HOUSE_THEMES } from './interpretations';
+import { toDate } from 'date-fns-tz';
 
 // Helper to normalize degrees to 0-360
 const normalizeDegrees = (deg: number): number => {
@@ -326,8 +327,20 @@ const calculateHermeticLots = (
 };
 
 export const calculateChart = (birthData: BirthData): ChartData => {
+  // Construct Date object considering timezone
+  // Format YYYY-MM-DDTHH:mm:00
   const dateTimeStr = `${birthData.date}T${birthData.time}:00`;
-  const date = new Date(dateTimeStr);
+
+  // Use date-fns-tz to parse the time in the given timezone to a proper Date object (UTC)
+  // If timezone is present, use it. Otherwise assume local (or fallback to UTC if strictly desired, but usually Local is what users mean if TZ is unknown).
+  // Note: OpenMeteo provides TZ. If it's missing, 'UTC' fallback in UI.
+  let date: Date;
+  if (birthData.location.timezone) {
+      date = toDate(dateTimeStr, { timeZone: birthData.location.timezone });
+  } else {
+      date = new Date(dateTimeStr); // Fallback to system local or whatever was default
+  }
+
   const lat = birthData.location.latitude;
   const lng = birthData.location.longitude;
 

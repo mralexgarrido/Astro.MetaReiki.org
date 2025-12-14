@@ -8,10 +8,11 @@ interface CityResult {
   longitude: number;
   country: string;
   admin1?: string;
+  timezone: string;
 }
 
 interface Props {
-  onSelect: (lat: number, lng: number, name: string) => void;
+  onSelect: (lat: number, lng: number, name: string, timezone: string) => void;
   selectedName?: string;
 }
 
@@ -75,7 +76,9 @@ export const CitySearch: React.FC<Props> = ({ onSelect, selectedName }) => {
   const handleSelect = (city: CityResult) => {
       const displayName = `${city.name}, ${city.admin1 ? city.admin1 + ', ' : ''}${city.country}`;
       setQuery(displayName);
-      onSelect(city.latitude, city.longitude, displayName);
+      // Fallback to UTC if timezone is missing (rare for OpenMeteo)
+      const tz = city.timezone || 'UTC';
+      onSelect(city.latitude, city.longitude, displayName, tz);
       setIsOpen(false);
   };
 
