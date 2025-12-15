@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChartData, ZODIAC_SIGNS } from '../types';
-import { HOUSE_DEFINITIONS, HOUSE_THEMES, SIGN_ADJECTIVES, PLANET_MEANINGS, getRulerInterpretation } from '../services/interpretations';
-import { BookOpen, Map as MapIcon } from 'lucide-react';
+import { HOUSE_DEFINITIONS, HOUSE_THEMES, SIGN_ADJECTIVES, PLANET_MEANINGS, getRulerInterpretation, generateInterpretation } from '../services/interpretations';
+import { BookOpen, Map as MapIcon, Crown } from 'lucide-react';
 
 interface Props {
   data: ChartData;
@@ -56,9 +56,12 @@ export const DetailedReport: React.FC<Props> = ({ data }) => {
                                   <div className="flex items-center gap-2 mb-2">
                                       <span className="text-reiki-cyan font-serif text-lg print:text-black">{planet.symbol}</span>
                                       <span className="font-bold text-white print:text-black">{planet.name} en {sign.name}</span>
+                                      {planet.dignity === 'Domicilio' && (
+                                        <Crown className="w-4 h-4 text-yellow-500 fill-yellow-500 ml-1" />
+                                      )}
                                   </div>
                                   <p className="text-sm text-slate-300 print:text-black leading-relaxed">
-                                      El {planet.name} aquí tiñe los asuntos de la casa {house.houseNumber} con una cualidad {SIGN_ADJECTIVES[sign.name] || 'distintiva'}, {PLANET_MEANINGS[planet.name] || 'influyendo poderosamente'}.
+                                      {generateInterpretation(planet.name, sign.name, house.houseNumber, '', 0)}
                                   </p>
                               </div>
                           ))}

@@ -13,8 +13,8 @@
     "11": "El agitador del grupo. En colectivos o amistades asumes el rol del que inicia la acción o el conflicto. Te cuesta diluirte en el equipo porque tu individualidad grita fuerte. Prefieres liderar la manada a ser uno más. Aprende que la fuerza del grupo reside en la cohesión no en el mando único.",
     "12": "Héroe en la sombra. Tienes una memoria inconsciente de haber luchado solo en situaciones de aislamiento. Te retiras del mundo cuando te sientes vulnerable para lamer tus heridas en privado. Tu escapismo es la acción ciega. La verdadera valentía a veces es quedarse quieto y sentir."
   },
-  "Taurus": {
-    "1": "La roca inamovible. Tu presencia física es contundente y buscas la seguridad ante todo. Te cuesta horrores cambiar de opinión o de estilo porque la inercia es tu refugio. Eres terco por naturaleza. Moverte hacia la transformación profunda requiere soltar la obsesión por lo que ya conoces.",
+  "Tauro": {
+    "1": "La roca inamovible. Tu inercia es legendaria; prefieres aguantar una situación incómoda antes que moverte hacia lo desconocido. Tu cuerpo busca el placer y el descanso como mecanismo de defensa. El reto es entender que la transformación duele pero es la única forma de vivir de verdad.",
     "2": "Apego material. Tienes un talento natural para acumular y preservar pero tu trampa es medir tu valor humano por lo que posees en el banco. El miedo a la escasez te paraliza. Acumulas cosas para tapar vacíos emocionales. Tu seguridad real es interna no financiera.",
     "3": "Mente fija. Te aferras a ideas y opiniones concretas que has masticado durante años. Te cuesta improvisar o cambiar de perspectiva rápidamente. Prefieres lo probado y lo tangibles a las teorías abstractas. Flexibilizar tu pensamiento te abrirá puertas que la terquedad mantiene cerradas.",
     "4": "Refugio sensorial. Tu hogar es tu fortaleza llena de comodidades y placeres culinarios. Te resistes a salir de tu zona de confort doméstica o familiar. Puedes quedarte estancado en tradiciones pasadas solo porque son cómodas. Salir al mundo exterior es vital para tu crecimiento.",
@@ -25,10 +25,9 @@
     "9": "Creencias sólidas. Tus valores morales son rocas inamovibles. Te sientes cómodo en filosofías prácticas y realistas rechazando lo místico o lo desconocido. Puedes ser dogmático por simple resistencia al cambio. A veces la verdad está más allá de lo que puedes tocar con las manos.",
     "10": "Ambición segura. Buscas estatus a través de la acumulación visible y carreras estables. Te quedas en trabajos que no te llenan solo por el cheque seguro. Tu reputación es de alguien confiable pero predecible. Arriesgarte a perder el estatus actual puede ser el inicio de tu vocación real.",
     "11": "El amigo constante. En grupos eres el pilar que aporta sentido común y recursos pero te resistes a las dinámicas cambiantes o revolucionarias. Te rodeas de gente predecible. A veces te quedas en círculos sociales por costumbre. Ábrete a amistades que sacudan tu mundo.",
-    "12": "Aislamiento cómodo. Tu forma de escapar es dormir comer y desconectar en un mundo sensorial privado. Tienes un talento oculto para la paz interior pero puedes usarlo para ignorar la realidad. No uses el placer como anestesia. El despertar espiritual requiere incomodidad.",
-    "1" : "La roca inamovible. Tu inercia es legendaria; prefieres aguantar una situación incómoda antes que moverte hacia lo desconocido. Tu cuerpo busca el placer y el descanso como mecanismo de defensa. El reto es entender que la transformación duele pero es la única forma de vivir de verdad."
+    "12": "Aislamiento cómodo. Tu forma de escapar es dormir comer y desconectar en un mundo sensorial privado. Tienes un talento oculto para la paz interior pero puedes usarlo para ignorar la realidad. No uses el placer como anestesia. El despertar espiritual requiere incomodidad."
   },
-  "Gemini": {
+  "Géminis": {
     "1": "El camaleón social. Te adaptas tan rápido que a veces olvidas quién eres realmente. Usas la palabra y el ingenio para navegar la vida evitando comprometerte con una sola identidad. Tu talento es la versatilidad pero tu trampa es la superficialidad. Defínete por algo más que tus opiniones.",
     "2": "Mercader de habilidades. Tienes mil formas de ganar dinero y ninguna te satisface del todo. Ves tus recursos como algo fluctuante y tiendes a dispersar tu energía en múltiples pequeños negocios. La estabilidad financiera llega cuando te enfocas en una sola verdad profunda.",
     "3": "Ruido mental. Eres el rey del dato curioso y la conversación ligera. Tu mente nunca para y llenas los silencios con palabras para no sentir. Te mueves en lo conocido el barrio y los hermanos. Tu evolución está en buscar una filosofía lejana y trascendente más allá del chisme local.",
@@ -42,7 +41,7 @@
     "11": "Mariposa social. Conoces a todo el mundo pero a nadie de verdad. Te mueves en grupos por el intercambio de información pero evitas la intimidad emocional con los amigos. Eres el conector perfecto. Aprende a crear lazos que resistan el silencio y la distancia.",
     "12": "Dudas secretas. Tu mente racional es tu cárcel cuando estás solo. Tienes un diálogo interno incesante que te llena de dudas y ansiedad. Escapas leyendo o scrolleando infinitamente. Tu intuición es poderosa si logras callar el ruido lógico. Confía en lo que no puedes explicar."
   },
-  "Cancer": {
+  "Cáncer": {
     "1": "La coraza emocional. Te presentas al mundo como alguien que cuida o necesita ser cuidado. Tu humor es fluctuante y tu primera reacción es protegerte o retirarte a tu caparazón. La hipersensibilidad es tu talento y tu cruz. Necesitas construir una autoridad interna que no dependa de cómo te sientes hoy.",
     "2": "Ahorro por miedo. Guardas dinero y objetos con una carga emocional nostálgica. Te cuesta tirar cosas porque sientes que son parte de ti. Buscas seguridad financiera para proteger a tu clan. El dinero es energía no un sustituto del afecto materno. Suelta el lastre del pasado.",
     "3": "Pensamiento subjetivo. Te comunicas desde la emoción y la intuición. Te tomas las palabras de los demás de forma personal y lees entre líneas intenciones que a veces no existen. Tu memoria es fotográfica para los sentimientos. Aprende a ver los hechos con objetividad fría.",
@@ -98,7 +97,7 @@
     "11": "El socialite. Te mueves en grupos por el placer de pertenecer y la estética social. Eres el pegamento diplomático de tus amigos. Te cuesta destacar o llevar la contraria al grupo. Aprende a brillar por tu talento único y creativo no por ser buena gente.",
     "12": "Evasión en pareja. Te escondes en las relaciones para no enfrentar tu propia soledad o espiritualidad. Idealizas el amor hasta perder contacto con la realidad. Tu servicio al mundo debe ser práctico y ordenado no una fantasía romántica."
   },
-  "Scorpio": {
+  "Escorpio": {
     "1": "El misterio defensivo. Tu presencia es intensa y magnética pero te proteges tras un muro de desconfianza. Vives en modo supervivencia esperando la traición. Tu poder es la regeneración pero tu trampa es el drama innecesario. Aprende a vivir con calma y sencillez terrenal.",
     "2": "Control de recursos. Ves el dinero como poder y seguridad en un mundo hostil. Puedes ser obsesivo con lo que posees o depender de los recursos de otros mediante manipulaciones sutiles. La paz está en construir tu propio sustento de forma simple y constante.",
     "3": "Mente detective. No te crees nada de lo que te dicen siempre buscas la intención oculta. Tu comunicación es punzante o silenciosa. Te obsesionas con investigar secretos. Relájate a veces un cigarro es solo un cigarro. Disfruta de la charla simple.",
@@ -106,14 +105,13 @@
     "5": "Pasión obsesiva. En el romance eres todo o nada. Buscas la fusión del alma y el drama transformador. Te cuesta divertirte de forma ligera porque todo te lo tomas a muerte. Aprende a jugar a ser amigo y a disfrutar del amor sin control.",
     "6": "Crisis cotidianas. Tu día a día es una gestión constante de intensidades. Te atraen los trabajos de alto riesgo o investigación profunda. Somatizas las emociones tóxicas. Necesitas paz mental y conexión espiritual para sanar no más adrenalina.",
     "7": "Fusión total. Buscas una pareja con la que fundirte psicológicamente. Los celos y la posesividad son tu zona de confort. Provocas crisis para probar la lealtad del otro. La relación sana es aquella que te da paz estabilidad y te permite construir algo sólido.",
-    "8": "Maestro del abismo. Te mueves como pez en el agua en las crisis la muerte y los tabúes. Tienes un talento innato para la psicología profunda y el manejo de poder ajeno. Tu trampa es quedarte enganchado al dolor. Sal a la superficie y disfruta de lo simple que tienes.",
+    "8": "El fénix adicto. Te sientes cómodo en el caos, la deuda kármica y la intensidad compartida. Gestionas el dinero y la energía de otros con maestría, pero te cuesta soltar el control. Tu evolución es hacia la autosuficiencia simple y el disfrute de lo que es tuyo.",
     "9": "Dogmatismo emocional. Crees fervientemente en tus verdades porque las has sentido en las entrañas. Puedes ser fanático o paranoico con tus creencias. Investigas lo oculto. Tu mente necesita aire fresco curiosidad ligera y diálogo sin dobles intenciones.",
     "10": "Poder en la sombra. En tu carrera buscas el control total o mueves los hilos desde atrás. Te obsesiona tu reputación de persona indomable. Sabes sobrevivir a cualquier caída profesional. Tu hogar y tu paz emocional son más importantes ahora que tu ambición de poder.",
     "11": "Lealtad selectiva. Tienes pocos amigos pero matarías por ellos. En los grupos eres el que observa en silencio y detecta las mentiras. Te cuesta confiar en colectivos grandes. Ábrete a disfrutar de la vida social sin analizar a cada persona.",
-    "12": "Secretos del alma. Tienes una conexión psíquica brutal con lo invisible pero también muchos miedos inconscientes. Te aíslas para procesar tus traumas. Tu escapismo es la autodestrucción. Tu servicio al mundo debe ser práctico y tangible ordenando el caos.",
-    "8" : "El fénix adicto. Te sientes cómodo en el caos, la deuda kármica y la intensidad compartida. Gestionas el dinero y la energía de otros con maestría, pero te cuesta soltar el control. Tu evolución es hacia la autosuficiencia simple y el disfrute de lo que es tuyo."
+    "12": "Secretos del alma. Tienes una conexión psíquica brutal con lo invisible pero también muchos miedos inconscientes. Te aíslas para procesar tus traumas. Tu escapismo es la autodestrucción. Tu servicio al mundo debe ser práctico y tangible ordenando el caos."
   },
-  "Sagittarius": {
+  "Sagitario": {
     "1": "El aventurero libre. Te mueves por la vida con optimismo y ganas de expansión negando los problemas. Huyes del compromiso si sientes que te ata. Eres el eterno viajero. Tu aprendizaje es quedarte quieto escuchar al otro y ver los detalles pequeños que ignoras.",
     "2": "Derrochador optimista. Crees que el dinero cae del cielo y a veces tienes suerte. Gastas en experiencias y viajes sin pensar en mañana. Te falta disciplina financiera. Aprende a valorar el intercambio de ideas y la curiosidad mental como recurso valioso.",
     "3": "Predicador nato. Crees que tienes la verdad absoluta y te encanta dar lecciones morales. Hablas mucho pero escuchas poco. Generalizas y exageras las historias. Tu evolución está en dudar preguntar y prestar atención a los datos concretos antes de filosofar.",
@@ -127,7 +125,7 @@
     "11": "Ideólogo grupal. Te unes a grupos por afinidad ideológica política o religiosa. Eres el que anima y da visión al colectivo pero puedes ser dogmático. Te pierdes en la causa. Busca tu propia voz creativa y tu brillo personal fuera del rebaño.",
     "12": "Evasión filosófica. Te escapas de la realidad a través de teorías conspirativas o espiritualidad de consumo. Niegas el dolor con un optimismo tóxico. Tu intuición es fuerte pero debes bajarla a tierra. El servicio práctico y el orden diario te salvarán."
   },
-  "Capricorn": {
+  "Capricornio": {
     "1": "El adulto precoz. Desde niño has sido responsable serio y autosuficiente. Te cuesta mostrar debilidad y llevas el peso del mundo sobre tus hombros. Tu coraza es la frialdad. Tu camino es reconectar con tu niño interior tus emociones y tu necesidad de cuidado.",
     "2": "Ahorrador estricto. Ves el dinero como estatus y control. Te privas de placeres por miedo al futuro o por pura austeridad. Trabajas duro por cada centavo. Tu seguridad emocional es más importante que tu cuenta bancaria. Permítete nutrirte.",
     "3": "Mente estratégica. Solo hablas si es útil o necesario. Eres escéptico pesimista y estructurado en tu pensamiento. Te cuesta la charla trivial o emocional. Abre tu corazón a la intuición y deja que tus sentimientos guíen tus palabras no solo tu lógica.",
@@ -141,7 +139,7 @@
     "11": "Organizador social. En los grupos asumes la responsabilidad y la estructura. Te relacionas con gente 'importante' o útil para tus fines. Te cuesta la amistad desinteresada. Busca el placer la creatividad y el juego con tus amigos.",
     "12": "Melancolía solitaria. En privado cargas con culpas y responsabilidades que no te tocan. Te aíslas para trabajar o para no molestar. Tu mundo inconsciente es rígido. Tu servicio al mundo debe ser práctico y ordenado cuidando los detalles de la vida."
   },
-  "Aquarius": {
+  "Acuario": {
     "1": "El rebelde desconectado. Te enorgulleces de ser diferente y de no necesitar la aprobación de nadie. Tu mente va a mil por hora pero te desconectas de tu cuerpo y de tu corazón. Eres frío y distante. Tu reto es ser el rey de tu propio corazón y brillar con calidez.",
     "2": "Dinero virtual. Te interesan los recursos para financiar tu libertad no por apego material. Puedes ser errático con las finanzas o ganar dinero con tecnología. Te falta conexión con el valor tangible. Disfruta de los placeres sensoriales y del lujo merecido.",
     "3": "Genio incomprendido. Tienes ideas brillantes y futuristas pero te cuesta comunicarlas con empatía. Eres terco intelectualmente. Crees que tener la razón lógica es suficiente. Aprende a contar historias y a conectar desde el corazón no solo desde la neurona.",
@@ -155,7 +153,7 @@
     "11": "Ciudadano del mundo. Tu zona de confort es el grupo los amigos y las causas sociales. Te sientes más cómodo entre extraños que en la intimidad. Eres leal a la tribu. Tu evolución pide que desarrolles tu creatividad personal y tu ego sano.",
     "12": "Aislamiento mental. Te refugias en tu cabeza y en mundos teóricos para no enfrentar la realidad. Te sientes solo en la multitud. Tienes una intuición eléctrica. Tu servicio debe ser práctico tangible y estructurado para no perderte en el éter."
   },
-  "Pisces": {
+  "Piscis": {
     "1": "El camaleón empático. No tienes bordes claros absorbes la energía de quien tienes enfrente. Te cuesta definir quién eres y sueles jugar a la víctima o al salvador. Fluyes demasiado. Necesitas orden rutina y crítica práctica para construirte.",
     "2": "Economía difusa. El dinero se te escapa como agua o te llega de formas misteriosas. No valoras lo material y puedes ser caótico con tus cuentas. Confías ciegamente. Aprende a llevar las cuentas y a valorar tu trabajo con precisión milimétrica.",
     "3": "Poeta confuso. Te comunicas con metáforas silencios y telepatía. Te cuesta ser claro y directo. Te pierdes en divagaciones. Tu mente es intuitiva pero desordenada. Necesitas lógica datos y estructura para que te entiendan.",

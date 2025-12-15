@@ -27,7 +27,7 @@
     "11": "Amistades productivas. Te juntas con gente que comparte tus valores pero que vive de forma alternativa. Tus grupos suelen estar enfocados en la sostenibilidad, la economía o el arte. A veces te aíslas si el grupo se vuelve demasiado caótico. Aporta tu sentido común a las causas colectivas.",
     "12": "Despertar sensorial. Tienes una conexión eléctrica con la naturaleza y el mundo invisible. Los cambios repentinos te desestabilizan a nivel inconsciente más de lo que admites. Sueños vívidos sobre catástrofes o cambios de terreno. Encuentra paz en el contacto físico con la tierra para descargar el exceso de energía."
   },
-  "Geminis": {
+  "Géminis": {
     "1": "El avatar cambiante. Eres un camaleón eléctrico, cambiando de opinión y de estilo según la información que recibes. Tu sistema nervioso está siempre encendido, lo que te hace brillante pero propenso a la ansiedad. La gente nunca sabe qué versión de ti verán hoy. Tu coherencia está en el cambio constante, acéptalo.",
     "2": "Ingresos múltiples. Es raro que tengas una sola fuente de ingresos; prefieres varios 'gigs', ventas online o trabajos de comunicación. El dinero entra y sale rápido, a menudo gastado en cursos, viajes o tecnología. El reto es la dispersión financiera. Automatiza tus ahorros para que tu mente curiosa no se gaste todo.",
     "3": "El rayo intelectual. Esta es tu casa natural. Tu mente procesa información a una velocidad aterradora. Eres el rey del multitasking, aprendes software nuevo en una tarde y tienes conversaciones radicales. Cuidado con el burnout mental y el chisme digital. Usa tu voz para difundir ideas que despierten a otros.",
@@ -41,7 +41,7 @@
     "11": "Redes infinitas. Conoces a todo el mundo, pero a pocos profundamente. Te mueves en grupos online o comunidades de intereses variados. Eres el conector del grupo, el que trae la información nueva. Cuidado con la superficialidad en las amistades. Quédate un rato más con la gente que realmente te importa.",
     "12": "Mente inconsciente activa. Tu mente nunca se apaga, ni dormido. Tienes ideas geniales en sueños o momentos de aislamiento. A veces sientes que no encajas en ningún sitio y eso te genera ansiedad oculta. Escribir o hablar solo es tu terapia. Tu intuición es lógica rápida: confía en el primer dato que te llega."
   },
-  "Cancer": {
+  "Cáncer": {
     "1": "La marea impredecible. Tu identidad fluctúa con tus estados emocionales, que son eléctricos y repentinos. Puedes pasar de ser la madre protectora a la rebelde distante en segundos. La gente se confunde con tu necesidad de apego mezclada con un rechazo a la dependencia. Sé fiel a tus ciclos, no a las expectativas ajenas.",
     "2": "Seguridad fluctuante. Tus finanzas dependen de tu estado de ánimo o de negocios relacionados con el hogar y la nutrición pero con un giro moderno. Puedes tener ingresos inestables por situaciones familiares. Gastas para sentir confort emocional. Aprende a separar tus emociones de tu cuenta bancaria.",
     "3": "Comunicación intuitiva. Percibes lo que no se dice. Tu forma de aprender es emocional y errática. Relaciones inusuales o distantes con hermanos. Cambios de humor que afectan cómo te expresas. Habla desde tus entrañas, tu voz tiene el poder de shockear y sanar al mismo tiempo.",
@@ -98,7 +98,7 @@
     "12": "Enemigos ocultos. A veces tu necesidad de agradar oculta una rebeldía que molesta a otros en secreto. Relaciones clandestinas o amor platónico por lo inalcanzable. Tienes un talento artístico que no muestras por miedo a la crítica. En soledad, encuentras el equilibrio que el mundo no te da."
   },
   "Escorpio": {
-    "1": "La intensidad voltaica. Tienes una presencia magnética y algo peligrosa. Tu mirada atraviesa y shockea. Pasas por transformaciones físicas radicales (tatuajes, cirugía, cambios de peso). Eres el fénix que se quema y renace constantemente. No uses tu poder para manipular, úsalo para liberar.",
+    "1": "Presencia magnética y disruptiva. Tienes un aura de misterio eléctrico. La gente se siente atraída y repelida a la vez. Cambias de piel completamente cada ciertos años. Tu identidad se forja en la crisis. No necesitas provocar el caos para saber quién eres.",
     "2": "Dinero de crisis. Tienes talento para hacer dinero en situaciones extremas o con recursos de otros. Inversiones de alto riesgo. Puedes perderlo todo y recuperarlo el doble. El apego al dinero es tu trampa; la verdadera riqueza es tu capacidad de regeneración.",
     "3": "Mente de detective. Tu pensamiento es profundo, obsesivo y penetrante. Descubres secretos y verdades incómodas en segundos. Palabras cortantes que pueden herir o sanar. Relación compleja y secreta con hermanos. Usa tu agudeza para investigar lo que nadie más se atreve a mirar.",
     "4": "Hogar búnker. Tu casa es tu fortaleza privada, nadie entra sin invitación. Posibles traumas o secretos en la infancia que te hicieron desconfiado. Cambios de casa por razones de seguridad o privacidad. Tu hogar es donde puedes bajar la guardia y dejar de controlar.",
@@ -109,8 +109,7 @@
     "9": "Verdad oculta. Te atraen las filosofías esotéricas, el ocultismo y los misterios de la vida. Viajes que implican riesgo o transformación profunda. Cuestionas los dogmas superficiales. Tu fe nace de haber sobrevivido al infierno. Enseña a otros a perder el miedo a lo desconocido.",
     "10": "Poder en la sombra. Llegas al éxito a través de estrategias ocultas o en campos como la psiquiatría, investigación o finanzas. Crisis públicas que te obligan a reinventar tu imagen. Eres temido y respetado. Usa tu poder para exponer la corrupción, no para crearla.",
     "11": "Alianzas estratégicas. Tienes pocos amigos, pero morirían por ti (y tú por ellos). Te unes a grupos secretos o de poder. Desconfías de las masas. Eres el estratega detrás del movimiento. La lealtad es tu moneda, pero cuidado con exigir sumisión.",
-    "12": "Subconsciente explosivo. Guardas secretos que podrían destruir tu vida si salen a la luz. Enemigos poderosos o kármicos. Tu intuición es infalible, casi sobrenatural. Insomnio por no poder apagar el radar de peligro. La verdadera liberación es soltar el control y perdonar.",
-    "1" : "Presencia magnética y disruptiva. Tienes un aura de misterio eléctrico. La gente se siente atraída y repelida a la vez. Cambias de piel completamente cada ciertos años. Tu identidad se forja en la crisis. No necesitas provocar el caos para saber quién eres."
+    "12": "Subconsciente explosivo. Guardas secretos que podrían destruir tu vida si salen a la luz. Enemigos poderosos o kármicos. Tu intuición es infalible, casi sobrenatural. Insomnio por no poder apagar el radar de peligro. La verdadera liberación es soltar el control y perdonar."
   },
   "Sagitario": {
     "1": "El explorador libre. Eres la encarnación de la libertad. Tu energía es expansiva, inquieta y optimista. Cambias de rumbo vital cada vez que te sientes atado. Dices lo que piensas sin filtro, shockeando a los conservadores. Tu reto es el compromiso; la vida no es solo una aventura, también es construcción.",
