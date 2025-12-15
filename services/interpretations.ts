@@ -27,6 +27,15 @@ import quiron from './interpretations/data/quiron.json';
 import nodo_norte from './interpretations/data/nodo_norte.json';
 import nodo_sur from './interpretations/data/nodo_sur.json';
 
+// Imports for Lots
+import fortune from './interpretations/data/fortune.json';
+import spirit from './interpretations/data/spirit.json';
+import eros from './interpretations/data/eros.json';
+import necessity from './interpretations/data/necessity.json';
+import courage from './interpretations/data/courage.json';
+import victory from './interpretations/data/victory.json';
+import nemesis from './interpretations/data/nemesis.json';
+
 // Imports for Points
 import ascendente from './interpretations/data/ascendente.json';
 import medio_cielo from './interpretations/data/medio_cielo.json';
@@ -62,6 +71,16 @@ export const SIGN_ADJECTIVES = defs.SIGN_ADJECTIVES as Record<string, string>;
 // We use 'any' casting here because TypeScript's strict index signature checks
 // struggle with specific JSON structures being assigned to generic Records.
 // The structure is validated logically by the usage.
+
+const LOT_DATA: Record<string, any> = {
+    'fortune': fortune,
+    'spirit': spirit,
+    'eros': eros,
+    'necessity': necessity,
+    'courage': courage,
+    'victory': victory,
+    'nemesis': nemesis
+};
 
 const PLANET_DATA: Record<string, any> = {
     'Sol': sol,
@@ -166,4 +185,16 @@ export const generateProfectionInterpretation = (
     const key = `${signName}_${sectSuffix}`;
 
     return houseData[key] || `Interpretación de profección no disponible para ${signName} (${sectSuffix}) en Casa ${houseNumber}.`;
+};
+
+export const generateLotInterpretation = (
+    lotKey: string,
+    signName: string,
+    houseNumber: number
+): string => {
+    const lotData = LOT_DATA[lotKey];
+    if (lotData && lotData[signName]) {
+        return lotData[signName][houseNumber.toString()] || "";
+    }
+    return "";
 };
