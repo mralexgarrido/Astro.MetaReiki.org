@@ -128,7 +128,7 @@ export const ProfectionTimeline: React.FC<Props> = ({ data }) => {
                           <div>
                               <h4 className="text-[10px] uppercase tracking-widest text-slate-500 mb-1">Temática</h4>
                               <p className="text-xs text-slate-300 font-medium leading-relaxed print:text-black">
-                                  {item.theme.split(',')[0]}...
+                                  {item.theme}
                               </p>
                           </div>
 

@@ -77,15 +77,15 @@ export const DetailedReport: React.FC<Props> = ({ data }) => {
                       </h4>
                       <div className="grid grid-cols-1 gap-3">
                           {house.rulers.map((r, idx) => (
-                              <div key={idx} className="text-sm text-slate-300 bg-slate-900/40 p-3 rounded border border-slate-700/50 print:bg-white print:border-gray-300 print:text-black flex items-start gap-3">
-                                  <MapIcon className="w-4 h-4 text-reiki-magenta mt-0.5 flex-shrink-0" />
-                                  <div>
-                                      <span className="text-reiki-magenta font-bold print:text-black">{r.name} ({r.type})</span> está en la <span className="font-bold text-white print:text-black">Casa {r.house}</span>.
-                                      <br/>
-                                      <span className="text-slate-400 text-xs mt-1 block print:text-gray-600 leading-relaxed">
-                                          {getRulerInterpretation(house.houseNumber, r.house)}
-                                      </span>
+                              <div key={idx} className="bg-slate-800/60 p-4 rounded-lg border-l-4 border-reiki-magenta print:bg-gray-50 print:border-gray-200">
+                                  <div className="flex items-center gap-2 mb-2">
+                                      <MapIcon className="w-4 h-4 text-reiki-magenta" />
+                                      <span className="text-reiki-magenta font-bold print:text-black">{r.name} ({r.type})</span>
+                                      <span className="font-bold text-white print:text-black">está en la Casa {r.house}</span>
                                   </div>
+                                  <p className="text-sm text-slate-300 print:text-black leading-relaxed">
+                                      {getRulerInterpretation(house.houseNumber, r.house)}
+                                  </p>
                               </div>
                           ))}
                       </div>
