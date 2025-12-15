@@ -20,6 +20,17 @@ export const BigThreeReport: React.FC<Props> = ({ data }) => {
 
   const items = [
     {
+      title: 'ASCENDENTE',
+      subtitle: 'Tu Máscara y Camino',
+      icon: ArrowUpCircle,
+      sign: ascSign.name,
+      house: 1, // Ascendant is always 1st house cusp, but text is general
+      text: generateInterpretation(PlanetId.Ascendant, ascSign.name, 1, '', 0),
+      color: 'text-reiki-cyan',
+      bg: 'bg-reiki-cyan/10',
+      border: 'border-reiki-cyan/30'
+    },
+    {
       title: 'SOL',
       subtitle: 'Tu Esencia',
       icon: Sun,
@@ -40,17 +51,6 @@ export const BigThreeReport: React.FC<Props> = ({ data }) => {
       color: 'text-slate-300',
       bg: 'bg-slate-300/10',
       border: 'border-slate-300/30'
-    },
-    {
-      title: 'ASCENDENTE',
-      subtitle: 'Tu Máscara y Camino',
-      icon: ArrowUpCircle,
-      sign: ascSign.name,
-      house: 1, // Ascendant is always 1st house cusp, but text is general
-      text: generateInterpretation(PlanetId.Ascendant, ascSign.name, 1, '', 0),
-      color: 'text-reiki-cyan',
-      bg: 'bg-reiki-cyan/10',
-      border: 'border-reiki-cyan/30'
     }
   ];
 
