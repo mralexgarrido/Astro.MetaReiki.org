@@ -13,7 +13,7 @@
     "11": "Activista de choque. Tienes el valor de liderar grupos o iniciar movimientos sociales. No te importa ser el primero en levantar la mano o ir en contra de la corriente del grupo si es necesario. A veces generas conflicto innecesario entre amigos. Consejo: Un ejército de uno no gana guerras; aprende a colaborar.",
     "12": "Guerrero secreto. Tu batalla es interna. Tienes el coraje de enfrentar tus demonios en soledad y de actuar tras bastidores. A menudo eres el héroe anónimo que salva la situación sin buscar crédito. El riesgo es reprimir tu ira hasta que explota. Consejo: Enfrentar tu propia sombra es el acto más valiente de todos."
   },
-  "Taurus": {
+  "Tauro": {
     "1": "Resistencia inamovible. Tu valentía es quedarte plantado cuando todos huyen. Defiendes tu espacio y tu cuerpo con una tenacidad que intimida. No atacas, pero si te empujan, eres una pared de granito. El riesgo es la terquedad ciega que te impide adaptarte. Consejo: A veces, ceder un poco es la estrategia más inteligente para sobrevivir.",
     "2": "Inversor de roca. Tienes el coraje de apostar a largo plazo y sostener inversiones cuando el mercado tiembla. No te asusta comprometer grandes sumas en bienes raíces o proyectos sólidos. El peligro es el apego excesivo a lo material por miedo al cambio. Consejo: La seguridad real está en tu talento, no solo en tu cuenta bancaria.",
     "3": "Voz firme. Te atreves a decir 'no' y mantenerlo eternamente. Defiendes tus ideas con una paciencia que desgasta al oponente. No te dejas presionar por la prisa de los demás. A veces te vuelves sordo a argumentos válidos. Consejo: Escuchar nuevas ideas no debilita tu postura, la enriquece.",
@@ -27,7 +27,7 @@
     "11": "Amigo roca. Tienes el coraje de mantener amistades de toda la vida y ser el pilar de tu comunidad. Defiendes al grupo aportando recursos y estabilidad. Te cuesta abrirte a gente nueva. Consejo: Abre el círculo; la sangre nueva renueva la vida del grupo.",
     "12": "Fuerza silenciosa. Enfrentas la soledad y los miedos subconscientes con una calma estoica. Tienes una capacidad oculta para resistir pruebas del destino que nadie ve. El riesgo es rumiar rencores en secreto. Consejo: Soltar el pasado requiere más fuerza que retenerlo; aligera tu carga."
   },
-  "Gemini": {
+  "Géminis": {
     "1": "Audacia verbal. Tu valentía es tu ingenio; te atreves a improvisar y salir de problemas hablando. Tienes el coraje de cambiar de opinión y de cara, adaptándote a cualquier peligro. El riesgo es la dispersión o hablar de más y meterte en líos. Consejo: Tus palabras son armas; úsalas para construir puentes, no para cortarlos.",
     "2": "Comerciante ágil. Te atreves a diversificar tus ingresos y probar negocios novedosos o múltiples a la vez. No tienes miedo a negociar precios o buscar regateos. El riesgo es la inestabilidad por picar en demasiados lados. Consejo: Enfoca tu puntería; un negocio bien atendido vale por dos a medias.",
     "3": "Mensajero valiente. Es tu posición natural. Te atreves a preguntar lo que nadie pregunta y a decir la verdad incómoda. Defiendes tu derecho a saber y comunicar. El peligro es el chisme o la provocación verbal innecesaria. Consejo: La curiosidad es valiente, pero la discreción es sabia.",
@@ -41,7 +41,7 @@
     "11": "Conector social. Te atreves a mezclar grupos de gente diferente y a introducir ideas polémicas en tu círculo. No tienes miedo a conocer gente extraña o nueva. El riesgo es la falta de compromiso real con los amigos. Consejo: Estar presente para un amigo vale más que mil mensajes de texto.",
     "12": "Pensador solitario. Tienes el valor de enfrentar tus propios pensamientos ansiosos y dudas racionales. A veces eres el que dice la verdad desde el anonimato. El riesgo es que tu mente te juegue malas pasadas en la soledad. Consejo: Meditar es valiente; requiere sentarse a solas con tu propia mente."
   },
-  "Cancer": {
+  "Cáncer": {
     "1": "Defensor emocional. Tu valentía es la vulnerabilidad; te atreves a sentir y a mostrar tu cuidado en un mundo frío. Defiendes a los tuyos con ferocidad si son atacados. El riesgo es tomarte todo como un ataque personal. Consejo: Tu sensibilidad es tu escudo, no tu debilidad; úsala para intuir el peligro.",
     "2": "Guardián del tesoro. Tienes el coraje de proteger tus recursos para el futuro de tu clan. Te atreves a invertir en seguridad, comida o bienes raíces cuando otros gastan en humo. El miedo a la escasez puede paralizarte. Consejo: El dinero fluye; aferrarte a él con miedo corta la circulación de la abundancia.",
     "3": "Voz del sentimiento. Te atreves a hablar desde el corazón, poniendo emoción a las palabras. Defiendes la historia y la memoria de tu entorno. A veces el chantaje emocional es tu arma. Consejo: Expresar una necesidad clara es más valiente que esperar a que la adivinen.",
@@ -97,7 +97,7 @@
     "11": "Socializador intrépido. Tienes el coraje de moverte en cualquier círculo social y unir a gente que no se habla. Defiendes la armonía del grupo. A veces eres superficial con tal de no pelear. Consejo: La verdadera amistad resiste el desacuerdo; sé auténtico con tus amigos.",
     "12": "Estratega invisible. Enfrentas tus enemigos ocultos con tacto y diplomacia secreta. Tienes el valor de sacrificar tu ego por la paz general. El riesgo es negar tus propios problemas para mantener la apariencia. Consejo: Reconocer que no estás bien no arruina la foto; la hace real."
   },
-  "Scorpio": {
+  "Escorpio": {
     "1": "Superviviente nato. Tu valentía es visceral; no tienes miedo a la intensidad ni al dolor. Te atreves a mostrar tu sombra y a transformarte radicalmente. Tu mirada sostiene lo que otros bajan. El riesgo es la autodestrucción o la paranoia defensiva. Consejo: Bajar el aguijón requiere más fuerza que usarlo; confía.",
     "2": "Estratega financiero. Tienes el coraje de arriesgar todo para ganar poder. Te atreves a meterte en negocios complejos, deudas o inversiones de alto riesgo/alto retorno. El dinero es control. El riesgo es la obsesión material. Consejo: Lo que posees acaba poseyéndote; suelta un poco el control.",
     "3": "Investigador verbal. Te atreves a decir la verdad tabú, esa que hiela la sangre. Defiendes tus secretos con silencio y atacas con sarcasmo si es necesario. No temes a las conversaciones profundas. El riesgo es ser cruel. Consejo: Usa tu agudeza mental para curar, no para envenenar.",
@@ -111,7 +111,7 @@
     "11": "Leal hasta la muerte. En los grupos, eres selectivo pero matas por tus amigos. Tienes el coraje de purgar tu círculo social de traidores. Te gustan los grupos de poder u ocultos. El riesgo es la sospecha constante. Consejo: No todos tienen una agenda oculta; algunos amigos son simplemente amigos.",
     "12": "Psíquico valiente. Enfrentas tus propios monstruos internos y traumas psicológicos con una valentía brutal. Tienes el poder de sanar desde el inconsciente. El riesgo es quedarte atrapado en tus propios laberintos oscuros. Consejo: La luz disipa la sombra; comparte tus miedos y perderán poder."
   },
-  "Sagittarius": {
+  "Sagitario": {
     "1": "Aventurero vital. Tu valentía es el optimismo; te atreves a confiar en la vida y a lanzarte hacia adelante sin mapa. Defiendes tu libertad de movimiento con uñas y dientes. El riesgo es la temeridad o negar los peligros reales. Consejo: El paracaídas es útil; úsalo aunque confíes en que volarás.",
     "2": "Gastador confiado. Tienes el coraje de gastar dinero en experiencias, viajes y crecimiento, confiando en que el universo proveerá más. Te atreves a emprender a lo grande. El riesgo es la mala gestión y el exceso. Consejo: La abundancia ama el orden; un poco de contabilidad no mata la magia.",
     "3": "Predicador sincero. Te atreves a decir tu verdad a quien sea, a veces con una franqueza que asusta. Defiendes tus opiniones con fuego y humor. El riesgo es ser un sabelotodo arrogante. Consejo: Tener razón está sobrevalorado; ser amable abre más oídos.",
@@ -125,7 +125,7 @@
     "11": "Activista global. Tienes el coraje de luchar por causas grandes y de unir amigos bajo ideales comunes. Te atreves a soñar con un futuro mejor. El riesgo es perderte en la utopía y olvidar al amigo que tienes al lado. Consejo: Salvar el mundo empieza por ayudar a tu vecino.",
     "12": "Soñador protegido. Enfrentas la soledad con fe en algo superior. Tienes el valor de confiar en tu intuición y en que todo saldrá bien, incluso en el abismo. El riesgo es la evasión de la realidad. Consejo: Dios ayuda al que madruga; pon de tu parte en el mundo real."
   },
-  "Capricorn": {
+  "Capricornio": {
     "1": "Roca resistente. Tu valentía es la resistencia; aguantas lo que otros no pueden. Te atreves a asumir responsabilidades pesadas desde joven y a proyectar autoridad. El riesgo es la dureza y volverte inaccesible. Consejo: La flexibilidad es una fortaleza; el árbol rígido se rompe con el viento, el bambú no.",
     "2": "Arquitecto financiero. Tienes el coraje de construir riqueza lentamente, ladrillo a ladrillo, privándote hoy para tener mañana. Te atreves a gestionar grandes estructuras económicas. El riesgo es la avaricia por miedo. Consejo: El dinero es un medio, no el fin; no olvides vivir mientras ahorras.",
     "3": "Voz de autoridad. Te atreves a decir 'no' y a poner límites verbales claros. Defiendes tu palabra con hechos, no con más palabras. Tu comunicación es seria y consecuente. El riesgo es el pesimismo o el silencio castigador. Consejo: Una palabra de aliento motiva más que una crítica seca.",
@@ -139,7 +139,7 @@
     "11": "Estratega de redes. Tienes el valor de organizar grupos con fines concretos y profesionales. Seleccionas tus amistades con rigor. Te atreves a liderar proyectos a largo plazo en comunidad. El riesgo es el utilitarismo con la gente. Consejo: Los amigos no son contactos de LinkedIn; cultiva el afecto desinteresado.",
     "12": "Ermitaño resiliente. Enfrentas tus miedos y depresiones en total soledad, sin quejarte. Tienes una fuerza interior inmensa para aguantar el aislamiento. El riesgo es encerrarte en tu propia fortaleza inexpugnable. Consejo: Compartir la carga la hace más ligera; deja entrar a alguien."
   },
-  "Aquarius": {
+  "Acuario": {
     "1": "Rebelde individual. Tu valentía es ser diferente a propósito; te atreves a romper las normas y a llevar la contraria si es necesario. Defiendes tu libertad personal ante todo. El riesgo es la excentricidad forzada o el aislamiento. Consejo: Ser libre incluye la libertad de conectarse con otros; no te aísles.",
     "2": "Innovador financiero. Tienes el coraje de ganar dinero de formas no tradicionales, con tecnología o inventos. Te atreves a arriesgar en el futuro y desprenderte de lo material si te ata. El riesgo es la inestabilidad errática. Consejo: La innovación necesita una base sólida para despegar; asegura lo básico.",
     "3": "Pensador libre. Te atreves a decir lo que nadie entiende todavía y a comunicar ideas radicales. Defiendes la libertad de expresión y la verdad objetiva. El riesgo es la frialdad intelectual o la arrogancia mental. Consejo: Tener ideas brillantes no sirve de nada si no sabes comunicarlas con empatía.",
@@ -153,7 +153,7 @@
     "11": "Héroe colectivo. Aquí estás en casa. Tienes el coraje de luchar por la humanidad, los grupos y los amigos. Te atreves a soñar en plural. El riesgo es diluirte en el grupo y olvidar quién eres tú. Consejo: Salvar el colectivo empieza por cuidarte a ti mismo.",
     "12": "Despertador oculto. Enfrentas la soledad de ser un incomprendido. Tienes el valor de ver el futuro antes que nadie y de sostener esa visión en el aislamiento. El riesgo es la locura o la ansiedad mental extrema. Consejo: Conecta con la naturaleza para descargar tu electricidad estática; toca tierra."
   },
-  "Pisces": {
+  "Piscis": {
     "1": "Guerrero compasivo. Tu valentía es suave pero inmensa; te atreves a mostrar tu vulnerabilidad y empatía en un mundo duro. Defiendes la paz y la fluidez. El riesgo es ser la víctima o no tener límites. Consejo: Poner límites claros es un acto de amor hacia ti y hacia los demás.",
     "2": "Soñador abundante. Tienes el coraje de confiar en que el universo proveerá y de soltar el apego al dinero. Te atreves a ganar dinero con arte o ayuda. El riesgo es el caos financiero y la evasión. Consejo: El dinero necesita cauce, como el agua; organiza tus cuentas para que la abundancia fluya.",
     "3": "Poeta valiente. Te atreves a comunicar sentimientos inefables y a usar la intuición en lugar de la lógica. Defiendes el lenguaje del alma. El riesgo es ser confuso o mentir para no herir. Consejo: La verdad, dicha con amor, nunca daña; sé claro.",

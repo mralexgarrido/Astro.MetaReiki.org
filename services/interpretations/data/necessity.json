@@ -13,7 +13,7 @@
     "11": "Fricción grupal. En tus círculos de amigos o redes, a menudo eres el que tiene que iniciar la acción o defender al grupo, lo que genera desgaste. Sientes presión por liderar causas sociales o competir dentro de tu comunidad. Consejo: No cargues con el peso del grupo si no te dejan dirigir el barco.",
     "12": "Enemigos ocultos. Sientes una ansiedad interna que te impulsa a actuar, pero no sabes contra qué. El insomnio o el estrés acumulado son facturas que pagas en soledad. A veces, tú mismo eres tu juez más severo y agresivo. Consejo: La paz mental requiere perdonarte a ti mismo por no ser omnipotente."
   },
-  "Taurus": {
+  "Tauro": {
     "1": "La carga del cuerpo. Sientes la presión de mantener una imagen de estabilidad, aunque por dentro te estés desmoronando. Tu cuerpo te exige cuidados tangibles y puedes sentir pesadez o lentitud física como un obstáculo. La inercia es tu reto. Consejo: Muévete a tu propio ritmo, pero muévete; la rigidez es tu peor enemigo.",
     "2": "El peso de tener. Las posesiones te poseen a ti. Sientes una obligación inmensa de acumular para sentirte seguro, y los gastos fijos te generan mucha ansiedad. A veces mantienes trabajos que odias solo por el sueldo seguro. Consejo: La seguridad real es interna; no dejes que tus cosas te quiten la libertad.",
     "3": "Terquedad mental. Te ves obligado a lidiar con trámites lentos, vecinos obstinados o hermanos que demandan apoyo material. Te cuesta cambiar de opinión y eso te trae problemas de comunicación. Consejo: Flexibiliza tu mente; aferrarte a una idea caduca te cuesta más caro que soltarla.",
@@ -27,7 +27,7 @@
     "11": "Amistades costosas. Pertenecer a ciertos grupos te exige cuotas, tiempo o recursos materiales que a veces no quieres dar. Sientes la obligación de ser el pilar estable de tus amigos, lo cual agota. Consejo: La amistad verdadera es un intercambio ligero, no una hipoteca emocional.",
     "12": "Miedos materiales. Te quita el sueño el miedo a la pobreza o a los cambios imprevistos. Guardas rencores u obsesiones materiales en secreto que te impiden relajarte. El aislamiento te lleva a comer o gastar por ansiedad. Consejo: Lo que posees no define quién eres; tu valor es intrínseco e inalienable."
   },
-  "Gemini": {
+  "Géminis": {
     "1": "Nervios visibles. La ansiedad y la dispersión son condiciones con las que convives. Sientes la presión de tener que explicarte constantemente o de estar en dos lugares a la vez. Tu sistema nervioso es tu talón de Aquiles. Consejo: Una cosa a la vez; la multitarea es un mito que te está desgastando.",
     "2": "Cuentas múltiples. Tus ingresos fluctúan y sientes la obligación de tener varios trabajos o 'buscas' para llegar a fin de mes. El papeleo financiero y los pequeños gastos hormiga son tu cruz. Consejo: El orden financiero te dará la paz mental que tu cabeza necesita desesperadamente.",
     "3": "Tráfico mental. Esta es la posición literal de la necesidad en la comunicación. Tu entorno te bombardea con demandas, emails, chismes y desplazamientos obligatorios. Hermanos o vecinos son una fuente de responsabilidad constante. Consejo: Aprende a decir 'no tengo opinión sobre eso' y ahorra energía.",
@@ -41,7 +41,7 @@
     "11": "Redes atrapantes. Los grupos de chat, las redes sociales y los compromisos con amigos te consumen el tiempo. Sientes la obligación de responder a todos y estar en todas las reuniones. Consejo: Salir de un grupo de WhatsApp es un acto de amor propio válido.",
     "12": "Dudas silenciosas. Tu mente no para, ni siquiera cuando duermes. Los pensamientos intrusivos y las preocupaciones lógicas te aíslan. A veces eres víctima de calumnias ocultas o malentendidos que no puedes aclarar. Consejo: La meditación no es poner la mente en blanco, es observar el tráfico sin tirarte a la carretera."
   },
-  "Cancer": {
+  "Cáncer": {
     "1": "Cuerpo emocional. Llevas la carga de las emociones en tu postura y en tu estómago. Sientes la obligación de cuidar a otros antes que a ti mismo, y tu identidad se diluye en el rol de 'protector'. La retención de líquidos o peso fluctúa con tu ánimo. Consejo: Poner límites no te hace mala persona, te hace una persona sana.",
     "2": "Ahorro por miedo. Acumulas dinero o provisiones por temor a que falte en el futuro. Gastas por obligación familiar o para 'comprar' seguridad emocional. La economía doméstica es una fuente de preocupación visceral. Consejo: El dinero es energía de flujo, no un muro de contención contra el miedo.",
     "3": "Palabras que pesan. Te tomas muy a pecho lo que dicen hermanos o vecinos. Las conversaciones a menudo giran en torno a quejas, recuerdos pasados o reclamos familiares que te sientes obligado a escuchar. Consejo: No eres el basurero emocional de tu entorno; corta las quejas estériles.",
@@ -97,7 +97,7 @@
     "11": "Compromiso social. Tu agenda social está llena de eventos a los que 'tienes' que ir. Sientes la presión de quedar bien con todos los grupos y amigos, lo cual es matemáticamente imposible. Consejo: JOMO (Joy of Missing Out); el placer de perderse cosas es liberador.",
     "12": "Enemigos sonrientes. Tus mayores problemas vienen de personas que fingen ser amigas o de tu propia incapacidad para enfrentar conflictos directos. Te evades en fantasías románticas para no ver la dura realidad. Consejo: Enfrentar el conflicto es la única forma de resolverlo; la paz falsa es una guerra interna."
   },
-  "Scorpio": {
+  "Escorpio": {
     "1": "Intensidad contenida. Llevas una armadura invisible. La vida te obliga a ser fuerte, resiliente y a menudo solitario. Sientes que estás siempre en modo supervivencia o defensa. Tu cuerpo acumula tensión sexual y emocional. Consejo: Bajar las defensas no es morir; permite que alguien te cuide de vez en cuando.",
     "2": "Dinero de crisis. Tus finanzas pasan por muertes y resurrecciones. Sientes la obsesión de tener el control total de tus recursos para que nadie te manipule. El dinero es poder y seguridad ante el desastre. Consejo: No vivas esperando la catástrofe; disfruta de la estabilidad cuando la tienes.",
     "3": "Mente detective. No puedes evitar ver lo que está oculto. Sientes la presión de investigar, callar secretos o lidiar con tabúes en tu entorno cercano. Las palabras son afiladas y a veces hirientes por mecanismo de defensa. Consejo: Usa tu percepción para sanar, no para controlar; no todo el mundo te quiere traicionar.",
@@ -111,7 +111,7 @@
     "11": "Lealtad absoluta. En los grupos, exiges y das lealtad total. Las traiciones de amigos se sienten como puñaladas mortales. Te mueves en círculos cerrados o con intereses ocultos/esotéricos. Consejo: Perdona la imperfección humana; nadie es tan leal como tu estándar ideal.",
     "12": "Fantasmas propios. Tus enemigos ocultos son tus propios miedos y paranoias. Guardas secretos que te corroen por dentro si no los sacas. Tienes una fuerza espiritual inmensa nacida de la oscuridad. Consejo: La terapia no es para locos, es para valientes que se atreven a mirar su sombra."
   },
-  "Sagittarius": {
+  "Sagitario": {
     "1": "La fuga necesaria. Sientes una inquietud física constante, como si necesitaras huir o expandirte. La rutina te enferma. Tu cuerpo es atlético o torpe por exceso de energía. La presión es sentirte atrapado en tu propia piel. Consejo: El movimiento es tu medicina; camina, corre, viaja, pero no huyas de ti mismo.",
     "2": "Gastos expansivos. El dinero te quema en las manos; sientes la 'necesidad' de gastarlo en experiencias, viajes o cursos. Te cuesta horrores ahorrar porque confías demasiado en que 'Dios proveerá'. Consejo: La libertad financiera requiere disciplina, no solo fe; haz un presupuesto realista.",
     "3": "Predicador local. Sientes la obligación de enseñar o convencer a tu entorno de tus verdades. Hermanos o vecinos pueden verte como el sabelotodo o el ausente. Te dispersas prometiendo más de lo que puedes cumplir. Consejo: Escucha más y predica menos; tu verdad no necesita megáfono.",
@@ -125,7 +125,7 @@
     "11": "Amigos del mundo. Te sientes obligado a estar en mil grupos, causas o comunidades. Prometes asistencia a todos y luego no llegas. Buscas amigos que validen tu filosofía. Consejo: Mejor pocos amigos reales que mil conocidos decepcionados.",
     "12": "Fe ciega. Tu autosabotaje es la negación de la realidad; creer que todo saldrá bien sin hacer nada. Huyes de los problemas a través de excesos o fantasías de grandeza. Consejo: Mira la realidad a los ojos; el optimismo maduro integra la dificultad, no la ignora."
   },
-  "Capricorn": {
+  "Capricornio": {
     "1": "El peso del deber. Desde joven te sientes viejo o responsable. Llevas una armadura de seriedad y autoexigencia. Tu cuerpo se siente rígido (huesos, rodillas, piel) y la vida te obliga a madurar a marchas forzadas. Consejo: No te tomes tan en serio; ríete de tus fallos, la vida no es un examen final.",
     "2": "Escasez mental. Aunque tengas dinero, vives con miedo a que falte. Trabajas duro y sientes que cada centavo cuesta sangre. Eres austero por necesidad o por miedo. La seguridad material es tu obsesión. Consejo: El dinero es una herramienta, no un fin; disfruta de lo que has construido.",
     "3": "Silencio prudente. Te cuesta comunicarte con soltura; mides cada palabra. Sientes responsabilidad sobre hermanos o vecinos, o experimentas bloqueos y retrasos en el aprendizaje y trámites. Consejo: Hablar no es perder autoridad; comparte tus dudas, aligera la carga mental.",
@@ -139,7 +139,7 @@
     "11": "Redes profesionales. Tus amigos suelen ser colegas o gente útil para tus fines. Sientes la obligación de cumplir con las normas del grupo y te cuesta integrarte si no hay un objetivo claro. Consejo: Busca amigos con los que no hables de trabajo; nutre tu lado humano.",
     "12": "Melancolía oculta. Cargas con una soledad profunda y miedos al fracaso que nadie ve. Te autosaboteas con el pesimismo o el aislamiento rígido. El control es tu cárcel invisible. Consejo: La rendición no es fracaso; suelta lo que no puedes controlar y verás cómo fluye la vida."
   },
-  "Aquarius": {
+  "Acuario": {
     "1": "Rebelde a la fuerza. Sientes la presión de ser diferente, lo que a veces te aísla. Tu sistema nervioso está siempre eléctrico. La vida te pone en situaciones donde tienes que romper el molde o sentirte un alienígena. Consejo: Ser diferente está bien, pero no necesitas llevar la contraria solo por deporte.",
     "2": "Dinero intermitente. Tus finanzas son inestables o vienen de fuentes inusuales (tecnología, freelance). Sientes desapego material pero sufres cuando la realidad te pide pagar facturas puntuales. Consejo: La libertad financiera requiere un sistema, no solo genialidad; automatiza tus pagos.",
     "3": "Mente dispersa. Tu comunicación es rápida, errática y a veces incomprendida. Sientes la obligación de saber de todo y estar conectado. Hermanos o vecinos te ven como el bicho raro o distante. Consejo: Conecta con las personas, no solo con las ideas; baja de la nube a la tierra.",
@@ -153,7 +153,7 @@
     "11": "Presión colectiva. Aquí la necesidad es el grupo. Te sientes responsable del bienestar de la comunidad o atrapado en políticas de grupo. Los amigos son tu verdadera familia, pero también tu mayor carga. Consejo: No sacrifiques tu individualidad por el colectivo; tú también cuentas.",
     "12": "Aislamiento mental. Te sientes desconectado de la humanidad aunque la ames en abstracto. Tu mente no para y te genera ansiedad o insomnio. Autosabotaje por sentirte incomprendido y retirarte a tu torre de marfil. Consejo: Conecta con tu cuerpo y con la tierra; sal de tu cabeza y toca el pasto."
   },
-  "Pisces": {
+  "Piscis": {
     "1": "Identidad difusa. Te cuesta poner límites físicos y energéticos. Sientes que la vida te atropella porque vas sin coraza. Tu cuerpo es hipersensible a medicamentos y ambientes. La presión es definir quién eres tú y quién es el otro. Consejo: Construye una piel más gruesa; decir 'no' es tu mejor defensa inmunológica.",
     "2": "Dinero neblina. El dinero se te escapa o no sabes dónde está. Hay caos, engaños o simplemente desorden en tus cuentas. Sientes que el mundo material es demasiado duro y exigente. Consejo: Mira tus cuentas de frente; la claridad financiera te dará la paz espiritual que buscas.",
     "3": "Lenguaje mudo. Te cuesta explicar con palabras lógicas lo que sientes. Malentendidos constantes con hermanos o vecinos. Te sientes abrumado por el ruido y la información concreta. Consejo: Usa el arte, la música o el silencio para comunicarte; no fuerces la lógica donde hay poesía.",
