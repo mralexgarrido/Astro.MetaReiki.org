@@ -15,6 +15,18 @@ export const ProfectionTimeline: React.FC<Props> = ({ data }) => {
   const startAge = currentAge - 6;
   const endAge = currentAge + 6;
 
+  const birthDate = new Date(data.birthDate);
+  const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+
+  const getProfectionDateRange = (age: number) => {
+      const startYear = birthDate.getFullYear() + age;
+      const endYear = startYear + 1;
+      const monthIndex = birthDate.getMonth(); // 0-based
+      const monthName = months[monthIndex];
+
+      return `${monthName} ${startYear} - ${monthName} ${endYear}`;
+  };
+
   const timelineItems = [];
   for (let age = startAge; age <= endAge; age++) {
      if (age < 0) continue; // Skip negative ages just in case
@@ -28,6 +40,7 @@ export const ProfectionTimeline: React.FC<Props> = ({ data }) => {
          ...profection,
          signName: sign.name,
          signSymbol: sign.symbol,
+         dateRange: getProfectionDateRange(age),
          interpretation: generateProfectionInterpretation(
              profection.timeLord,
              profection.houseNumber,
@@ -42,7 +55,7 @@ export const ProfectionTimeline: React.FC<Props> = ({ data }) => {
       <div className="flex items-center gap-3 mb-8 border-b border-slate-800 pb-4 print:border-black">
         <Hourglass className="w-6 h-6 text-reiki-cyan print:text-black" />
         <h2 className="text-2xl font-bold text-white uppercase tracking-widest print:text-black">
-            Pronóstico: Próximos 6 Años
+            LÍNEA DE TIEMPO DE PROFECCIONES
         </h2>
       </div>
 
@@ -74,16 +87,23 @@ export const ProfectionTimeline: React.FC<Props> = ({ data }) => {
                       )}
 
                       {/* Header */}
-                      <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-baseline gap-1">
-                              <span className={`text-3xl font-serif ${isCurrent ? 'text-white' : 'text-slate-300'} print:text-black`}>
-                                  {item.age}
-                              </span>
-                              <span className="text-xs text-slate-500 uppercase tracking-wide">años</span>
+                      <div className="flex flex-col gap-2 mb-4">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-baseline gap-1">
+                                <span className={`text-3xl font-serif ${isCurrent ? 'text-white' : 'text-slate-300'} print:text-black`}>
+                                    {item.age}
+                                </span>
+                                <span className="text-xs text-slate-500 uppercase tracking-wide">años</span>
+                            </div>
+
+                            <div className={`px-2 py-1 rounded text-xs font-bold uppercase border ${isCurrent ? 'border-reiki-cyan/30 text-reiki-cyan bg-reiki-cyan/10' : 'border-slate-700 text-slate-400 bg-slate-800'} print:border-gray-400 print:text-black print:bg-gray-100`}>
+                                Casa {item.houseNumber}
+                            </div>
                           </div>
 
-                          <div className={`px-2 py-1 rounded text-xs font-bold uppercase border ${isCurrent ? 'border-reiki-cyan/30 text-reiki-cyan bg-reiki-cyan/10' : 'border-slate-700 text-slate-400 bg-slate-800'} print:border-gray-400 print:text-black print:bg-gray-100`}>
-                              Casa {item.houseNumber}
+                          {/* Date Range Badge */}
+                          <div className="self-start px-2 py-0.5 border border-red-500/50 bg-red-500/10 text-red-400 text-[10px] font-medium rounded uppercase tracking-wider print:border-red-600 print:text-red-600 print:bg-transparent">
+                             {item.dateRange}
                           </div>
                       </div>
 

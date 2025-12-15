@@ -308,12 +308,16 @@ const calculateHermeticLots = (
       ? normalizeDegrees(ascendant + fortune - saturn)
       : normalizeDegrees(ascendant + saturn - fortune);
 
-  const createLot = (key: string, name: string, lon: number, symbol: string, meaning: string): HermeticLot => {
+  const createLot = (key: string, name: string, lon: number, symbol: string, defaultMeaning: string): HermeticLot => {
     const signId = getSign(lon);
     // Calculate Whole Sign House relative to Ascendant
     // Asc Sign is ascSign.
     // House = (LotSign - AscSign + 12) % 12 + 1
     const house = (signId - ascSign + 12) % 12 + 1;
+    const signName = ZODIAC_SIGNS[signId].name;
+
+    // Generate interpretation from data files
+    const meaning = generateLotInterpretation(key, signName, house) || defaultMeaning;
 
     return { key, name, longitude: lon, signId, house, symbol, meaning };
   };
@@ -328,6 +332,8 @@ const calculateHermeticLots = (
     createLot('nemesis', 'Némesis', nemesis, '⚖', 'Causas de infortunio, obstáculos y enemigos ocultos.')
   ];
 };
+
+import { generateLotInterpretation } from './interpretations';
 
 export const calculateChart = async (birthData: BirthData): Promise<ChartData> => {
   // Construct Date object considering timezone
@@ -515,6 +521,7 @@ export const calculateChart = async (birthData: BirthData): Promise<ChartData> =
 
   return {
     name: birthData.name,
+    birthDate: dateTimeStr, // Store the input date string
     planets,
     ascendant,
     midheaven,

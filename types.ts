@@ -78,6 +78,7 @@ export interface HermeticLot {
 
 export interface ChartData {
   name: string;
+  birthDate: string; // ISO String or similar
   planets: PlanetPosition[];
   ascendant: PlanetPosition;
   midheaven: PlanetPosition;
