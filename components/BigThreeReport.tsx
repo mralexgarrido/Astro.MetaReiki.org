@@ -1,0 +1,95 @@
+import React from 'react';
+import { ChartData, PlanetId, ZODIAC_SIGNS } from '../types';
+import { generateInterpretation } from '../services/interpretations';
+import { Sun, Moon, ArrowUpCircle } from 'lucide-react';
+
+interface Props {
+  data: ChartData;
+}
+
+export const BigThreeReport: React.FC<Props> = ({ data }) => {
+  const sun = data.planets.find(p => p.id === PlanetId.Sun);
+  const moon = data.planets.find(p => p.id === PlanetId.Moon);
+  const ascendant = data.ascendant;
+
+  if (!sun || !moon || !ascendant) return null;
+
+  const sunSign = ZODIAC_SIGNS[sun.signId];
+  const moonSign = ZODIAC_SIGNS[moon.signId];
+  const ascSign = ZODIAC_SIGNS[ascendant.signId];
+
+  const items = [
+    {
+      title: 'SOL',
+      subtitle: 'Tu Esencia',
+      icon: Sun,
+      sign: sunSign.name,
+      house: sun.house,
+      text: generateInterpretation(PlanetId.Sun, sunSign.name, sun.house, '', 0),
+      color: 'text-amber-400',
+      bg: 'bg-amber-400/10',
+      border: 'border-amber-400/30'
+    },
+    {
+      title: 'LUNA',
+      subtitle: 'Tu Mundo Emocional',
+      icon: Moon,
+      sign: moonSign.name,
+      house: moon.house,
+      text: generateInterpretation(PlanetId.Moon, moonSign.name, moon.house, '', 0),
+      color: 'text-slate-300',
+      bg: 'bg-slate-300/10',
+      border: 'border-slate-300/30'
+    },
+    {
+      title: 'ASCENDENTE',
+      subtitle: 'Tu Máscara y Camino',
+      icon: ArrowUpCircle,
+      sign: ascSign.name,
+      house: 1, // Ascendant is always 1st house cusp, but text is general
+      text: generateInterpretation(PlanetId.Ascendant, ascSign.name, 1, '', 0),
+      color: 'text-reiki-cyan',
+      bg: 'bg-reiki-cyan/10',
+      border: 'border-reiki-cyan/30'
+    }
+  ];
+
+  return (
+    <div className="space-y-6 animate-fade-in break-inside-avoid">
+       <div className="flex items-center gap-3 mb-4 print:hidden">
+         <h3 className="text-xl font-bold text-white uppercase tracking-widest flex items-center gap-2">
+            <span className="text-reiki-magenta">✦</span> Tus Tres Grandes
+         </h3>
+         <div className="h-px bg-slate-800 flex-grow"></div>
+       </div>
+
+       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+         {items.map((item) => (
+           <div key={item.title} className={`relative overflow-hidden rounded-xl border ${item.border} bg-slate-900/40 backdrop-blur p-6 hover:bg-slate-900/60 transition-colors print:bg-white print:border-gray-300 print:text-black`}>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                   <div className={`p-2 rounded-lg ${item.bg} ${item.color} print:bg-transparent print:text-black print:p-0`}>
+                      <item.icon className="w-6 h-6" />
+                   </div>
+                   <div>
+                      <h4 className={`font-bold ${item.color} print:text-black`}>{item.title}</h4>
+                      <div className="text-xs text-slate-400 uppercase tracking-wider print:text-gray-600">{item.subtitle}</div>
+                   </div>
+                </div>
+                <div className="text-right">
+                   <div className="text-xl font-serif font-bold text-white print:text-black">{item.sign}</div>
+                   {item.title !== 'ASCENDENTE' && (
+                       <div className="text-xs text-slate-500 font-mono print:text-gray-600">Casa {item.house}</div>
+                   )}
+                </div>
+              </div>
+
+              <div className="text-sm text-slate-300 leading-relaxed text-justify print:text-black">
+                 {item.text}
+              </div>
+           </div>
+         ))}
+       </div>
+    </div>
+  );
+};

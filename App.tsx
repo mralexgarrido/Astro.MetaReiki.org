@@ -9,6 +9,7 @@ import { DetailedReport } from './components/DetailedReport';
 import { ProfectionTimeline } from './components/ProfectionTimeline';
 import { HermeticLotsReport } from './components/HermeticLotsReport';
 import { ReikiReport } from './components/ReikiReport';
+import { BigThreeReport } from './components/BigThreeReport';
 import { Sparkles, Printer, FileText, CalendarClock, Lock, HeartPulse } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -124,6 +125,9 @@ const App: React.FC = () => {
             {/* Natal Chart View */}
             {(activeTab === 'natal' || loading) && ( // keep visible during loading if needed, but loading state handles that
                <div className={`space-y-6 ${activeTab !== 'natal' ? 'hidden print:block' : ''}`}>
+                   {/* Top: Big Three Report */}
+                   <BigThreeReport data={chartData} />
+
                    {/* Middle: Summary Tables */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start print:block print:gap-0 print:space-y-8">
                         <div className="print:border print:border-gray-300 print:rounded-none print:p-0 print:break-inside-avoid">
