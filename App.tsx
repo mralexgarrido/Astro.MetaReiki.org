@@ -22,9 +22,9 @@ const App: React.FC = () => {
     setActiveTab('natal');
 
     // Simulate a brief calculation time for UX
-    setTimeout(() => {
+    setTimeout(async () => {
         try {
-            const calculatedChart = calculateChart(data);
+            const calculatedChart = await calculateChart(data);
             setChartData(calculatedChart);
         } catch (err) {
             console.error(err);

@@ -2,6 +2,7 @@ import * as Astronomy from 'astronomy-engine';
 import { BirthData, ChartData, PlanetId, PlanetPosition, ZODIAC_SIGNS, HouseData, ProfectionData, RulerInfo, HermeticLot } from '../types';
 import { HOUSE_THEMES } from './interpretations';
 import { toDate } from 'date-fns-tz';
+import { calculateChironPosition } from './swissephService';
 
 // Helper to normalize degrees to 0-360
 const normalizeDegrees = (deg: number): number => {
@@ -76,107 +77,7 @@ const getSign = (longitude: number) => {
   return Math.floor(longitude / 30);
 };
 
-// Calculate Chiron position using Keplerian elements
-const calculateChiron = (date: Date) => {
-    // Chiron J2000 Elements (approximate)
-    // Epoch J2000.0 (JD 2451545.0)
-    // Elements derived/propagated for ~2000-2050 era usage
-    // Using values that approximate the orbit reasonably well for astrology
-    // Source: JPL Horizons elements for 2021 propagated back or averaged
-    // a = 13.71 AU, e = 0.38, i = 6.9 deg, node = 209.2, peri = 339.6, M = 180 (at 2021?)
-    // Let's use specific epoch elements from a standard source if possible.
-    // Given no library, we use a set of elements:
-
-    // Epoch 2021-Jul-01 (JD 2459396.5)
-    const epoch = 2459396.5;
-    const a = 13.70; // Semi-major axis in AU
-    const e = 0.3772; // Eccentricity
-    const i = 6.9299 * (Math.PI / 180); // Inclination in rad
-    const node = 209.27 * (Math.PI / 180); // Longitude of Ascending Node in rad
-    const peri = 339.71 * (Math.PI / 180); // Argument of Perihelion in rad
-    const M0 = 180.70 * (Math.PI / 180); // Mean Anomaly at Epoch in rad
-    const n = 0.0195 * (Math.PI / 180); // Mean motion in rad/day (approx)
-
-    const t = new Astronomy.AstroTime(date);
-    const jd = t.tt;
-    const d = jd - epoch;
-
-    // 1. Mean Anomaly at date
-    let M = M0 + n * d;
-    M = M % (2 * Math.PI);
-    if (M < 0) M += 2 * Math.PI;
-
-    // 2. Solve Kepler's Equation for Eccentric Anomaly E (M = E - e*sin(E))
-    let E = M;
-    for (let k = 0; k < 10; k++) {
-        E = M + e * Math.sin(E);
-    }
-
-    // 3. True Anomaly v
-    const xv = a * (Math.cos(E) - e);
-    const yv = a * Math.sqrt(1 - e*e) * Math.sin(E);
-    const v = Math.atan2(yv, xv);
-    const r = Math.sqrt(xv*xv + yv*yv);
-
-    // 4. Heliocentric coordinates in orbital plane
-    // x' = r * cos(v)
-    // y' = r * sin(v)
-    // z' = 0
-    // We can rotate these to Ecliptic directly using standard formulas
-    // x_ecl = r * (cos(node) cos(v+peri) - sin(node) sin(v+peri) cos(i))
-    // y_ecl = r * (sin(node) cos(v+peri) + cos(node) sin(v+peri) cos(i))
-    // z_ecl = r * (sin(v+peri) sin(i))
-
-    const u = v + peri;
-    const cosNode = Math.cos(node);
-    const sinNode = Math.sin(node);
-    const cosU = Math.cos(u);
-    const sinU = Math.sin(u);
-    const cosI = Math.cos(i);
-    const sinI = Math.sin(i);
-
-    const x_helio = r * (cosNode * cosU - sinNode * sinU * cosI);
-    const y_helio = r * (sinNode * cosU + cosNode * sinU * cosI);
-    const z_helio = r * (sinU * sinI);
-
-    // 5. Geocentric Coordinates
-    // We need Sun's Geocentric position.
-    // GeoVector(Sun) gives Vector from Earth to Sun.
-    // So Pos_Chiron_Geo = Pos_Chiron_Helio + Pos_Sun_Geo
-
-    // Note: GeoVector returns J2000 equatorial coordinates usually.
-    // But we computed Chiron in Ecliptic coordinates (approx J2000 if elements are J2000).
-    // Actually, elements are usually referred to J2000 Ecliptic.
-    // GeoVector(Body.Sun) returns Equatorial J2000. We need to convert Sun to Ecliptic J2000.
-
-    const sunEq = Astronomy.GeoVector(Astronomy.Body.Sun, t, false);
-    const sunEcl = Astronomy.Ecliptic(sunEq); // Convert to Ecliptic Spherical (elon, elat, dist)
-
-    // Convert Sun spherical to cartesian
-    const sunLon = sunEcl.elon * (Math.PI / 180);
-    const sunLat = sunEcl.elat * (Math.PI / 180);
-    const sunDist = sunEcl.vec.Length(); // or sunEcl.dist? Ecliptic() returns EclipticCoordinates { vec, elon, elat }
-
-    // EclipticCoordinates contains 'vec' which is Ecliptic Cartesian J2000
-    // So we can use sunEcl.vec.x, sunEcl.vec.y, sunEcl.vec.z directly.
-
-    const x_geo = x_helio + sunEcl.vec.x;
-    const y_geo = y_helio + sunEcl.vec.y;
-    const z_geo = z_helio + sunEcl.vec.z;
-
-    // 6. Convert Geocentric Cartesian to Longitude
-    const lonRad = Math.atan2(y_geo, x_geo);
-    let lonDeg = lonRad * (180 / Math.PI);
-    lonDeg = normalizeDegrees(lonDeg);
-
-    // Approximate speed
-    // Calculate position at t + delta
-    // Just a placeholder for now or repeat calc.
-    // Given user needs just position, speed 0 is fine for chart, or retrograde check?
-    // Let's implement speed for Retrograde check.
-
-    return { longitude: lonDeg, distance: Math.sqrt(x_geo*x_geo + y_geo*y_geo + z_geo*z_geo) };
-};
+// Chiron calculation replaced by SwissEPH
 
 // Calculate Osculating True Node from Moon's Position and Velocity vectors
 const calculateNodesVector = (date: Date) => {
@@ -428,7 +329,7 @@ const calculateHermeticLots = (
   ];
 };
 
-export const calculateChart = (birthData: BirthData): ChartData => {
+export const calculateChart = async (birthData: BirthData): Promise<ChartData> => {
   // Construct Date object considering timezone
   // Format YYYY-MM-DDTHH:mm:00
   const dateTimeStr = `${birthData.date}T${birthData.time}:00`;
@@ -549,26 +450,36 @@ export const calculateChart = (birthData: BirthData): ChartData => {
     dignity: getDignity(PlanetId.SouthNode, snSign)
   });
 
-  // Calculate Chiron
-  // To check retrograde, we calculate at t and t+1h
-  const chironPos = calculateChiron(date);
-  const chironPosNext = calculateChiron(new Date(date.getTime() + 3600000));
-  const chironSpeed = chironPosNext.longitude - chironPos.longitude;
-  let chironSpeedNorm = chironSpeed;
-  if (chironSpeed < -300) chironSpeedNorm += 360; // Cross 360 forward
-  if (chironSpeed > 300) chironSpeedNorm -= 360; // Cross 0 backward
+  // Calculate Chiron using Swiss Ephemeris
+  try {
+      const chironLon = await calculateChironPosition(date);
+      // Determine retrograde by checking next hour? Or trust swisseph speed?
+      // swe_calc_ut returns speed in index 3. But my helper returns only lon.
+      // I'll update helper if I need speed.
+      // For now, let's calculate next hour to be consistent with others if I don't change helper signature.
+      // Or better, update helper.
+      // I'll calculate next hour here for simplicity.
+      const chironLonNext = await calculateChironPosition(new Date(date.getTime() + 3600000));
 
-  const chironSign = getSign(chironPos.longitude);
-  planets.push({
-    id: PlanetId.Chiron,
-    name: 'Quirón',
-    longitude: chironPos.longitude,
-    speed: chironSpeedNorm,
-    isRetrograde: chironSpeedNorm < 0,
-    signId: chironSign,
-    house: (chironSign - ascSign + 12) % 12 + 1,
-    symbol: '⚷' // Chiron symbol
-  });
+      let chironSpeed = chironLonNext - chironLon;
+      if (chironSpeed < -300) chironSpeed += 360;
+      if (chironSpeed > 300) chironSpeed -= 360;
+
+      const chironSign = getSign(chironLon);
+      planets.push({
+        id: PlanetId.Chiron,
+        name: 'Quirón',
+        longitude: chironLon,
+        speed: chironSpeed,
+        isRetrograde: chironSpeed < 0,
+        signId: chironSign,
+        house: (chironSign - ascSign + 12) % 12 + 1,
+        symbol: '⚷'
+      });
+  } catch (e) {
+      console.error("Failed to calculate Chiron:", e);
+      // Optional: Add fallback or skip Chiron
+  }
 
   // Calculate Whole Sign House details
   const houses: HouseData[] = Array.from({ length: 12 }, (_, i) => {
