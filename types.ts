@@ -89,6 +89,15 @@ export interface ChartData {
   isDayChart: boolean;
 }
 
+export interface TransitEvent {
+  date: string; // ISO or 'Month YYYY'
+  planetName: string; // e.g., 'Saturno'
+  type: string; // e.g., 'Retorno de Saturno'
+  signId: number;
+  house: number;
+  description?: string;
+}
+
 interface ZodiacSignDef {
   id: number;
   name: string;

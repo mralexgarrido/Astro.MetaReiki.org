@@ -1,8 +1,9 @@
 import * as Astronomy from 'astronomy-engine';
-import { BirthData, ChartData, PlanetId, PlanetPosition, ZODIAC_SIGNS, HouseData, ProfectionData, RulerInfo, HermeticLot } from '../types';
+import { BirthData, ChartData, PlanetId, PlanetPosition, ZODIAC_SIGNS, HouseData, ProfectionData, RulerInfo, HermeticLot, TransitEvent } from '../types';
 import { HOUSE_THEMES } from './interpretations';
 import { toDate } from 'date-fns-tz';
 import { calculateChironPosition } from './swissephService';
+import { generateReturnInterpretation, generateAscendantTransitInterpretation } from './interpretations';
 
 // Helper to normalize degrees to 0-360
 const normalizeDegrees = (deg: number): number => {
@@ -531,4 +532,264 @@ export const calculateChart = async (birthData: BirthData): Promise<ChartData> =
     zodiacOffset: ascSign * 30,
     isDayChart
   };
+};
+
+export const calculateKeyReturns = async (birthData: BirthData): Promise<TransitEvent[]> => {
+  const events: TransitEvent[] = [];
+
+  // Parse birth date (UTC)
+  const dateTimeStr = `${birthData.date}T${birthData.time}:00`;
+  let birthDate: Date;
+  if (birthData.location.timezone) {
+      birthDate = toDate(dateTimeStr, { timeZone: birthData.location.timezone });
+  } else {
+      birthDate = new Date(dateTimeStr);
+  }
+
+  // Helper to calculate longitude difference (-180 to 180)
+  const getDiff = (target: number, current: number) => {
+      let d = current - target;
+      while (d <= -180) d += 360;
+      while (d > 180) d -= 360;
+      return d;
+  };
+
+  // Helper to get formatted date
+  const formatMonthYear = (d: Date) => {
+      const monthNames = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+      return `${monthNames[d.getMonth()]} ${d.getFullYear()}`;
+  };
+
+  // Calculate Natal Positions (J2000 or Date? Astronomy Engine uses J2000 usually, but Ecliptic gives Date)
+  // We need to use consistent frame. Astronomy.GeoVector + Ecliptic gives Tropical of Date.
+  // We will use that for both natal and transit to be consistent.
+
+  const getNatalPos = (body: Astronomy.Body) => {
+      const time = new Astronomy.AstroTime(birthDate);
+      const vec = Astronomy.GeoVector(body, time, true);
+      return Astronomy.Ecliptic(vec).elon;
+  };
+
+  const natalSaturn = getNatalPos(Astronomy.Body.Saturn);
+  const natalJupiter = getNatalPos(Astronomy.Body.Jupiter);
+  const natalUranus = getNatalPos(Astronomy.Body.Uranus);
+
+  // Node is tricky, use the helper
+  const nodes = calculateNodesVector(birthDate);
+  const natalNode = nodes.north.longitude;
+
+  // Calculate Natal Ascendant
+  const natalAsc = calculateAscendant(birthDate, birthData.location.latitude, birthData.location.longitude);
+  const natalAscSign = getSign(natalAsc);
+
+  // Define Targets for calculation
+  interface Tracker {
+      name: string;
+      id: PlanetId;
+      body: Astronomy.Body | null;
+      natalLong: number | null; // Null if no return calc
+      checkReturn: boolean;
+      checkAsc: boolean;
+      prevDiffReturn: number;
+      prevDiffAsc: number;
+  }
+
+  const trackers: Tracker[] = [
+      { name: 'Saturno', id: PlanetId.Saturn, body: Astronomy.Body.Saturn, natalLong: natalSaturn, checkReturn: true, checkAsc: true, prevDiffReturn: 0, prevDiffAsc: 0 },
+      { name: 'Júpiter', id: PlanetId.Jupiter, body: Astronomy.Body.Jupiter, natalLong: natalJupiter, checkReturn: true, checkAsc: true, prevDiffReturn: 0, prevDiffAsc: 0 },
+      { name: 'Urano', id: PlanetId.Uranus, body: Astronomy.Body.Uranus, natalLong: natalUranus, checkReturn: true, checkAsc: true, prevDiffReturn: 0, prevDiffAsc: 0 },
+      { name: 'Nodo Norte', id: PlanetId.NorthNode, body: null, natalLong: natalNode, checkReturn: true, checkAsc: false, prevDiffReturn: 0, prevDiffAsc: 0 },
+      { name: 'Neptuno', id: PlanetId.Neptune, body: Astronomy.Body.Neptune, natalLong: null, checkReturn: false, checkAsc: true, prevDiffReturn: 0, prevDiffAsc: 0 },
+      { name: 'Plutón', id: PlanetId.Pluto, body: Astronomy.Body.Pluto, natalLong: null, checkReturn: false, checkAsc: true, prevDiffReturn: 0, prevDiffAsc: 0 },
+  ];
+
+  // Scan 10 to 88 years (Skip first 10 years)
+  const startDate = new Date(birthDate);
+  startDate.setFullYear(startDate.getFullYear() + 10);
+  const endDate = new Date(birthDate);
+  endDate.setFullYear(endDate.getFullYear() + 88);
+
+  let curr = new Date(startDate);
+  // Initial previous diffs
+  // We need to initialize prevDiffs at t=0 to avoid false positive at start
+  const t0 = new Astronomy.AstroTime(curr);
+  for (const t of trackers) {
+      let transitLon = 0;
+      if (t.body) {
+          const vec = Astronomy.GeoVector(t.body, t0, true);
+          transitLon = Astronomy.Ecliptic(vec).elon;
+      } else {
+          transitLon = calculateNodesVector(curr).north.longitude;
+      }
+
+      if (t.checkReturn && t.natalLong !== null) {
+          t.prevDiffReturn = getDiff(t.natalLong, transitLon);
+      }
+      if (t.checkAsc) {
+          t.prevDiffAsc = getDiff(natalAsc, transitLon);
+      }
+  }
+
+  // Step 10 days
+  curr.setDate(curr.getDate() + 10);
+
+  // We accumulate raw events first to dedup if needed, but linear scan is usually fine.
+  // We will store raw events then fetch interpretations.
+  interface RawEvent {
+      date: Date;
+      tracker: Tracker;
+      type: 'Return' | 'Asc';
+  }
+  const rawEvents: RawEvent[] = [];
+
+  while (curr < endDate) {
+      const time = new Astronomy.AstroTime(curr);
+
+      for (const t of trackers) {
+          let transitLon = 0;
+          if (t.body) {
+              const vec = Astronomy.GeoVector(t.body, time, true);
+              transitLon = Astronomy.Ecliptic(vec).elon;
+          } else {
+              transitLon = calculateNodesVector(curr).north.longitude;
+          }
+
+          // Check Return
+          if (t.checkReturn && t.natalLong !== null) {
+              const diff = getDiff(t.natalLong, transitLon);
+              if (Math.sign(t.prevDiffReturn) !== Math.sign(diff) && Math.abs(diff) < 20) {
+                  // Crossing
+                  rawEvents.push({ date: new Date(curr), tracker: t, type: 'Return' });
+              }
+              t.prevDiffReturn = diff;
+          }
+
+          // Check Ascendant
+          if (t.checkAsc) {
+              const diff = getDiff(natalAsc, transitLon);
+              if (Math.sign(t.prevDiffAsc) !== Math.sign(diff) && Math.abs(diff) < 20) {
+                   rawEvents.push({ date: new Date(curr), tracker: t, type: 'Asc' });
+              }
+              t.prevDiffAsc = diff;
+          }
+      }
+
+      curr.setDate(curr.getDate() + 10);
+  }
+
+  // Filter close duplicates (Retrograde passes)
+  // If same tracker and type happen within 1 year, we might want to keep all 3 or just 1.
+  // User asked for "conjunction... exact conjunction".
+  // "Key Transits" usually lists the first hit or all 3.
+  // Let's keep all 3 but maybe clean up if they are identical dates (due to step size artifact? No, step is 10 days).
+  // Actually, 10 days step might miss a fast crossing if it goes +1 to -1 without intermediate? No, diff sign check catches it.
+  // But 10 days might be coarse for date accuracy.
+  // We accept the approximation for "Month/Year".
+
+  // Fetch Interpretations and build final events
+  // We need to group events by Planet+Type to identify 3-pass sequences
+
+  // Sort raw events first chronologically
+  rawEvents.sort((a, b) => a.date.getTime() - b.date.getTime());
+
+  // Grouping
+  const groups: Record<string, RawEvent[]> = {};
+  for (const evt of rawEvents) {
+      const key = `${evt.tracker.name}-${evt.type}`;
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(evt);
+  }
+
+  // Process each group for sequences
+  for (const key in groups) {
+      const group = groups[key];
+      // Split into clusters based on time gap (e.g., > 2 years gap means new sequence)
+      const clusters: RawEvent[][] = [];
+      let currentCluster: RawEvent[] = [];
+
+      for (const evt of group) {
+          if (currentCluster.length === 0) {
+              currentCluster.push(evt);
+          } else {
+              const last = currentCluster[currentCluster.length - 1];
+              const diffTime = Math.abs(evt.date.getTime() - last.date.getTime());
+              const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+              // 2 years max gap for a transit sequence
+              if (diffDays < 730) {
+                  currentCluster.push(evt);
+              } else {
+                  clusters.push(currentCluster);
+                  currentCluster = [evt];
+              }
+          }
+      }
+      if (currentCluster.length > 0) clusters.push(currentCluster);
+
+      // Generate events for clusters
+      for (const cluster of clusters) {
+          for (let i = 0; i < cluster.length; i++) {
+              const evt = cluster[i];
+              let label = "";
+              let description = "";
+              let house = 0;
+              let signId = 0;
+
+              let suffixTitle = "";
+              let suffixDesc = "";
+
+              // Determine Suffix based on position in cluster
+              if (cluster.length >= 3) {
+                  // If exactly 3, logic is 1=Direct, 2=Retro, 3=Direct.
+                  // If 5 (rare), usually D-R-D-R-D.
+                  // We map based on index roughly or just label 1st, 2nd, Last.
+                  if (i === 0) {
+                       suffixTitle = " - Primer contacto";
+                       suffixDesc = "\n\n(Primer contacto directo: Impacto inicial, el tema se presenta y se hace consciente.)";
+                  } else if (i === cluster.length - 1) {
+                       suffixTitle = " - Contacto final";
+                       suffixDesc = "\n\n(Contacto final directo: Resolución e integración definitiva del tránsito.)";
+                  } else {
+                       // Middle contacts usually retrograde or second direct
+                       // Simply label "Segundo contacto" or "Contacto retrógrado"
+                       // Assumption: In a 3-pass, the middle is retrograde.
+                       suffixTitle = " - Segundo contacto";
+                       suffixDesc = "\n\n(Segundo contacto retrógrado: Fase de revisión e internalización profunda.)";
+                  }
+              }
+
+              if (evt.type === 'Return') {
+                  label = (evt.tracker.id === PlanetId.NorthNode) ? 'Retorno Nodal' : `Retorno de ${evt.tracker.name}`;
+                  signId = getSign(evt.tracker.natalLong!);
+                  house = (signId - natalAscSign + 12) % 12 + 1;
+                  description = await generateReturnInterpretation(evt.tracker.id, signId, house);
+              } else {
+                  label = `${evt.tracker.name} conjunción Ascendente`;
+                  signId = natalAscSign;
+                  house = 1;
+                  description = generateAscendantTransitInterpretation(evt.tracker.id, signId);
+              }
+
+              events.push({
+                  date: formatMonthYear(evt.date),
+                  planetName: evt.tracker.name,
+                  type: label + suffixTitle,
+                  signId,
+                  house,
+                  description: description + suffixDesc
+              });
+          }
+      }
+  }
+
+  // Final Chronological Sort
+  const monthMap: Record<string, number> = { "Ene":0, "Feb":1, "Mar":2, "Abr":3, "May":4, "Jun":5, "Jul":6, "Ago":7, "Sep":8, "Oct":9, "Nov":10, "Dic":11 };
+
+  events.sort((a, b) => {
+      const [ma, ya] = a.date.split(' ');
+      const [mb, yb] = b.date.split(' ');
+      if (parseInt(ya) !== parseInt(yb)) return parseInt(ya) - parseInt(yb);
+      return monthMap[ma] - monthMap[mb];
+  });
+
+  return events;
 };

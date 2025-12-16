@@ -27,6 +27,19 @@ import quiron from './interpretations/data/quiron.json';
 import nodo_norte from './interpretations/data/nodo_norte.json';
 import nodo_sur from './interpretations/data/nodo_sur.json';
 
+// Imports for Returns
+import return_saturn from './interpretations/data/returns/saturn.json';
+import return_jupiter from './interpretations/data/returns/jupiter.json';
+import return_uranus from './interpretations/data/returns/uranus.json';
+import return_nodes from './interpretations/data/returns/nodes.json';
+
+// Imports for Ascendant Transits
+import asc_jupiter from './interpretations/data/transits/ascendant/jupiter.json';
+import asc_saturn from './interpretations/data/transits/ascendant/saturn.json';
+import asc_uranus from './interpretations/data/transits/ascendant/uranus.json';
+import asc_neptune from './interpretations/data/transits/ascendant/neptune.json';
+import asc_pluto from './interpretations/data/transits/ascendant/pluto.json';
+
 // Imports for Lots
 import fortune from './interpretations/data/fortune.json';
 import spirit from './interpretations/data/spirit.json';
@@ -96,6 +109,30 @@ const PLANET_DATA: Record<string, any> = {
     'Quirón': quiron,
     'Nodo Norte': nodo_norte,
     'Nodo Sur': nodo_sur,
+};
+
+const RETURN_DATA: Record<string, any> = {
+    'Sol': null,
+    'Luna': null,
+    'Mercurio': null,
+    'Venus': null,
+    'Marte': null,
+    'Júpiter': return_jupiter,
+    'Saturno': return_saturn,
+    'Urano': return_uranus,
+    'Neptuno': null,
+    'Plutón': null,
+    'Quirón': null,
+    'Nodo Norte': return_nodes,
+    'Nodo Sur': null,
+};
+
+const ASC_TRANSIT_DATA: Record<string, any> = {
+    'Júpiter': asc_jupiter,
+    'Saturno': asc_saturn,
+    'Urano': asc_uranus,
+    'Neptuno': asc_neptune,
+    'Plutón': asc_pluto,
 };
 
 const POINT_DATA: Record<string, any> = {
@@ -197,4 +234,43 @@ export const generateLotInterpretation = (
         return lotData[signName][houseNumber.toString()] || "";
     }
     return "";
+};
+
+export const generateReturnInterpretation = (
+    planetId: string,
+    signId: number,
+    house: number
+): string => {
+    // Map PlanetId (enum) to data keys if necessary, or just use Spanish names
+    // PlanetId enum values are Spanish names e.g. 'Saturno'
+
+    // signId to Name
+    const signs = ["Aries", "Tauro", "Géminis", "Cáncer", "Leo", "Virgo", "Libra", "Escorpio", "Sagitario", "Capricornio", "Acuario", "Piscis"];
+    const signName = signs[signId];
+
+    const data = RETURN_DATA[planetId];
+    if (data && data[signName]) {
+        let text = data[signName][house.toString()] || "Descripción detallada próximamente.";
+        // Interpolate {sign} and {house}
+        text = text.replace('{sign}', signName).replace('{house}', house.toString());
+        return text;
+    }
+    return "Descripción detallada próximamente.";
+};
+
+export const generateAscendantTransitInterpretation = (
+    planetId: string,
+    signId: number
+): string => {
+    const signs = ["Aries", "Tauro", "Géminis", "Cáncer", "Leo", "Virgo", "Libra", "Escorpio", "Sagitario", "Capricornio", "Acuario", "Piscis"];
+    const signName = signs[signId];
+
+    const data = ASC_TRANSIT_DATA[planetId];
+    if (data && data[signName]) {
+        // We use "1" as the default house key for Ascendant transits
+        let text = data[signName]["1"] || "Descripción detallada próximamente.";
+        text = text.replace('{sign}', signName);
+        return text;
+    }
+    return "Descripción detallada próximamente.";
 };

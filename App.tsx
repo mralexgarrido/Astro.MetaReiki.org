@@ -10,16 +10,19 @@ import { ProfectionTimeline } from './components/ProfectionTimeline';
 import { HermeticLotsReport } from './components/HermeticLotsReport';
 import { ReikiReport } from './components/ReikiReport';
 import { BigThreeReport } from './components/BigThreeReport';
-import { Sparkles, Printer, FileText, CalendarClock, Lock, HeartPulse } from 'lucide-react';
+import ImportantTransits from './components/ImportantTransits';
+import { Sparkles, Printer, FileText, CalendarClock, Lock, HeartPulse, Hourglass } from 'lucide-react';
 
 const App: React.FC = () => {
   const [chartData, setChartData] = useState<ChartData | null>(null);
+  const [birthData, setBirthData] = useState<BirthData | null>(null);
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<'natal' | 'profection' | 'lots' | 'reiki'>('natal');
+  const [activeTab, setActiveTab] = useState<'natal' | 'profection' | 'lots' | 'reiki' | 'transits'>('natal');
 
   const handleBirthDataSubmit = (data: BirthData) => {
     setLoading(true);
     setChartData(null);
+    setBirthData(data);
     setActiveTab('natal');
 
     // Simulate a brief calculation time for UX
@@ -118,6 +121,12 @@ const App: React.FC = () => {
                 >
                    <HeartPulse className="w-4 h-4" /> Reiki y Salud
                 </button>
+                <button
+                    onClick={() => setActiveTab('transits')}
+                    className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${activeTab === 'transits' ? 'bg-purple-600 text-white shadow-[0_0_15px_rgba(147,51,234,0.4)]' : 'bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700'}`}
+                >
+                   <Hourglass className="w-4 h-4" /> Tránsitos
+                </button>
             </div>
 
             {/* Content Areas */}
@@ -164,6 +173,13 @@ const App: React.FC = () => {
             {activeTab === 'reiki' && (
                 <div className="animate-fade-in">
                    <ReikiReport data={chartData} />
+                </div>
+            )}
+
+            {/* Important Transits View */}
+            {activeTab === 'transits' && birthData && (
+                <div className="animate-fade-in">
+                   <ImportantTransits birthData={birthData} />
                 </div>
             )}
             
