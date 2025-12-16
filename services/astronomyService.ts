@@ -1,8 +1,9 @@
 import * as Astronomy from 'astronomy-engine';
-import { BirthData, ChartData, PlanetId, PlanetPosition, ZODIAC_SIGNS, HouseData, ProfectionData, RulerInfo, HermeticLot } from '../types';
+import { BirthData, ChartData, PlanetId, PlanetPosition, ZODIAC_SIGNS, HouseData, ProfectionData, RulerInfo, HermeticLot, TransitEvent } from '../types';
 import { HOUSE_THEMES } from './interpretations';
 import { toDate } from 'date-fns-tz';
 import { calculateChironPosition } from './swissephService';
+import { generateReturnInterpretation } from './interpretations';
 
 // Helper to normalize degrees to 0-360
 const normalizeDegrees = (deg: number): number => {
@@ -531,4 +532,174 @@ export const calculateChart = async (birthData: BirthData): Promise<ChartData> =
     zodiacOffset: ascSign * 30,
     isDayChart
   };
+};
+
+export const calculateKeyReturns = async (birthData: BirthData): Promise<TransitEvent[]> => {
+  const events: TransitEvent[] = [];
+
+  // Parse birth date (UTC)
+  const dateTimeStr = `${birthData.date}T${birthData.time}:00`;
+  let birthDate: Date;
+  if (birthData.location.timezone) {
+      birthDate = toDate(dateTimeStr, { timeZone: birthData.location.timezone });
+  } else {
+      birthDate = new Date(dateTimeStr);
+  }
+
+  // Helper to calculate longitude difference (-180 to 180)
+  const getDiff = (target: number, current: number) => {
+      let d = current - target;
+      while (d <= -180) d += 360;
+      while (d > 180) d -= 360;
+      return d;
+  };
+
+  // Helper to get formatted date
+  const formatMonthYear = (d: Date) => {
+      const monthNames = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+      return `${monthNames[d.getMonth()]} ${d.getFullYear()}`;
+  };
+
+  // Calculate Natal Positions (J2000 or Date? Astronomy Engine uses J2000 usually, but Ecliptic gives Date)
+  // We need to use consistent frame. Astronomy.GeoVector + Ecliptic gives Tropical of Date.
+  // We will use that for both natal and transit to be consistent.
+
+  const getNatalPos = (body: Astronomy.Body) => {
+      const time = new Astronomy.AstroTime(birthDate);
+      const vec = Astronomy.GeoVector(body, time, true);
+      return Astronomy.Ecliptic(vec).elon;
+  };
+
+  const natalSaturn = getNatalPos(Astronomy.Body.Saturn);
+  const natalJupiter = getNatalPos(Astronomy.Body.Jupiter);
+  const natalUranus = getNatalPos(Astronomy.Body.Uranus);
+
+  // Node is tricky, use the helper
+  const nodes = calculateNodesVector(birthDate);
+  const natalNode = nodes.north.longitude;
+
+  // Calculate Natal Ascendant for House calculation of the return
+  // We need Ascendant AT THE TIME OF RETURN?
+  // No, transits are usually read in the Natal Houses (where the transit is happening in your natal chart).
+  // So we need Natal Ascendant.
+  const natalAsc = calculateAscendant(birthDate, birthData.location.latitude, birthData.location.longitude);
+  const natalAscSign = getSign(natalAsc);
+
+  // Define Targets
+  // Structure: { name, body, natalLong, periods: [years], type, id }
+  // Node is special case for body
+  const targets = [
+      { name: 'Saturno', id: PlanetId.Saturn, body: Astronomy.Body.Saturn, natal: natalSaturn, ages: [29.4, 58.8], label: 'Retorno de Saturno' },
+      { name: 'Júpiter', id: PlanetId.Jupiter, body: Astronomy.Body.Jupiter, natal: natalJupiter, ages: [11.86, 23.7, 35.6, 47.4, 59.3, 71.1, 83.0], label: 'Retorno de Júpiter' },
+      { name: 'Urano', id: PlanetId.Uranus, body: Astronomy.Body.Uranus, natal: natalUranus, ages: [84.0], label: 'Retorno de Urano' },
+      { name: 'Nodo Norte', id: PlanetId.NorthNode, body: null, natal: natalNode, ages: [18.6, 37.2, 55.8, 74.4], label: 'Retorno Nodal' }
+  ];
+
+  for (const target of targets) {
+      for (const age of target.ages) {
+          // Window: +/- 1.5 years around target age
+          const startAge = age - 1.5;
+          const endAge = age + 1.5;
+
+          const startDate = new Date(birthDate);
+          startDate.setFullYear(startDate.getFullYear() + Math.floor(startAge));
+          // Add remainder months approx
+          startDate.setMonth(startDate.getMonth() + Math.floor((startAge % 1) * 12));
+
+          const endDate = new Date(birthDate);
+          endDate.setFullYear(endDate.getFullYear() + Math.floor(endAge));
+          endDate.setMonth(endDate.getMonth() + Math.floor((endAge % 1) * 12));
+
+          // Limit to age 88
+          const maxDate = new Date(birthDate);
+          maxDate.setFullYear(maxDate.getFullYear() + 88);
+          if (startDate > maxDate) continue;
+
+          // Search step: 5 days
+          let curr = new Date(startDate);
+          let prevDiff = 0;
+          let firstPass = true;
+          let foundEvents: Date[] = [];
+
+          while (curr < endDate) {
+              const t = new Astronomy.AstroTime(curr);
+              let transitLon = 0;
+
+              if (target.body) {
+                  const vec = Astronomy.GeoVector(target.body, t, true);
+                  transitLon = Astronomy.Ecliptic(vec).elon;
+              } else {
+                  // Node
+                  transitLon = calculateNodesVector(curr).north.longitude;
+              }
+
+              const diff = getDiff(target.natal, transitLon);
+
+              if (!firstPass) {
+                  // Check for crossing zero
+                  // If prevDiff and diff have different signs, or one is very small?
+                  // Actually, crossing 0 means prevDiff was e.g. -0.1 and diff is +0.1
+                  // Or prevDiff +0.1 and diff -0.1 (retrograde)
+                  if (Math.sign(prevDiff) !== Math.sign(diff) && Math.abs(diff) < 20) {
+                      // Found a crossing
+                      // We can refine this date if we want, but 5 days step might be coarse.
+                      // Let's assume 'curr' is close enough for Month/Year, or take midpoint.
+                      foundEvents.push(new Date(curr));
+                  }
+              }
+
+              prevDiff = diff;
+              firstPass = false;
+              curr.setDate(curr.getDate() + 5);
+          }
+
+          // Filter close events (retrograde passes happen within months)
+          // We want to group them or list them.
+          // If we have multiple hits in a year, listing the first one is usually sufficient for "Life Timeline" unless exact passes are needed.
+          // User said "Month/Year".
+          // Let's pick the first one of the cluster (Entering the return).
+
+          if (foundEvents.length > 0) {
+               const firstEvent = foundEvents[0];
+
+               // Calculate House/Sign of the return
+               // The return happens at Natal Position.
+               // So Sign is Natal Sign.
+               // House is House of that sign in Natal Chart.
+               const signId = getSign(target.natal);
+               const house = (signId - natalAscSign + 12) % 12 + 1;
+
+               // Get Interpretation
+               const description = await generateReturnInterpretation(target.id, signId, house);
+
+               events.push({
+                   date: formatMonthYear(firstEvent),
+                   planetName: target.name,
+                   type: target.label,
+                   signId,
+                   house,
+                   description
+               });
+          }
+      }
+  }
+
+  // Sort by date (approximate, parsing the string is hard, better store date obj then format)
+  // Re-map to sortable
+  // Actually, the loop order is by planet then age. We need to sort all events chronologically.
+  // I will cheat: I didn't store the raw date in the event object.
+  // I should probably do the sorting before formatting, but the types.ts forces string.
+  // I will sort them using the 'ages' logic roughly, or just parse the date string?
+  // Parsing "MMM YYYY" is okay.
+
+  const monthMap: Record<string, number> = { "Ene":0, "Feb":1, "Mar":2, "Abr":3, "May":4, "Jun":5, "Jul":6, "Ago":7, "Sep":8, "Oct":9, "Nov":10, "Dic":11 };
+
+  events.sort((a, b) => {
+      const [ma, ya] = a.date.split(' ');
+      const [mb, yb] = b.date.split(' ');
+      if (parseInt(ya) !== parseInt(yb)) return parseInt(ya) - parseInt(yb);
+      return monthMap[ma] - monthMap[mb];
+  });
+
+  return events;
 };
