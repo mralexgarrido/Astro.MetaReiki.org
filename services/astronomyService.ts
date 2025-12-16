@@ -603,8 +603,9 @@ export const calculateKeyReturns = async (birthData: BirthData): Promise<Transit
       { name: 'Plutón', id: PlanetId.Pluto, body: Astronomy.Body.Pluto, natalLong: null, checkReturn: false, checkAsc: true, prevDiffReturn: 0, prevDiffAsc: 0 },
   ];
 
-  // Scan 0 to 88 years
+  // Scan 10 to 88 years (Skip first 10 years)
   const startDate = new Date(birthDate);
+  startDate.setFullYear(startDate.getFullYear() + 10);
   const endDate = new Date(birthDate);
   endDate.setFullYear(endDate.getFullYear() + 88);
 
@@ -686,38 +687,101 @@ export const calculateKeyReturns = async (birthData: BirthData): Promise<Transit
   // We accept the approximation for "Month/Year".
 
   // Fetch Interpretations and build final events
+  // We need to group events by Planet+Type to identify 3-pass sequences
+
+  // Sort raw events first chronologically
+  rawEvents.sort((a, b) => a.date.getTime() - b.date.getTime());
+
+  // Grouping
+  const groups: Record<string, RawEvent[]> = {};
   for (const evt of rawEvents) {
-      // Determine label
-      let label = "";
-      let description = "";
-      let house = 0;
-      let signId = 0;
-
-      if (evt.type === 'Return') {
-          label = (evt.tracker.id === PlanetId.NorthNode) ? 'Retorno Nodal' : `Retorno de ${evt.tracker.name}`;
-          // Sign is Natal Sign
-          signId = getSign(evt.tracker.natalLong!);
-          house = (signId - natalAscSign + 12) % 12 + 1;
-          description = await generateReturnInterpretation(evt.tracker.id, signId, house);
-      } else {
-          label = `${evt.tracker.name} conjunción Ascendente`;
-          // Sign is Ascendant Sign
-          signId = natalAscSign;
-          house = 1;
-          description = generateAscendantTransitInterpretation(evt.tracker.id, signId);
-      }
-
-      events.push({
-          date: formatMonthYear(evt.date),
-          planetName: evt.tracker.name,
-          type: label,
-          signId,
-          house,
-          description
-      });
+      const key = `${evt.tracker.name}-${evt.type}`;
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(evt);
   }
 
-  // Sort chronologically
+  // Process each group for sequences
+  for (const key in groups) {
+      const group = groups[key];
+      // Split into clusters based on time gap (e.g., > 2 years gap means new sequence)
+      const clusters: RawEvent[][] = [];
+      let currentCluster: RawEvent[] = [];
+
+      for (const evt of group) {
+          if (currentCluster.length === 0) {
+              currentCluster.push(evt);
+          } else {
+              const last = currentCluster[currentCluster.length - 1];
+              const diffTime = Math.abs(evt.date.getTime() - last.date.getTime());
+              const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+              // 2 years max gap for a transit sequence
+              if (diffDays < 730) {
+                  currentCluster.push(evt);
+              } else {
+                  clusters.push(currentCluster);
+                  currentCluster = [evt];
+              }
+          }
+      }
+      if (currentCluster.length > 0) clusters.push(currentCluster);
+
+      // Generate events for clusters
+      for (const cluster of clusters) {
+          for (let i = 0; i < cluster.length; i++) {
+              const evt = cluster[i];
+              let label = "";
+              let description = "";
+              let house = 0;
+              let signId = 0;
+
+              let suffixTitle = "";
+              let suffixDesc = "";
+
+              // Determine Suffix based on position in cluster
+              if (cluster.length >= 3) {
+                  // If exactly 3, logic is 1=Direct, 2=Retro, 3=Direct.
+                  // If 5 (rare), usually D-R-D-R-D.
+                  // We map based on index roughly or just label 1st, 2nd, Last.
+                  if (i === 0) {
+                       suffixTitle = " - Primer contacto";
+                       suffixDesc = "\n\n(Primer contacto directo: Impacto inicial, el tema se presenta y se hace consciente.)";
+                  } else if (i === cluster.length - 1) {
+                       suffixTitle = " - Contacto final";
+                       suffixDesc = "\n\n(Contacto final directo: Resolución e integración definitiva del tránsito.)";
+                  } else {
+                       // Middle contacts usually retrograde or second direct
+                       // Simply label "Segundo contacto" or "Contacto retrógrado"
+                       // Assumption: In a 3-pass, the middle is retrograde.
+                       suffixTitle = " - Segundo contacto";
+                       suffixDesc = "\n\n(Segundo contacto retrógrado: Fase de revisión e internalización profunda.)";
+                  }
+              }
+
+              if (evt.type === 'Return') {
+                  label = (evt.tracker.id === PlanetId.NorthNode) ? 'Retorno Nodal' : `Retorno de ${evt.tracker.name}`;
+                  signId = getSign(evt.tracker.natalLong!);
+                  house = (signId - natalAscSign + 12) % 12 + 1;
+                  description = await generateReturnInterpretation(evt.tracker.id, signId, house);
+              } else {
+                  label = `${evt.tracker.name} conjunción Ascendente`;
+                  signId = natalAscSign;
+                  house = 1;
+                  description = generateAscendantTransitInterpretation(evt.tracker.id, signId);
+              }
+
+              events.push({
+                  date: formatMonthYear(evt.date),
+                  planetName: evt.tracker.name,
+                  type: label + suffixTitle,
+                  signId,
+                  house,
+                  description: description + suffixDesc
+              });
+          }
+      }
+  }
+
+  // Final Chronological Sort
   const monthMap: Record<string, number> = { "Ene":0, "Feb":1, "Mar":2, "Abr":3, "May":4, "Jun":5, "Jul":6, "Ago":7, "Sep":8, "Oct":9, "Nov":10, "Dic":11 };
 
   events.sort((a, b) => {
