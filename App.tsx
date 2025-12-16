@@ -123,7 +123,7 @@ const App: React.FC = () => {
                 </button>
                 <button
                     onClick={() => setActiveTab('transits')}
-                    className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${activeTab === 'transits' ? 'bg-reiki-gold text-slate-900 shadow-[0_0_15px_rgba(255,215,0,0.4)]' : 'bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700'}`}
+                    className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${activeTab === 'transits' ? 'bg-reiki-gold text-black shadow-none' : 'bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700'}`}
                 >
                    <Hourglass className="w-4 h-4" /> Tránsitos
                 </button>
