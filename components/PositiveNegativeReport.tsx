@@ -26,9 +26,21 @@ const PlanetCard: React.FC<{
       </div>
 
       <div className="mb-4">
-        <div className="flex items-baseline space-x-2">
+        {/* Planet Name and Status Badge */}
+        <div className="flex flex-wrap items-center gap-2 mb-2">
           <span className="text-2xl font-bold text-gray-800">{planet.planetName}</span>
-          <span className="text-sm font-medium text-gray-500 italic">({planet.conditionSummary})</span>
+
+          {/* Status Badge */}
+          {planet.status && (
+            <span className={`px-2 py-1 rounded text-xs font-bold uppercase tracking-wider ${
+               planet.status === 'Potente' || planet.status === 'Constructivo / Domesticado' ? 'bg-green-200 text-green-800' :
+               planet.status === 'Impedido' || planet.status === 'Difícil' ? 'bg-red-200 text-red-800' :
+               planet.status === 'Desconectado / Oculto' ? 'bg-gray-700 text-white' :
+               'bg-yellow-200 text-yellow-800'
+            }`}>
+               {planet.status}
+            </span>
+          )}
         </div>
 
         {/* Description */}
@@ -36,6 +48,13 @@ const PlanetCard: React.FC<{
             <p className="mt-2 text-sm text-gray-700 italic border-l-2 border-gray-300 pl-2">
                 "{planet.scoreDescription}"
             </p>
+        )}
+
+        {/* Disconnected Warning */}
+        {planet.isAvertedToLight && isPositive && (
+             <div className="mt-2 text-xs text-red-600 font-bold flex items-center gap-1">
+                 ⚠️ Aversión a la Luz de la Secta (No puede ver al líder)
+             </div>
         )}
 
         {/* Alternate Suggestion (Only for Positive typically) */}
@@ -97,8 +116,8 @@ export const PositiveNegativeReport: React.FC<Props> = ({ analysis }) => {
         </p>
         <p className="text-sm text-blue-600 mt-1">
           {analysis.sect === 'Diurna'
-            ? 'El Sol está por encima del horizonte. Júpiter es el benéfico de la secta y Marte es el maléfico contrario.'
-            : 'El Sol está por debajo del horizonte. Venus es el benéfico de la secta y Saturno es el maléfico contrario.'}
+            ? `El Sol está por encima del horizonte. La Luz de la Secta es el Sol. Júpiter es el benéfico de la secta y Marte es el maléfico contrario.`
+            : `El Sol está por debajo del horizonte. La Luz de la Secta es la Luna. Venus es el benéfico de la secta y Saturno es el maléfico contrario.`}
         </p>
       </div>
 

@@ -132,6 +132,8 @@ export interface ScoredPlanet {
   planetName: string;
   totalScore: number;
   conditionSummary: string;
+  status: string; // 'Potente', 'Impedido', 'Desconectado', 'Difícil', 'Constructivo', 'Moderado'
+  isAvertedToLight: boolean;
   scoreDescription?: string;
   alternateSuggestion?: {
     planetName: string;
@@ -143,6 +145,7 @@ export interface ScoredPlanet {
 
 export interface PositiveNegativeAnalysis {
   sect: string; // 'Diurna' | 'Nocturna'
+  sectLight: string; // 'Sol' | 'Luna'
   mostPositive: ScoredPlanet;
   mostNegative: ScoredPlanet;
 }

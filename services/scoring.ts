@@ -42,6 +42,39 @@ const getPlanetById = (planets: PlanetPosition[], id: PlanetId): PlanetPosition 
 export const calculateConditionScore = (planet: PlanetPosition, chart: ChartData): ScoredPlanet => {
   const details: ConditionDetail[] = [];
   let score = 50; // Base Score
+  let isAvertedToLight = false;
+
+  // --- Step 2F: Relationship to Sect Light (Witnessing) ---
+  // Identify Sect Light
+  const isDay = chart.isDayChart;
+  const lightId = isDay ? PlanetId.Sun : PlanetId.Moon;
+  const light = getPlanetById(chart.planets, lightId);
+
+  if (light) {
+      // Calculate Whole Sign relation
+      const signDist = (planet.signId - light.signId + 12) % 12;
+
+      // Conjunction (0), Trine (4, 8), Sextile (2, 10) -> +10
+      if (signDist === 0 || signDist === 4 || signDist === 8 || signDist === 2 || signDist === 10) {
+          score += 10;
+          details.push({ description: `Testigo de la Luz (${light.name}) - Fuerte Alianza`, score: 10, type: 'Positive' });
+      }
+      // Square (3, 9), Opposition (6) -> +5
+      else if (signDist === 3 || signDist === 9 || signDist === 6) {
+          score += 5;
+          details.push({ description: `Testigo de la Luz (${light.name}) - Contacto Tenso`, score: 5, type: 'Positive' });
+      }
+      // Aversion (1, 5, 7, 11) -> -10 (Actually 2nd, 6th, 8th, 12th signs)
+      // 2nd sign (index diff 1)
+      // 6th sign (index diff 5)
+      // 8th sign (index diff 7)
+      // 12th sign (index diff 11)
+      else if (signDist === 1 || signDist === 5 || signDist === 7 || signDist === 11) {
+          score -= 10;
+          details.push({ description: `Aversión a la Luz (${light.name}) - Desconectado`, score: -10, type: 'Negative' });
+          isAvertedToLight = true;
+      }
+  }
 
   // --- A. Essential Dignity ---
   const signId = planet.signId;
@@ -294,12 +327,15 @@ export const calculateConditionScore = (planet: PlanetPosition, chart: ChartData
     baseScore: 50,
     totalScore: score,
     conditionSummary: '', // Will be set later
+    status: '', // Will be set later
+    isAvertedToLight,
     details
   };
 };
 
 export const analyzePositiveNegative = (chart: ChartData): PositiveNegativeAnalysis => {
   const isDay = chart.isDayChart;
+  const sectLight = isDay ? PlanetId.Sun : PlanetId.Moon;
 
   // Candidates
   // Day: Jupiter (Pos), Mars (Neg)
@@ -321,46 +357,58 @@ export const analyzePositiveNegative = (chart: ChartData): PositiveNegativeAnaly
   // Logic Rules for Output Summary
 
   // Positive Planet Logic
-  if (posResult.totalScore < 40) {
-    posResult.conditionSummary = 'Impedido';
+  if (posResult.isAvertedToLight) {
+    posResult.status = 'Desconectado / Oculto';
+    posResult.conditionSummary = 'Aversión a la Luz';
+    posResult.scoreDescription = `Aunque es el benéfico de la secta, ${posResult.planetName} está en "Aversión" a la Luz de la Secta (${sectLight}). No puede "ver" al líder del equipo, lo que hace que su ayuda sea difícil de acceder, oculta o desconectada de los propósitos vitales principales.`;
+  } else if (posResult.totalScore < 40) {
+    posResult.status = 'Impedido';
+    posResult.conditionSummary = 'Debilitado';
     posResult.scoreDescription = `Aunque es el benéfico de la secta, ${posResult.planetName} enfrenta dificultades significativas en esta carta. Su capacidad para brindar ayuda está restringida o condicionada.`;
-
-    // Check Alternate Benefic
-    const altPosId = isDay ? PlanetId.Venus : PlanetId.Jupiter;
-    const altPosPlanet = getPlanetById(chart.planets, altPosId);
-    if (altPosPlanet) {
-      const altResult = calculateConditionScore(altPosPlanet, chart);
-      // Suggest if Alternate > 60 or Alternate > Primary + 20
-      if (altResult.totalScore > 60 || altResult.totalScore > (posResult.totalScore + 20)) {
-        posResult.alternateSuggestion = {
-          planetName: altResult.planetName,
-          score: altResult.totalScore,
-          reason: `Dado que ${posResult.planetName} está impedido, ${altResult.planetName} podría actuar como una fuente de apoyo más confiable en esta carta.`
-        };
-      }
-    }
-
   } else {
+    posResult.status = 'Potente';
     posResult.conditionSummary = posResult.totalScore > 60 ? 'Muy Dignificado' : 'Favorable';
     posResult.scoreDescription = posResult.totalScore > 60
       ? `¡Excelente condición! ${posResult.planetName} está extremadamente fuerte y capaz de manifestar sus mejores cualidades sin obstáculos.`
       : `${posResult.planetName} se encuentra en buena condición y funciona como una fuente estable de beneficios y crecimiento.`;
   }
 
+  // Check Alternate Benefic if Impeded OR Averted
+  if (posResult.status === 'Impedido' || posResult.status === 'Desconectado / Oculto') {
+      const altPosId = isDay ? PlanetId.Venus : PlanetId.Jupiter;
+      const altPosPlanet = getPlanetById(chart.planets, altPosId);
+      if (altPosPlanet) {
+        const altResult = calculateConditionScore(altPosPlanet, chart);
+        // Suggest if Alternate > 60 or Alternate > Primary + 20
+        // Or simply if Alternate is NOT averted and Primary IS averted
+        if ((!altResult.isAvertedToLight && posResult.isAvertedToLight) || altResult.totalScore > 60 || altResult.totalScore > (posResult.totalScore + 20)) {
+          posResult.alternateSuggestion = {
+            planetName: altResult.planetName,
+            score: altResult.totalScore,
+            reason: `Dado que ${posResult.planetName} está ${posResult.status.toLowerCase()}, ${altResult.planetName} podría actuar como una fuente de apoyo más confiable en esta carta.`
+          };
+        }
+      }
+  }
+
   // Negative Planet Logic
   if (negResult.totalScore > 60) {
-    negResult.conditionSummary = 'Constructivo / Domesticado';
+    negResult.status = 'Constructivo / Domesticado';
+    negResult.conditionSummary = 'Dignificado';
     negResult.scoreDescription = `Aunque es un maléfico, ${negResult.planetName} tiene recursos excepcionales. Esto sugiere que los desafíos que presenta son constructivos: impulsan la ambición, la disciplina y llevan al éxito a través del esfuerzo.`;
   } else if (negResult.totalScore < 40) {
-    negResult.conditionSummary = 'Difícil';
+    negResult.status = 'Difícil';
+    negResult.conditionSummary = 'Maltratado';
     negResult.scoreDescription = `${negResult.planetName} está en una posición debilitada o conflictiva. Es probable que sea una fuente de fricción, retrasos o desafíos que requieren mucha paciencia para gestionar.`;
   } else {
-    negResult.conditionSummary = 'Moderado';
+    negResult.status = 'Moderado';
+    negResult.conditionSummary = 'Promedio';
     negResult.scoreDescription = `${negResult.planetName} presenta un comportamiento estándar. Sus desafíos son manejables y dependen del contexto específico de los tránsitos y periodos.`;
   }
 
   return {
     sect: isDay ? 'Diurna' : 'Nocturna',
+    sectLight,
     mostPositive: posResult,
     mostNegative: negResult
   };
