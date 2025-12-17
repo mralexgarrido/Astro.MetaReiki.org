@@ -148,4 +148,6 @@ export interface PositiveNegativeAnalysis {
   sectLight: string; // 'Sol' | 'Luna'
   mostPositive: ScoredPlanet;
   mostNegative: ScoredPlanet;
+  otherBenefic: ScoredPlanet;
+  otherMalefic: ScoredPlanet;
 }
