@@ -30,9 +30,24 @@ const PlanetCard: React.FC<{
           <span className="text-2xl font-bold text-gray-800">{planet.planetName}</span>
           <span className="text-sm font-medium text-gray-500 italic">({planet.conditionSummary})</span>
         </div>
+
+        {/* Description */}
+        {planet.scoreDescription && (
+            <p className="mt-2 text-sm text-gray-700 italic border-l-2 border-gray-300 pl-2">
+                "{planet.scoreDescription}"
+            </p>
+        )}
+
+        {/* Alternate Suggestion (Only for Positive typically) */}
+        {isPositive && planet.alternateSuggestion && (
+            <div className="mt-3 bg-yellow-50 border border-yellow-200 p-3 rounded text-sm text-yellow-800">
+                <span className="font-bold block mb-1">💡 Sugerencia Alternativa: {planet.alternateSuggestion.planetName} (Score: {planet.alternateSuggestion.score})</span>
+                {planet.alternateSuggestion.reason}
+            </div>
+        )}
       </div>
 
-      <div className="flex-grow space-y-4">
+      <div className="flex-grow space-y-4 mt-4">
         {positiveDetails.length > 0 && (
           <div>
             <h4 className="font-semibold text-green-700 text-sm uppercase mb-1">Fortalezas / Bonificaciones</h4>

@@ -132,6 +132,12 @@ export interface ScoredPlanet {
   planetName: string;
   totalScore: number;
   conditionSummary: string;
+  scoreDescription?: string;
+  alternateSuggestion?: {
+    planetName: string;
+    score: number;
+    reason: string;
+  };
   details: ConditionDetail[];
 }
 

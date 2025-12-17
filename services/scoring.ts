@@ -320,23 +320,43 @@ export const analyzePositiveNegative = (chart: ChartData): PositiveNegativeAnaly
 
   // Logic Rules for Output Summary
 
-  // Positive Planet
-  // > 40: Standard (e.g. "Benéfico de la Secta")
-  // < 40: "Impedido"
+  // Positive Planet Logic
   if (posResult.totalScore < 40) {
     posResult.conditionSummary = 'Impedido';
+    posResult.scoreDescription = `Aunque es el benéfico de la secta, ${posResult.planetName} enfrenta dificultades significativas en esta carta. Su capacidad para brindar ayuda está restringida o condicionada.`;
+
+    // Check Alternate Benefic
+    const altPosId = isDay ? PlanetId.Venus : PlanetId.Jupiter;
+    const altPosPlanet = getPlanetById(chart.planets, altPosId);
+    if (altPosPlanet) {
+      const altResult = calculateConditionScore(altPosPlanet, chart);
+      // Suggest if Alternate > 60 or Alternate > Primary + 20
+      if (altResult.totalScore > 60 || altResult.totalScore > (posResult.totalScore + 20)) {
+        posResult.alternateSuggestion = {
+          planetName: altResult.planetName,
+          score: altResult.totalScore,
+          reason: `Dado que ${posResult.planetName} está impedido, ${altResult.planetName} podría actuar como una fuente de apoyo más confiable en esta carta.`
+        };
+      }
+    }
+
   } else {
-    // We can use dignified if score is high, or just standard role
     posResult.conditionSummary = posResult.totalScore > 60 ? 'Muy Dignificado' : 'Favorable';
+    posResult.scoreDescription = posResult.totalScore > 60
+      ? `¡Excelente condición! ${posResult.planetName} está extremadamente fuerte y capaz de manifestar sus mejores cualidades sin obstáculos.`
+      : `${posResult.planetName} se encuentra en buena condición y funciona como una fuente estable de beneficios y crecimiento.`;
   }
 
-  // Negative Planet
-  // < 40: Behaving Badly (Standard Malefic) -> "Maléfico Contrario"
-  // > 60: "Constructivo/Domesticado"
+  // Negative Planet Logic
   if (negResult.totalScore > 60) {
     negResult.conditionSummary = 'Constructivo / Domesticado';
+    negResult.scoreDescription = `Aunque es un maléfico, ${negResult.planetName} tiene recursos excepcionales. Esto sugiere que los desafíos que presenta son constructivos: impulsan la ambición, la disciplina y llevan al éxito a través del esfuerzo.`;
+  } else if (negResult.totalScore < 40) {
+    negResult.conditionSummary = 'Difícil';
+    negResult.scoreDescription = `${negResult.planetName} está en una posición debilitada o conflictiva. Es probable que sea una fuente de fricción, retrasos o desafíos que requieren mucha paciencia para gestionar.`;
   } else {
-    negResult.conditionSummary = negResult.totalScore < 40 ? 'Difícil' : 'Moderado';
+    negResult.conditionSummary = 'Moderado';
+    negResult.scoreDescription = `${negResult.planetName} presenta un comportamiento estándar. Sus desafíos son manejables y dependen del contexto específico de los tránsitos y periodos.`;
   }
 
   return {
