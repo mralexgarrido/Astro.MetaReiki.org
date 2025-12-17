@@ -11,13 +11,15 @@ import { HermeticLotsReport } from './components/HermeticLotsReport';
 import { ReikiReport } from './components/ReikiReport';
 import { BigThreeReport } from './components/BigThreeReport';
 import ImportantTransits from './components/ImportantTransits';
-import { Sparkles, Printer, FileText, CalendarClock, Lock, HeartPulse, Hourglass } from 'lucide-react';
+import { PositiveNegativeReport } from './components/PositiveNegativeReport';
+import { analyzePositiveNegative } from './services/scoring';
+import { Sparkles, Printer, FileText, CalendarClock, Lock, HeartPulse, Hourglass, Scale } from 'lucide-react';
 
 const App: React.FC = () => {
   const [chartData, setChartData] = useState<ChartData | null>(null);
   const [birthData, setBirthData] = useState<BirthData | null>(null);
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<'natal' | 'profection' | 'lots' | 'reiki' | 'transits'>('natal');
+  const [activeTab, setActiveTab] = useState<'natal' | 'profection' | 'lots' | 'reiki' | 'transits' | 'positive-negative'>('natal');
 
   const handleBirthDataSubmit = (data: BirthData) => {
     setLoading(true);
@@ -127,6 +129,12 @@ const App: React.FC = () => {
                 >
                    <Hourglass className="w-4 h-4" /> Tránsitos
                 </button>
+                <button
+                    onClick={() => setActiveTab('positive-negative')}
+                    className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${activeTab === 'positive-negative' ? 'bg-teal-600 text-white shadow-[0_0_15px_rgba(20,184,166,0.4)]' : 'bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700'}`}
+                >
+                   <Scale className="w-4 h-4" /> Positivo / Negativo
+                </button>
             </div>
 
             {/* Content Areas */}
@@ -180,6 +188,13 @@ const App: React.FC = () => {
             {activeTab === 'transits' && birthData && (
                 <div className="animate-fade-in">
                    <ImportantTransits birthData={birthData} />
+                </div>
+            )}
+
+            {/* Positive/Negative View */}
+            {activeTab === 'positive-negative' && chartData && (
+                <div className="animate-fade-in">
+                   <PositiveNegativeReport analysis={analyzePositiveNegative(chartData)} />
                 </div>
             )}
             
