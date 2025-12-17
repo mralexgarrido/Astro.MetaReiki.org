@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BirthData, ChartData, ZODIAC_SIGNS } from './types';
 import { calculateChart } from './services/astronomyService';
 import { BirthForm } from './components/BirthForm';
@@ -13,13 +13,14 @@ import { BigThreeReport } from './components/BigThreeReport';
 import ImportantTransits from './components/ImportantTransits';
 import { PositiveNegativeReport } from './components/PositiveNegativeReport';
 import { analyzePositiveNegative } from './services/scoring';
-import { Sparkles, Printer, FileText, CalendarClock, Lock, HeartPulse, Hourglass, Scale } from 'lucide-react';
+import { Sparkles, Printer, FileText, CalendarClock, Lock, HeartPulse, Hourglass, Scale, FileStack } from 'lucide-react';
 
 const App: React.FC = () => {
   const [chartData, setChartData] = useState<ChartData | null>(null);
   const [birthData, setBirthData] = useState<BirthData | null>(null);
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<'natal' | 'profection' | 'lots' | 'reiki' | 'transits' | 'positive-negative'>('natal');
+  const [isPrintingFullReport, setIsPrintingFullReport] = useState(false);
 
   const handleBirthDataSubmit = (data: BirthData) => {
     setLoading(true);
@@ -44,6 +45,27 @@ const App: React.FC = () => {
   const handlePrint = () => {
     window.print();
   };
+
+  const handlePrintFullReport = () => {
+    setIsPrintingFullReport(true);
+    // Wait for the state to update and render the full report before printing
+    // We use a small timeout to allow React to repaint
+    setTimeout(() => {
+        window.print();
+        // We can't automatically unset isPrintingFullReport because window.print() is blocking in many browsers,
+        // but not all. The 'afterprint' event is cleaner.
+    }, 100);
+  };
+
+  useEffect(() => {
+    const afterPrint = () => {
+      setIsPrintingFullReport(false);
+    };
+    window.addEventListener('afterprint', afterPrint);
+    return () => {
+      window.removeEventListener('afterprint', afterPrint);
+    };
+  }, []);
 
   return (
     // 'print:bg-white print:text-black' overrides global body dark mode styles
@@ -140,8 +162,8 @@ const App: React.FC = () => {
             {/* Content Areas */}
             
             {/* Natal Chart View */}
-            {(activeTab === 'natal' || loading) && ( // keep visible during loading if needed, but loading state handles that
-               <div className={`space-y-6 ${activeTab !== 'natal' ? 'hidden print:block' : ''}`}>
+            {(activeTab === 'natal' || isPrintingFullReport || loading) && (
+               <div className={`space-y-6 ${activeTab !== 'natal' && !isPrintingFullReport ? 'hidden' : ''}`}>
                    {/* Top: Big Three Report */}
                    <BigThreeReport data={chartData} />
 
@@ -163,55 +185,71 @@ const App: React.FC = () => {
             )}
 
             {/* Profection View */}
-            {activeTab === 'profection' && (
-                <div className="space-y-6 animate-fade-in">
+            {(activeTab === 'profection' || isPrintingFullReport) && (
+                <div className={`space-y-6 animate-fade-in ${isPrintingFullReport ? 'print:break-before-page' : ''}`}>
+                    {isPrintingFullReport && <h2 className="hidden print:block text-2xl font-bold text-black border-b border-black pb-2 mb-4">Profecciones Anuales</h2>}
                     <ProfectionDisplay data={chartData.profection} />
                     <ProfectionTimeline data={chartData} />
                 </div>
             )}
 
             {/* Hermetic Lots View */}
-            {activeTab === 'lots' && (
-                <div className="animate-fade-in">
+            {(activeTab === 'lots' || isPrintingFullReport) && (
+                <div className={`animate-fade-in ${isPrintingFullReport ? 'print:break-before-page' : ''}`}>
+                    {isPrintingFullReport && <h2 className="hidden print:block text-2xl font-bold text-black border-b border-black pb-2 mb-4">Partes Herméticas</h2>}
                     <HermeticLotsReport lots={chartData.hermeticLots} zodiacSigns={ZODIAC_SIGNS} />
                 </div>
             )}
 
             {/* Reiki Report View */}
-            {activeTab === 'reiki' && (
-                <div className="animate-fade-in">
+            {(activeTab === 'reiki' || isPrintingFullReport) && (
+                <div className={`animate-fade-in ${isPrintingFullReport ? 'print:break-before-page' : ''}`}>
+                   {isPrintingFullReport && <h2 className="hidden print:block text-2xl font-bold text-black border-b border-black pb-2 mb-4">Reiki y Salud</h2>}
                    <ReikiReport data={chartData} />
                 </div>
             )}
 
             {/* Important Transits View */}
-            {activeTab === 'transits' && birthData && (
-                <div className="animate-fade-in">
+            {(activeTab === 'transits' || isPrintingFullReport) && birthData && (
+                <div className={`animate-fade-in ${isPrintingFullReport ? 'print:break-before-page' : ''}`}>
+                   {isPrintingFullReport && <h2 className="hidden print:block text-2xl font-bold text-black border-b border-black pb-2 mb-4">Tránsitos Importantes</h2>}
                    <ImportantTransits birthData={birthData} />
                 </div>
             )}
 
             {/* Positive/Negative View */}
-            {activeTab === 'positive-negative' && chartData && (
-                <div className="animate-fade-in">
+            {(activeTab === 'positive-negative' || isPrintingFullReport) && chartData && (
+                <div className={`animate-fade-in ${isPrintingFullReport ? 'print:break-before-page' : ''}`}>
+                   {isPrintingFullReport && <h2 className="hidden print:block text-2xl font-bold text-black border-b border-black pb-2 mb-4">Análisis Positivo / Negativo</h2>}
                    <PositiveNegativeReport analysis={analyzePositiveNegative(chartData)} />
                 </div>
             )}
             
             {/* Footer Buttons */}
-            <div className="flex flex-col sm:flex-row justify-center gap-4 pt-8 border-t border-slate-800 print:hidden pb-12 mt-8">
-                <button 
-                  onClick={handlePrint}
-                  className="px-8 py-3 bg-reiki-card border border-reiki-cyan/30 text-reiki-cyan rounded-xl hover:bg-reiki-cyan/10 hover:border-reiki-cyan transition-all uppercase tracking-widest text-sm font-bold flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,242,255,0.1)] hover:shadow-[0_0_20px_rgba(0,242,255,0.2)]"
-                >
-                  <Printer className="w-4 h-4" /> Imprimir Vista Actual (PDF)
-                </button>
+            <div className="flex flex-col items-center gap-4 pt-8 border-t border-slate-800 print:hidden pb-12 mt-8">
+                {/* Main Action Buttons */}
+                <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
+                    <button
+                    onClick={handlePrint}
+                    className="px-8 py-3 bg-reiki-card border border-reiki-cyan/30 text-reiki-cyan rounded-xl hover:bg-reiki-cyan/10 hover:border-reiki-cyan transition-all uppercase tracking-widest text-sm font-bold flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,242,255,0.1)] hover:shadow-[0_0_20px_rgba(0,242,255,0.2)]"
+                    >
+                    <Printer className="w-4 h-4" /> Imprimir Vista Actual
+                    </button>
 
+                    <button
+                    onClick={() => setChartData(null)}
+                    className="px-8 py-3 border border-slate-700 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors uppercase tracking-widest text-sm font-medium"
+                    >
+                    Nueva Carta
+                    </button>
+                </div>
+
+                {/* Secondary Action: Full Report Print */}
                 <button 
-                  onClick={() => setChartData(null)}
-                  className="px-8 py-3 border border-slate-700 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors uppercase tracking-widest text-sm font-medium"
+                  onClick={handlePrintFullReport}
+                  className="mt-2 px-4 py-2 text-slate-500 hover:text-slate-300 transition-all uppercase tracking-widest text-xs font-medium flex items-center justify-center gap-2 opacity-70 hover:opacity-100"
                 >
-                  Nueva Carta
+                  <FileStack className="w-3 h-3" /> Imprimir Reporte Completo (Lento)
                 </button>
             </div>
 
