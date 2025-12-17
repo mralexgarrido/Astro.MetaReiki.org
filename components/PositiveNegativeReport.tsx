@@ -9,11 +9,19 @@ const PlanetCard: React.FC<{
   title: string;
   planet: ScoredPlanet;
   isPositive: boolean;
-}> = ({ title, planet, isPositive }) => {
-  const borderColor = isPositive ? 'border-green-500' : 'border-red-500';
-  const bgColor = isPositive ? 'bg-green-50' : 'bg-red-50';
-  const headerColor = isPositive ? 'text-green-800' : 'text-red-800';
-  const scoreColor = isPositive ? 'text-green-600' : 'text-red-600';
+  isSecondary?: boolean;
+}> = ({ title, planet, isPositive, isSecondary }) => {
+  let borderColor = isPositive ? 'border-green-500' : 'border-red-500';
+  let bgColor = isPositive ? 'bg-green-50' : 'bg-red-50';
+  let headerColor = isPositive ? 'text-green-800' : 'text-red-800';
+  let scoreColor = isPositive ? 'text-green-600' : 'text-red-600';
+
+  if (isSecondary) {
+    borderColor = 'border-gray-300';
+    bgColor = 'bg-gray-50';
+    headerColor = 'text-gray-700';
+    scoreColor = 'text-gray-600';
+  }
 
   const positiveDetails = planet.details.filter(d => d.type === 'Positive');
   const negativeDetails = planet.details.filter(d => d.type === 'Negative');
@@ -123,15 +131,39 @@ export const PositiveNegativeReport: React.FC<Props> = ({ analysis }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <PlanetCard
-          title="Planeta Más Positivo"
+          title='"Planeta Más Positivo"'
           planet={analysis.mostPositive}
           isPositive={true}
         />
         <PlanetCard
-          title="Planeta Más Negativo"
+          title='"Planeta Más Negativo"'
           planet={analysis.mostNegative}
           isPositive={false}
         />
+      </div>
+
+      <div className="border-t border-gray-300 my-8 pt-6">
+        <div className="mb-4">
+             <h3 className="text-lg font-bold text-gray-700 mb-2">Planetas Secundarios / Condición de Secta Inversa</h3>
+             <p className="text-sm text-gray-600 italic">
+                 Estos planetas tienen un rol diferente debido a su relación con la secta del mapa.
+                 El <strong>Benéfico Contrario</strong> suele tener menos poder para actuar, mientras que el <strong>Maléfico de la Secta</strong> suele ser más constructivo y disciplinado.
+             </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <PlanetCard
+            title="Benéfico Contrario a la Secta"
+            planet={analysis.otherBenefic}
+            isPositive={true}
+            isSecondary={true}
+            />
+            <PlanetCard
+            title="Maléfico de la Secta"
+            planet={analysis.otherMalefic}
+            isPositive={false}
+            isSecondary={true}
+            />
+        </div>
       </div>
 
       <div className="bg-gray-50 p-4 rounded border text-sm text-gray-600 mt-8">
