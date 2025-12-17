@@ -70,6 +70,9 @@ import profection12 from './interpretations/data/profections/profection_house_12
 // Import Definitions
 import definitions from './interpretations/data/definitions.json';
 
+// Import Blog Links
+import blogLinks from './interpretations/data/blog_links.json';
+
 // --- DEFINITIONS EXPORTS ---
 // Cast to any to avoid strict index signature mismatches with JSON
 const defs = definitions as any;
@@ -139,6 +142,8 @@ const POINT_DATA: Record<string, any> = {
     'Ascendente': ascendente,
     'Medio Cielo': medio_cielo
 };
+
+const BLOG_LINKS: Record<string, any> = blogLinks;
 
 const RULER_INTERPRETATIONS: Record<number, any> = {
     1: ruler1,
@@ -256,6 +261,16 @@ export const generateReturnInterpretation = (
         return text;
     }
     return "Descripción detallada próximamente.";
+};
+
+export const getBlogLink = (
+    planetName: string,
+    signName: string
+): string | undefined => {
+    if (BLOG_LINKS[planetName]) {
+        return BLOG_LINKS[planetName][signName];
+    }
+    return undefined;
 };
 
 export const generateAscendantTransitInterpretation = (

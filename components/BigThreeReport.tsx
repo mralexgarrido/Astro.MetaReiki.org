@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChartData, PlanetId, ZODIAC_SIGNS } from '../types';
-import { generateInterpretation } from '../services/interpretations';
-import { Sun, Moon, ArrowUpCircle } from 'lucide-react';
+import { generateInterpretation, getBlogLink } from '../services/interpretations';
+import { Sun, Moon, ArrowUpCircle, ExternalLink } from 'lucide-react';
 
 interface Props {
   data: ChartData;
@@ -26,6 +26,7 @@ export const BigThreeReport: React.FC<Props> = ({ data }) => {
       sign: ascSign.name,
       house: 1, // Ascendant is always 1st house cusp, but text is general
       text: generateInterpretation(PlanetId.Ascendant, ascSign.name, 1, '', 0),
+      link: getBlogLink(PlanetId.Ascendant, ascSign.name),
       color: 'text-reiki-cyan',
       bg: 'bg-reiki-cyan/10',
       border: 'border-reiki-cyan/30'
@@ -37,6 +38,7 @@ export const BigThreeReport: React.FC<Props> = ({ data }) => {
       sign: sunSign.name,
       house: sun.house,
       text: generateInterpretation(PlanetId.Sun, sunSign.name, sun.house, '', 0),
+      link: getBlogLink(PlanetId.Sun, sunSign.name),
       color: 'text-amber-400',
       bg: 'bg-amber-400/10',
       border: 'border-amber-400/30'
@@ -48,6 +50,7 @@ export const BigThreeReport: React.FC<Props> = ({ data }) => {
       sign: moonSign.name,
       house: moon.house,
       text: generateInterpretation(PlanetId.Moon, moonSign.name, moon.house, '', 0),
+      link: getBlogLink(PlanetId.Moon, moonSign.name),
       color: 'text-slate-300',
       bg: 'bg-slate-300/10',
       border: 'border-slate-300/30'
@@ -87,6 +90,18 @@ export const BigThreeReport: React.FC<Props> = ({ data }) => {
               <div className="text-sm text-slate-300 leading-relaxed text-justify print:text-black">
                  {item.text}
               </div>
+
+              {item.link && (
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`mt-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest hover:opacity-80 transition-opacity ${item.color} print:hidden`}
+                >
+                  <span>Explorar Más</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              )}
            </div>
          ))}
        </div>

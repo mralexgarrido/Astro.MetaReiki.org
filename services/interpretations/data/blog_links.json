@@ -1,0 +1,130 @@
+{
+  "Sol": {
+    "Aries": "https://metareiki.org/p/sol-en-aries",
+    "Tauro": "https://metareiki.org/p/sol-en-tauro",
+    "Géminis": "https://metareiki.org/p/sol-en-geminis",
+    "Cáncer": "https://metareiki.org/p/sol-en-cancer",
+    "Leo": "https://metareiki.org/p/sol-en-leo",
+    "Virgo": "https://metareiki.org/p/sol-en-virgo",
+    "Libra": "https://metareiki.org/p/sol-en-libra",
+    "Escorpio": "https://metareiki.org/p/sol-en-escorpion",
+    "Sagitario": "https://metareiki.org/p/sol-en-sagitario",
+    "Capricornio": "https://metareiki.org/p/sol-en-capricornio",
+    "Acuario": "https://metareiki.org/p/sol-en-acuario",
+    "Piscis": "https://metareiki.org/p/sol-en-piscis"
+  },
+  "Luna": {
+    "Aries": "https://metareiki.org/p/luna-en-aries",
+    "Tauro": "https://metareiki.org/p/luna-en-tauro",
+    "Géminis": "https://metareiki.org/p/luna-en-geminis",
+    "Cáncer": "https://metareiki.org/p/luna-en-cancer",
+    "Leo": "https://metareiki.org/p/luna-en-leo",
+    "Virgo": "https://metareiki.org/p/luna-en-virgo",
+    "Libra": "https://metareiki.org/p/luna-en-libra",
+    "Escorpio": "https://metareiki.org/p/luna-en-escorpio",
+    "Sagitario": "https://metareiki.org/p/luna-en-sagitario",
+    "Capricornio": "https://metareiki.org/p/luna-en-capricornio",
+    "Acuario": "https://metareiki.org/p/luna-en-acuario",
+    "Piscis": "https://metareiki.org/p/luna-en-piscis"
+  },
+  "Venus": {
+    "Aries": "https://metareiki.org/p/venus-en-aries",
+    "Tauro": "https://metareiki.org/p/venus-en-tauro",
+    "Géminis": "https://metareiki.org/p/venus-en-geminis",
+    "Cáncer": "https://metareiki.org/p/venus-en-cancer",
+    "Leo": "https://metareiki.org/p/venus-en-leo",
+    "Virgo": "https://metareiki.org/p/venus-en-virgo",
+    "Libra": "https://metareiki.org/p/venus-en-libra",
+    "Escorpio": "https://metareiki.org/p/venus-en-escorpion",
+    "Sagitario": "https://metareiki.org/p/venus-en-sagitario",
+    "Capricornio": "https://metareiki.org/p/venus-en-capricornio",
+    "Acuario": "https://metareiki.org/p/venus-en-acuario",
+    "Piscis": "https://metareiki.org/p/venus-en-piscis"
+  },
+  "Júpiter": {
+    "Aries": "https://metareiki.org/p/jupiter-en-aries",
+    "Tauro": "https://metareiki.org/p/jupiter-en-tauro",
+    "Géminis": "https://metareiki.org/p/jupiter-en-geminis",
+    "Cáncer": "https://metareiki.org/p/jupiter-en-cancer",
+    "Leo": "https://metareiki.org/p/jupiter-en-leo",
+    "Virgo": "https://metareiki.org/p/jupiter-en-virgo",
+    "Libra": "https://metareiki.org/p/jupiter-en-libra",
+    "Escorpio": "https://metareiki.org/p/jupiter-en-escorpio",
+    "Sagitario": "https://metareiki.org/p/jupiter-en-sagitario",
+    "Capricornio": "https://metareiki.org/p/jupiter-en-capricornio",
+    "Acuario": "https://metareiki.org/p/jupiter-en-acuario",
+    "Piscis": "https://metareiki.org/p/jupiter-en-piscis"
+  },
+  "Saturno": {
+    "Aries": "https://metareiki.org/p/saturno-en-aries",
+    "Tauro": "https://metareiki.org/p/saturno-en-tauro",
+    "Géminis": "https://metareiki.org/p/saturno-en-geminis",
+    "Cáncer": "https://metareiki.org/p/saturno-en-cancer",
+    "Leo": "https://metareiki.org/p/saturno-en-leo",
+    "Virgo": "https://metareiki.org/p/saturno-en-virgo",
+    "Libra": "https://metareiki.org/p/saturno-en-libra",
+    "Escorpio": "https://metareiki.org/p/saturno-en-escorpio",
+    "Sagitario": "https://metareiki.org/p/saturno-en-sagitario",
+    "Capricornio": "https://metareiki.org/p/saturno-en-capricornio",
+    "Acuario": "https://metareiki.org/p/saturno-en-acuario",
+    "Piscis": "https://metareiki.org/p/saturno-en-piscis"
+  },
+  "Nodo Norte": {
+    "Aries": "https://metareiki.org/p/nodo-norte-en-aries",
+    "Tauro": "https://metareiki.org/p/nodo-norte-en-tauro",
+    "Géminis": "https://metareiki.org/p/nodo-norte-en-geminis",
+    "Cáncer": "https://metareiki.org/p/nodo-norte-en-cancer",
+    "Leo": "https://metareiki.org/p/nodo-norte-en-leo",
+    "Virgo": "https://metareiki.org/p/nodo-norte-en-virgo",
+    "Libra": "https://metareiki.org/p/nodo-norte-en-libra",
+    "Escorpio": "https://metareiki.org/p/nodo-norte-en-escorpio",
+    "Sagitario": "https://metareiki.org/p/nodo-norte-en-sagitario",
+    "Capricornio": "https://metareiki.org/p/nodo-norte-en-capricornio",
+    "Acuario": "https://metareiki.org/p/nodo-norte-en-acuario",
+    "Piscis": "https://metareiki.org/p/nodo-norte-en-piscis"
+  },
+  "Ascendente": {
+    "Aries": "https://metareiki.org/p/ascendente-aries-lecciones-y-consejos",
+    "Tauro": "https://metareiki.org/p/ascendente-tauro-lecciones-y-consejos",
+    "Géminis": "https://metareiki.org/p/ascendente-geminis-lecciones-y-consejos",
+    "Cáncer": "https://metareiki.org/p/ascendente-cancer-lecciones-y-consejos",
+    "Leo": "https://metareiki.org/p/leo-ascendente-lecciones-y-consejos",
+    "Virgo": "https://metareiki.org/p/virgo-ascendente-lecciones-y-consejos",
+    "Libra": "https://metareiki.org/p/ascendente-libra-lecciones-y-consejos",
+    "Escorpio": "https://metareiki.org/p/ascendente-escorpion-lecciones-y",
+    "Sagitario": "https://metareiki.org/p/sagitario-ascendente-lecciones-y",
+    "Capricornio": "https://metareiki.org/p/capricornio-ascendente-lecciones",
+    "Acuario": "https://metareiki.org/p/acuario-ascendente-lecciones-y-consejos",
+    "Piscis": "https://metareiki.org/p/piscis-ascendente-lecciones-y-consejos"
+  },
+  "Mercurio": {
+    "Aries": "https://metareiki.org", "Tauro": "https://metareiki.org", "Géminis": "https://metareiki.org", "Cáncer": "https://metareiki.org",
+    "Leo": "https://metareiki.org", "Virgo": "https://metareiki.org", "Libra": "https://metareiki.org", "Escorpio": "https://metareiki.org",
+    "Sagitario": "https://metareiki.org", "Capricornio": "https://metareiki.org", "Acuario": "https://metareiki.org", "Piscis": "https://metareiki.org"
+  },
+  "Marte": {
+    "Aries": "https://metareiki.org", "Tauro": "https://metareiki.org", "Géminis": "https://metareiki.org", "Cáncer": "https://metareiki.org",
+    "Leo": "https://metareiki.org", "Virgo": "https://metareiki.org", "Libra": "https://metareiki.org", "Escorpio": "https://metareiki.org",
+    "Sagitario": "https://metareiki.org", "Capricornio": "https://metareiki.org", "Acuario": "https://metareiki.org", "Piscis": "https://metareiki.org"
+  },
+  "Urano": {
+    "Aries": "https://metareiki.org", "Tauro": "https://metareiki.org", "Géminis": "https://metareiki.org", "Cáncer": "https://metareiki.org",
+    "Leo": "https://metareiki.org", "Virgo": "https://metareiki.org", "Libra": "https://metareiki.org", "Escorpio": "https://metareiki.org",
+    "Sagitario": "https://metareiki.org", "Capricornio": "https://metareiki.org", "Acuario": "https://metareiki.org", "Piscis": "https://metareiki.org"
+  },
+  "Neptuno": {
+    "Aries": "https://metareiki.org", "Tauro": "https://metareiki.org", "Géminis": "https://metareiki.org", "Cáncer": "https://metareiki.org",
+    "Leo": "https://metareiki.org", "Virgo": "https://metareiki.org", "Libra": "https://metareiki.org", "Escorpio": "https://metareiki.org",
+    "Sagitario": "https://metareiki.org", "Capricornio": "https://metareiki.org", "Acuario": "https://metareiki.org", "Piscis": "https://metareiki.org"
+  },
+  "Plutón": {
+    "Aries": "https://metareiki.org", "Tauro": "https://metareiki.org", "Géminis": "https://metareiki.org", "Cáncer": "https://metareiki.org",
+    "Leo": "https://metareiki.org", "Virgo": "https://metareiki.org", "Libra": "https://metareiki.org", "Escorpio": "https://metareiki.org",
+    "Sagitario": "https://metareiki.org", "Capricornio": "https://metareiki.org", "Acuario": "https://metareiki.org", "Piscis": "https://metareiki.org"
+  },
+  "Quirón": {
+    "Aries": "https://metareiki.org", "Tauro": "https://metareiki.org", "Géminis": "https://metareiki.org", "Cáncer": "https://metareiki.org",
+    "Leo": "https://metareiki.org", "Virgo": "https://metareiki.org", "Libra": "https://metareiki.org", "Escorpio": "https://metareiki.org",
+    "Sagitario": "https://metareiki.org", "Capricornio": "https://metareiki.org", "Acuario": "https://metareiki.org", "Piscis": "https://metareiki.org"
+  }
+}

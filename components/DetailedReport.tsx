@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChartData, ZODIAC_SIGNS } from '../types';
-import { HOUSE_DEFINITIONS, HOUSE_THEMES, SIGN_ADJECTIVES, PLANET_MEANINGS, getRulerInterpretation, generateInterpretation } from '../services/interpretations';
-import { BookOpen, Map as MapIcon, Crown } from 'lucide-react';
+import { HOUSE_DEFINITIONS, HOUSE_THEMES, SIGN_ADJECTIVES, PLANET_MEANINGS, getRulerInterpretation, generateInterpretation, getBlogLink } from '../services/interpretations';
+import { BookOpen, Map as MapIcon, Crown, ExternalLink } from 'lucide-react';
 
 interface Props {
   data: ChartData;
@@ -63,6 +63,17 @@ export const DetailedReport: React.FC<Props> = ({ data }) => {
                                   <p className="text-sm text-slate-300 print:text-black leading-relaxed">
                                       {generateInterpretation(planet.name, sign.name, house.houseNumber, '', 0)}
                                   </p>
+                                  {getBlogLink(planet.name, sign.name) && (
+                                    <a
+                                      href={getBlogLink(planet.name, sign.name)}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="mt-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-white transition-colors print:hidden"
+                                    >
+                                      <span>Explorar Más</span>
+                                      <ExternalLink className="w-3 h-3" />
+                                    </a>
+                                  )}
                               </div>
                           ))}
                       </div>
