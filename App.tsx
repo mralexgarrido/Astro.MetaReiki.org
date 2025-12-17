@@ -226,26 +226,30 @@ const App: React.FC = () => {
             )}
             
             {/* Footer Buttons */}
-            <div className="flex flex-col sm:flex-row justify-center gap-4 pt-8 border-t border-slate-800 print:hidden pb-12 mt-8">
-                <button
+            <div className="flex flex-col items-center gap-4 pt-8 border-t border-slate-800 print:hidden pb-12 mt-8">
+                {/* Main Action Buttons */}
+                <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
+                    <button
+                    onClick={handlePrint}
+                    className="px-8 py-3 bg-reiki-card border border-reiki-cyan/30 text-reiki-cyan rounded-xl hover:bg-reiki-cyan/10 hover:border-reiki-cyan transition-all uppercase tracking-widest text-sm font-bold flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,242,255,0.1)] hover:shadow-[0_0_20px_rgba(0,242,255,0.2)]"
+                    >
+                    <Printer className="w-4 h-4" /> Imprimir Vista Actual
+                    </button>
+
+                    <button
+                    onClick={() => setChartData(null)}
+                    className="px-8 py-3 border border-slate-700 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors uppercase tracking-widest text-sm font-medium"
+                    >
+                    Nueva Carta
+                    </button>
+                </div>
+
+                {/* Secondary Action: Full Report Print */}
+                <button 
                   onClick={handlePrintFullReport}
-                  className="px-8 py-3 bg-reiki-magenta border border-reiki-magenta/30 text-white rounded-xl hover:bg-reiki-magenta/80 hover:border-white transition-all uppercase tracking-widest text-sm font-bold flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(255,0,255,0.2)] hover:shadow-[0_0_20px_rgba(255,0,255,0.4)]"
+                  className="mt-2 px-4 py-2 text-slate-500 hover:text-slate-300 transition-all uppercase tracking-widest text-xs font-medium flex items-center justify-center gap-2 opacity-70 hover:opacity-100"
                 >
-                  <FileStack className="w-4 h-4" /> Imprimir Reporte Completo
-                </button>
-
-                <button 
-                  onClick={handlePrint}
-                  className="px-8 py-3 bg-reiki-card border border-reiki-cyan/30 text-reiki-cyan rounded-xl hover:bg-reiki-cyan/10 hover:border-reiki-cyan transition-all uppercase tracking-widest text-sm font-bold flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,242,255,0.1)] hover:shadow-[0_0_20px_rgba(0,242,255,0.2)]"
-                >
-                  <Printer className="w-4 h-4" /> Imprimir Vista Actual
-                </button>
-
-                <button 
-                  onClick={() => setChartData(null)}
-                  className="px-8 py-3 border border-slate-700 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors uppercase tracking-widest text-sm font-medium"
-                >
-                  Nueva Carta
+                  <FileStack className="w-3 h-3" /> Imprimir Reporte Completo (Lento)
                 </button>
             </div>
 
