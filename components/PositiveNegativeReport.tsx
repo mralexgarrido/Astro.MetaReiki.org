@@ -1,20 +1,24 @@
 import React from 'react';
 import { PositiveNegativeAnalysis, ScoredPlanet, ConditionDetail } from '../types';
+import { HOUSE_THEMES } from '../services/interpretations';
 
 interface Props {
   analysis: PositiveNegativeAnalysis;
 }
 
 const PlanetCard: React.FC<{
-  title: string;
+  title: React.ReactNode;
   planet: ScoredPlanet;
   isPositive: boolean;
   isSecondary?: boolean;
-}> = ({ title, planet, isPositive, isSecondary }) => {
-  let borderColor = isPositive ? 'border-green-500' : 'border-red-500';
-  let bgColor = isPositive ? 'bg-green-50' : 'bg-red-50';
-  let headerColor = isPositive ? 'text-green-800' : 'text-red-800';
-  let scoreColor = isPositive ? 'text-green-600' : 'text-red-600';
+  forceConstructiveStyle?: boolean;
+}> = ({ title, planet, isPositive, isSecondary, forceConstructiveStyle }) => {
+  const effectivePositive = isPositive || forceConstructiveStyle;
+
+  let borderColor = effectivePositive ? 'border-green-500' : 'border-red-500';
+  let bgColor = effectivePositive ? 'bg-green-50' : 'bg-red-50';
+  let headerColor = effectivePositive ? 'text-green-800' : 'text-red-800';
+  let scoreColor = effectivePositive ? 'text-green-600' : 'text-red-600';
 
   if (isSecondary) {
     borderColor = 'border-gray-300';
@@ -116,6 +120,14 @@ const PlanetCard: React.FC<{
 };
 
 export const PositiveNegativeReport: React.FC<Props> = ({ analysis }) => {
+  const isNegativeConstructive = analysis.mostNegative.status === 'Constructivo / Domesticado';
+
+  const negativeTitle = isNegativeConstructive ? (
+    <span>"PLANETA MÁS <span className="line-through decoration-2">NEGATIVO</span> CONSTRUCTIVO"</span>
+  ) : (
+    '"PLANETA MÁS NEGATIVO"'
+  );
+
   return (
     <div className="space-y-6">
       <div className="bg-blue-50 p-4 rounded-lg border border-blue-200 text-center">
@@ -131,15 +143,60 @@ export const PositiveNegativeReport: React.FC<Props> = ({ analysis }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <PlanetCard
-          title='"Planeta Más Positivo"'
+          title='"PLANETA MÁS POSITIVO"'
           planet={analysis.mostPositive}
           isPositive={true}
         />
         <PlanetCard
-          title='"Planeta Más Negativo"'
+          title={negativeTitle}
           planet={analysis.mostNegative}
           isPositive={false}
+          forceConstructiveStyle={isNegativeConstructive}
         />
+      </div>
+
+      {/* Life Areas Section */}
+      <div className="border-t border-gray-300 my-8 pt-6">
+         <div className="mb-4">
+            <h3 className="text-lg font-bold text-gray-700 mb-2">Áreas de Vida: Flujo vs Fricción</h3>
+            <p className="text-sm text-gray-600 italic">
+               Basado en la Casa donde se encuentran tus planetas principales.
+            </p>
+         </div>
+
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Greatest Flow */}
+            <div className="bg-green-50 border border-green-200 rounded-lg p-6 shadow-sm flex flex-col">
+               <h4 className="text-green-800 font-bold uppercase tracking-wide text-sm mb-2">Tu Área de Mayor Flujo</h4>
+               {analysis.mostPositive.house ? (
+                   <>
+                     <div className="text-3xl font-extrabold text-green-700 mb-2">Casa {analysis.mostPositive.house}</div>
+                     <div className="text-lg font-semibold text-gray-800 mb-3">{HOUSE_THEMES[analysis.mostPositive.house]}</div>
+                     <p className="text-sm text-gray-600">
+                        Esta es el área de la vida donde las cosas tienden a "salir bien". Representa flujo, suerte, estabilidad y recursos que aparecen cuando se necesitan, gracias a la influencia de {analysis.mostPositive.planetName}.
+                     </p>
+                   </>
+               ) : (
+                   <p className="text-sm text-gray-500">Información de casa no disponible.</p>
+               )}
+            </div>
+
+            {/* Greatest Friction */}
+            <div className="bg-red-50 border border-red-200 rounded-lg p-6 shadow-sm flex flex-col">
+               <h4 className="text-red-800 font-bold uppercase tracking-wide text-sm mb-2">Tu Área de Mayor Fricción</h4>
+               {analysis.mostNegative.house ? (
+                   <>
+                     <div className="text-3xl font-extrabold text-red-700 mb-2">Casa {analysis.mostNegative.house}</div>
+                     <div className="text-lg font-semibold text-gray-800 mb-3">{HOUSE_THEMES[analysis.mostNegative.house]}</div>
+                     <p className="text-sm text-gray-600">
+                        Esta es el área de la vida donde experimentarás la mayor fricción, retrasos, obstáculos o responsabilidad. Es donde debes "pagar tus deudas" y trabajar duro, debido a la influencia de {analysis.mostNegative.planetName}.
+                     </p>
+                   </>
+               ) : (
+                   <p className="text-sm text-gray-500">Información de casa no disponible.</p>
+               )}
+            </div>
+         </div>
       </div>
 
       <div className="border-t border-gray-300 my-8 pt-6">
