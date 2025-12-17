@@ -363,6 +363,7 @@ export const calculateConditionScore = (planet: PlanetPosition, chart: ChartData
     totalScore: score,
     conditionSummary: '',
     status: '',
+    house: planet.house,
     isAvertedToLight,
     details
   };

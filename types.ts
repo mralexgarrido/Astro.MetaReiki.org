@@ -133,6 +133,7 @@ export interface ScoredPlanet {
   totalScore: number;
   conditionSummary: string;
   status: string; // 'Potente', 'Impedido', 'Desconectado', 'Difícil', 'Constructivo', 'Moderado'
+  house?: number;
   isAvertedToLight: boolean;
   scoreDescription?: string;
   alternateSuggestion?: {
