@@ -120,3 +120,23 @@ export const ZODIAC_SIGNS: ZodiacSignDef[] = [
   { id: 10, name: 'Acuario', symbol: '♒', element: 'Aire', rulers: [{ name: 'Saturno', type: 'Tradicional' }, { name: 'Urano', type: 'Moderno' }] },
   { id: 11, name: 'Piscis', symbol: '♓', element: 'Agua', rulers: [{ name: 'Júpiter', type: 'Tradicional' }, { name: 'Neptuno', type: 'Moderno' }] },
 ];
+
+export interface ConditionDetail {
+  description: string;
+  score: number;
+  type: 'Positive' | 'Negative';
+}
+
+export interface ScoredPlanet {
+  planetId: PlanetId;
+  planetName: string;
+  totalScore: number;
+  conditionSummary: string;
+  details: ConditionDetail[];
+}
+
+export interface PositiveNegativeAnalysis {
+  sect: string; // 'Diurna' | 'Nocturna'
+  mostPositive: ScoredPlanet;
+  mostNegative: ScoredPlanet;
+}
