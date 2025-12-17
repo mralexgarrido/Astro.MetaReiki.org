@@ -130,6 +130,7 @@ export interface ConditionDetail {
 export interface ScoredPlanet {
   planetId: PlanetId;
   planetName: string;
+  baseScore: number;
   totalScore: number;
   conditionSummary: string;
   status: string; // 'Potente', 'Impedido', 'Desconectado', 'Difícil', 'Constructivo', 'Moderado'

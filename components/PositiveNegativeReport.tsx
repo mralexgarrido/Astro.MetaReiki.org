@@ -7,15 +7,18 @@ interface Props {
 }
 
 const PlanetCard: React.FC<{
-  title: string;
+  title: React.ReactNode;
   planet: ScoredPlanet;
   isPositive: boolean;
   isSecondary?: boolean;
-}> = ({ title, planet, isPositive, isSecondary }) => {
-  let borderColor = isPositive ? 'border-green-500' : 'border-red-500';
-  let bgColor = isPositive ? 'bg-green-50' : 'bg-red-50';
-  let headerColor = isPositive ? 'text-green-800' : 'text-red-800';
-  let scoreColor = isPositive ? 'text-green-600' : 'text-red-600';
+  forceConstructiveStyle?: boolean;
+}> = ({ title, planet, isPositive, isSecondary, forceConstructiveStyle }) => {
+  const effectivePositive = isPositive || forceConstructiveStyle;
+
+  let borderColor = effectivePositive ? 'border-green-500' : 'border-red-500';
+  let bgColor = effectivePositive ? 'bg-green-50' : 'bg-red-50';
+  let headerColor = effectivePositive ? 'text-green-800' : 'text-red-800';
+  let scoreColor = effectivePositive ? 'text-green-600' : 'text-red-600';
 
   if (isSecondary) {
     borderColor = 'border-gray-300';
@@ -117,6 +120,14 @@ const PlanetCard: React.FC<{
 };
 
 export const PositiveNegativeReport: React.FC<Props> = ({ analysis }) => {
+  const isNegativeConstructive = analysis.mostNegative.status === 'Constructivo / Domesticado';
+
+  const negativeTitle = isNegativeConstructive ? (
+    <span>"PLANETA MÁS <span className="line-through decoration-2">NEGATIVO</span> CONSTRUCTIVO"</span>
+  ) : (
+    '"PLANETA MÁS NEGATIVO"'
+  );
+
   return (
     <div className="space-y-6">
       <div className="bg-blue-50 p-4 rounded-lg border border-blue-200 text-center">
@@ -132,14 +143,15 @@ export const PositiveNegativeReport: React.FC<Props> = ({ analysis }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <PlanetCard
-          title='"Planeta Más Positivo"'
+          title='"PLANETA MÁS POSITIVO"'
           planet={analysis.mostPositive}
           isPositive={true}
         />
         <PlanetCard
-          title='"Planeta Más Negativo"'
+          title={negativeTitle}
           planet={analysis.mostNegative}
           isPositive={false}
+          forceConstructiveStyle={isNegativeConstructive}
         />
       </div>
 
