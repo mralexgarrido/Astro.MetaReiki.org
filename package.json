@@ -1,5 +1,6 @@
 {
   "name": "metareiki-astro-app",
+  "description": "Calculadora profesional de Astrología Helenística gratuita",
   "private": true,
   "version": "1.0.0",
   "type": "module",
