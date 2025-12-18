@@ -12,6 +12,7 @@ import { ReikiReport } from './components/ReikiReport';
 import { BigThreeReport } from './components/BigThreeReport';
 import ImportantTransits from './components/ImportantTransits';
 import { PositiveNegativeReport } from './components/PositiveNegativeReport';
+import { AboutSection } from './components/AboutSection';
 import { analyzePositiveNegative } from './services/scoring';
 import { Sparkles, Printer, FileText, CalendarClock, Lock, HeartPulse, Hourglass, Scale, FileStack } from 'lucide-react';
 
@@ -256,6 +257,9 @@ const App: React.FC = () => {
           </div>
         )}
       </main>
+
+      {/* SEO / About Section - Always visible at bottom, but hidden in print */}
+      <AboutSection />
     </div>
   );
 };
