@@ -135,6 +135,7 @@ export interface ScoredPlanet {
   conditionSummary: string;
   status: string; // 'Potente', 'Impedido', 'Desconectado', 'Difícil', 'Constructivo', 'Moderado'
   house?: number;
+  signName: string;
   isAvertedToLight: boolean;
   scoreDescription?: string;
   alternateSuggestion?: {
