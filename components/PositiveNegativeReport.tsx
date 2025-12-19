@@ -15,9 +15,8 @@ const PlanetCard: React.FC<{
 }> = ({ title, planet, isPositive, isSecondary, forceConstructiveStyle }) => {
   const effectivePositive = isPositive || forceConstructiveStyle;
 
-  // Check for Malefic Remedy (Mars or Saturn)
-  const isMalefic = planet.planetName === 'Marte' || planet.planetName === 'Saturno';
-  const harmonizationRemedy = isMalefic && planet.house ? getHarmonizationRemedy(planet.planetName, planet.house, planet.signName) : null;
+  // Check for Harmonization Remedy
+  const harmonizationRemedy = planet.house ? getHarmonizationRemedy(planet.planetName, planet.house, planet.signName) : null;
 
   let borderColor = effectivePositive ? 'border-green-500' : 'border-red-500';
   let bgColor = effectivePositive ? 'bg-green-50' : 'bg-red-50';

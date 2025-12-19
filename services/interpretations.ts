@@ -75,6 +75,7 @@ import blogLinks from './interpretations/data/blog_links.json';
 
 // Import Malefic Remedios
 import maleficoRemedios from './interpretations/data/malefico-remedios.json';
+import beneficoArmonizacion from './interpretations/data/benefico-armonizacion.json';
 
 // --- DEFINITIONS EXPORTS ---
 // Cast to any to avoid strict index signature mismatches with JSON
@@ -149,6 +150,7 @@ const POINT_DATA: Record<string, any> = {
 const BLOG_LINKS: Record<string, any> = blogLinks;
 
 const MALEFIC_REMEDIES: Record<string, any> = maleficoRemedios;
+const BENEFIC_HARMONIZATION: Record<string, any> = beneficoArmonizacion;
 
 const RULER_INTERPRETATIONS: Record<number, any> = {
     1: ruler1,
@@ -277,6 +279,13 @@ export const getHarmonizationRemedy = (
         const planetData = MALEFIC_REMEDIES[planetName];
         if (planetData[house.toString()]) {
              return planetData[house.toString()][signName] || "Remedio no disponible.";
+        }
+    }
+
+    if (BENEFIC_HARMONIZATION[planetName]) {
+        const planetData = BENEFIC_HARMONIZATION[planetName];
+        if (planetData[house.toString()]) {
+             return planetData[house.toString()][signName] || "Armonización no disponible.";
         }
     }
     return "";
