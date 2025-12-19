@@ -364,6 +364,7 @@ export const calculateConditionScore = (planet: PlanetPosition, chart: ChartData
     conditionSummary: '',
     status: '',
     house: planet.house,
+    signName: ZODIAC_SIGNS[planet.signId].name,
     isAvertedToLight,
     details
   };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { PositiveNegativeAnalysis, ScoredPlanet, ConditionDetail } from '../types';
-import { HOUSE_THEMES } from '../services/interpretations';
+import { HOUSE_THEMES, getHarmonizationRemedy } from '../services/interpretations';
 
 interface Props {
   analysis: PositiveNegativeAnalysis;
@@ -14,6 +14,9 @@ const PlanetCard: React.FC<{
   forceConstructiveStyle?: boolean;
 }> = ({ title, planet, isPositive, isSecondary, forceConstructiveStyle }) => {
   const effectivePositive = isPositive || forceConstructiveStyle;
+
+  // Check for Harmonization Remedy
+  const harmonizationRemedy = planet.house ? getHarmonizationRemedy(planet.planetName, planet.house, planet.signName) : null;
 
   let borderColor = effectivePositive ? 'border-green-500' : 'border-red-500';
   let bgColor = effectivePositive ? 'bg-green-50' : 'bg-red-50';
@@ -111,6 +114,21 @@ const PlanetCard: React.FC<{
             <p className="text-sm text-gray-500 italic">No se encontraron condiciones especiales.</p>
         )}
       </div>
+
+      {harmonizationRemedy && (
+          <div className={`mt-6 p-4 rounded-lg border text-sm ${
+              effectivePositive
+              ? 'bg-green-50 border-green-200 text-green-800'
+              : 'bg-stone-50 border-stone-200 text-stone-800'
+          }`}>
+              <h4 className={`font-bold uppercase text-xs mb-2 ${
+                  effectivePositive ? 'text-green-700' : 'text-stone-600'
+              }`}>
+                  Armonización
+              </h4>
+              <p>{harmonizationRemedy}</p>
+          </div>
+      )}
 
       <div className="mt-4 pt-3 border-t border-gray-200 text-xs text-gray-500 text-center">
         Puntuación Base: {planet.baseScore}
