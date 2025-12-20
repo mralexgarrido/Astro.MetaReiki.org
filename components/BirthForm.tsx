@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { BirthData } from '../types';
-import { Calendar, Clock, Loader2, User, Save, History, Trash2, CheckCircle } from 'lucide-react';
+import { Calendar, Clock, Loader2, User, Save, History, Trash2, CheckCircle, Download, Upload } from 'lucide-react';
 import { CitySearch } from './CitySearch';
-import { saveProfile, getProfiles, deleteProfile, StoredProfile } from '../services/storageService';
+import { saveProfile, getProfiles, deleteProfile, importProfile, StoredProfile } from '../services/storageService';
 
 interface Props {
   onSubmit: (data: BirthData) => void;
@@ -22,6 +22,7 @@ export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
   const [profiles, setProfiles] = useState<StoredProfile[]>([]);
   const [selectedProfileId, setSelectedProfileId] = useState<string>('');
   const [statusMsg, setStatusMsg] = useState<{type: 'success' | 'error', text: string} | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     loadProfiles();
@@ -34,6 +35,66 @@ export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
     } catch (error) {
       console.error("Failed to load profiles", error);
     }
+  };
+
+  const handleExportProfiles = async () => {
+    try {
+      const allProfiles = await getProfiles();
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allProfiles));
+      const downloadAnchorNode = document.createElement('a');
+      downloadAnchorNode.setAttribute("href", dataStr);
+      downloadAnchorNode.setAttribute("download", "metareiki_profiles.json");
+      document.body.appendChild(downloadAnchorNode); // required for firefox
+      downloadAnchorNode.click();
+      downloadAnchorNode.remove();
+    } catch (err) {
+      console.error("Export failed", err);
+      setStatusMsg({ type: 'error', text: "Error al exportar perfiles." });
+    }
+  };
+
+  const handleImportClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      try {
+        const text = e.target?.result;
+        if (typeof text !== 'string') return;
+
+        const importedProfiles = JSON.parse(text) as StoredProfile[];
+        if (!Array.isArray(importedProfiles)) throw new Error("Invalid format");
+
+        const currentProfiles = await getProfiles();
+        const existingIds = new Set(currentProfiles.map(p => p.id));
+        let count = 0;
+
+        for (const p of importedProfiles) {
+          if (!p.id || !p.name) continue; // Basic validation
+          if (!existingIds.has(p.id)) {
+             await importProfile(p);
+             count++;
+          }
+        }
+
+        await loadProfiles();
+        setStatusMsg({ type: 'success', text: `${count} perfiles importados.` });
+        setTimeout(() => setStatusMsg(null), 3000);
+      } catch (err) {
+        console.error("Import failed", err);
+        setStatusMsg({ type: 'error', text: "Archivo inválido." });
+        setTimeout(() => setStatusMsg(null), 3000);
+      }
+
+      // Reset input
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    };
+    reader.readAsText(file);
   };
 
   const handleProfileSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -257,6 +318,33 @@ export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
               <Trash2 className="w-4 h-4" /> Eliminar Perfil
             </button>
           )}
+
+          {/* Hidden Export/Import Actions */}
+          <div className="flex justify-center gap-4 pt-2">
+            <button
+               type="button"
+               onClick={handleExportProfiles}
+               className="text-xs text-slate-700 hover:text-slate-500 transition-colors flex items-center gap-1 opacity-40 hover:opacity-100"
+               title="Exportar perfiles a JSON"
+            >
+               <Download className="w-3 h-3" /> Exportar
+            </button>
+            <button
+               type="button"
+               onClick={handleImportClick}
+               className="text-xs text-slate-700 hover:text-slate-500 transition-colors flex items-center gap-1 opacity-40 hover:opacity-100"
+               title="Importar perfiles desde JSON"
+            >
+               <Upload className="w-3 h-3" /> Importar
+            </button>
+            <input
+              type="file"
+              ref={fileInputRef}
+              className="hidden"
+              accept=".json"
+              onChange={handleFileChange}
+            />
+          </div>
         </div>
 
         {/* Status Message */}
