@@ -766,7 +766,7 @@ export const calculateKeyReturns = async (birthData: BirthData): Promise<Transit
                   label = `${evt.tracker.name} conjunción Ascendente`;
                   signId = natalAscSign;
                   house = 1;
-                  description = generateAscendantTransitInterpretation(evt.tracker.id, signId);
+                  description = await generateAscendantTransitInterpretation(evt.tracker.id, signId);
               }
 
               events.push({

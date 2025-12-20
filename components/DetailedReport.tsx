@@ -1,7 +1,9 @@
 import React from 'react';
 import { ChartData, ZODIAC_SIGNS } from '../types';
-import { HOUSE_DEFINITIONS, HOUSE_THEMES, SIGN_ADJECTIVES, PLANET_MEANINGS, getRulerInterpretation, generateInterpretation, getBlogLink } from '../services/interpretations';
-import { BookOpen, Map as MapIcon, Crown, ExternalLink } from 'lucide-react';
+import { HOUSE_DEFINITIONS } from '../services/interpretations';
+import { BookOpen } from 'lucide-react';
+import { PlanetCard } from './PlanetCard';
+import { RulerCard } from './RulerCard';
 
 interface Props {
   data: ChartData;
@@ -9,7 +11,7 @@ interface Props {
 
 export const DetailedReport: React.FC<Props> = ({ data }) => {
   return (
-    <div className="bg-reiki-card/80 backdrop-blur border border-slate-800 rounded-xl p-8 mt-8 print:bg-white print:text-black print:border-none print:shadow-none">
+    <div className="bg-reiki-card/80 backdrop-blur border border-slate-800 rounded-xl p-8 mt-8 print:bg-white print:text-black print:border-none print:shadow-none break-before-page">
       <div className="flex items-center gap-3 mb-8 border-b border-slate-800 pb-4 print:border-black">
         <BookOpen className="w-6 h-6 text-reiki-cyan print:text-black" />
         <h2 className="text-2xl font-bold text-white uppercase tracking-widest print:text-black">Reporte Detallado de Casas</h2>
@@ -52,29 +54,12 @@ export const DetailedReport: React.FC<Props> = ({ data }) => {
                              <span className="w-1 h-1 bg-slate-500 rounded-full"></span> Planetas en esta casa
                           </h4>
                           {planetsInHouse.map(planet => (
-                              <div key={planet.id} className="bg-slate-800/60 p-4 rounded-lg border-l-4 border-reiki-cyan print:bg-gray-50 print:border-gray-200">
-                                  <div className="flex items-center gap-2 mb-2">
-                                      <span className="text-reiki-cyan font-serif text-lg print:text-black">{planet.symbol}</span>
-                                      <span className="font-bold text-white print:text-black">{planet.name} en {sign.name}</span>
-                                      {planet.dignity === 'Domicilio' && (
-                                        <Crown className="w-4 h-4 text-yellow-500 fill-yellow-500 ml-1" />
-                                      )}
-                                  </div>
-                                  <p className="text-sm text-slate-300 print:text-black leading-relaxed">
-                                      {generateInterpretation(planet.name, sign.name, house.houseNumber, '', 0)}
-                                  </p>
-                                  {getBlogLink(planet.name, sign.name) && (
-                                    <a
-                                      href={getBlogLink(planet.name, sign.name)}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="mt-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-white transition-colors print:hidden"
-                                    >
-                                      <span>Explorar Más</span>
-                                      <ExternalLink className="w-3 h-3" />
-                                    </a>
-                                  )}
-                              </div>
+                              <PlanetCard
+                                key={planet.id}
+                                planet={planet}
+                                signName={sign.name}
+                                houseNumber={house.houseNumber}
+                              />
                           ))}
                       </div>
                   ) : (
@@ -88,16 +73,11 @@ export const DetailedReport: React.FC<Props> = ({ data }) => {
                       </h4>
                       <div className="grid grid-cols-1 gap-3">
                           {house.rulers.map((r, idx) => (
-                              <div key={idx} className="bg-slate-800/60 p-4 rounded-lg border-l-4 border-reiki-magenta print:bg-gray-50 print:border-gray-200">
-                                  <div className="flex items-center gap-2 mb-2">
-                                      <MapIcon className="w-4 h-4 text-reiki-magenta" />
-                                      <span className="text-reiki-magenta font-bold print:text-black">{r.name} ({r.type})</span>
-                                      <span className="font-bold text-white print:text-black">está en la Casa {r.house}</span>
-                                  </div>
-                                  <p className="text-sm text-slate-300 print:text-black leading-relaxed">
-                                      {getRulerInterpretation(house.houseNumber, r.house)}
-                                  </p>
-                              </div>
+                              <RulerCard
+                                key={idx}
+                                ruler={r}
+                                houseNumber={house.houseNumber}
+                              />
                           ))}
                       </div>
                   </div>

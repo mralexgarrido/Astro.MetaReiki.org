@@ -23,6 +23,22 @@ const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'natal' | 'profection' | 'lots' | 'reiki' | 'transits' | 'positive-negative'>('natal');
   const [isPrintingFullReport, setIsPrintingFullReport] = useState(false);
 
+  // Memoize birthData changes to prevent transit re-calc if birthData is same object
+  // (In standard React, if setBirthData is called with same object ref, it might not re-render,
+  // but form submission creates new object.
+  // We can let useTransits handle the memoization dependency on birthData.)
+  // However, ImportantTransits unmounts when tab switches.
+  // To preserve state, we could lift state here, OR just hide/show content.
+  // Hiding/Showing is heavier on DOM but preserves state.
+  // Given we just optimized DOM size by splitting data loading, we can afford to keep components mounted?
+  // No, mounting everything is bad for mobile memory.
+  // Best approach: ImportantTransits uses useTransits which uses a Worker.
+  // If we unmount ImportantTransits, the worker terminates.
+  // Next mount -> new worker -> recalculation.
+  // This is actually fine because the worker is fast now and doesn't block UI.
+  // The user sees a spinner for 2-3 seconds.
+  // If we want instant switch back, we should wrap ImportantTransits in a hidden div.
+
   const handleBirthDataSubmit = (data: BirthData) => {
     setLoading(true);
     setChartData(null);
@@ -211,8 +227,12 @@ const App: React.FC = () => {
             )}
 
             {/* Important Transits View */}
-            {(activeTab === 'transits' || isPrintingFullReport) && birthData && (
-                <div className={`animate-fade-in ${isPrintingFullReport ? 'print:break-before-page' : ''}`}>
+            {/* Optimization: Keep mounted but hidden if activeTab is not transits, to preserve worker state/cache?
+                Actually, useTransits re-creates worker on mount.
+                So if we hide instead of unmount, we avoid re-calculation.
+            */}
+            {birthData && (
+                <div className={`animate-fade-in ${isPrintingFullReport ? 'print:break-before-page' : ''} ${activeTab !== 'transits' && !isPrintingFullReport ? 'hidden' : ''}`}>
                    {isPrintingFullReport && <h2 className="hidden print:block text-2xl font-bold text-black border-b border-black pb-2 mb-4">Tránsitos Importantes</h2>}
                    <ImportantTransits birthData={birthData} />
                 </div>
@@ -220,7 +240,7 @@ const App: React.FC = () => {
 
             {/* Positive/Negative View */}
             {(activeTab === 'positive-negative' || isPrintingFullReport) && chartData && (
-                <div className={`animate-fade-in ${isPrintingFullReport ? 'print:break-before-page' : ''}`}>
+                <div className={`animate-fade-in ${isPrintingFullReport ? 'print:break-before-page' : ''} ${activeTab !== 'positive-negative' && !isPrintingFullReport ? 'hidden' : ''}`}>
                    {isPrintingFullReport && <h2 className="hidden print:block text-2xl font-bold text-black border-b border-black pb-2 mb-4">Análisis Positivo / Negativo</h2>}
                    <PositiveNegativeReport analysis={analyzePositiveNegative(chartData)} />
                 </div>

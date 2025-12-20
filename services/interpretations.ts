@@ -1,81 +1,19 @@
-// Imports for Rulers
-import ruler1 from './interpretations/data/ruler_1.json';
-import ruler2 from './interpretations/data/ruler_2.json';
-import ruler3 from './interpretations/data/ruler_3.json';
-import ruler4 from './interpretations/data/ruler_4.json';
-import ruler5 from './interpretations/data/ruler_5.json';
-import ruler6 from './interpretations/data/ruler_6.json';
-import ruler7 from './interpretations/data/ruler_7.json';
-import ruler8 from './interpretations/data/ruler_8.json';
-import ruler9 from './interpretations/data/ruler_9.json';
-import ruler10 from './interpretations/data/ruler_10.json';
-import ruler11 from './interpretations/data/ruler_11.json';
-import ruler12 from './interpretations/data/ruler_12.json';
-
-// Imports for Planets
-import sol from './interpretations/data/sol.json';
-import luna from './interpretations/data/luna.json';
-import mercurio from './interpretations/data/mercurio.json';
-import venus from './interpretations/data/venus.json';
-import marte from './interpretations/data/marte.json';
-import jupiter from './interpretations/data/jupiter.json';
-import saturno from './interpretations/data/saturno.json';
-import urano from './interpretations/data/urano.json';
-import neptuno from './interpretations/data/neptuno.json';
-import pluton from './interpretations/data/pluton.json';
-import quiron from './interpretations/data/quiron.json';
-import nodo_norte from './interpretations/data/nodo_norte.json';
-import nodo_sur from './interpretations/data/nodo_sur.json';
-
-// Imports for Returns
-import return_saturn from './interpretations/data/returns/saturn.json';
-import return_jupiter from './interpretations/data/returns/jupiter.json';
-import return_uranus from './interpretations/data/returns/uranus.json';
-import return_nodes from './interpretations/data/returns/nodes.json';
-
-// Imports for Ascendant Transits
-import asc_jupiter from './interpretations/data/transits/ascendant/jupiter.json';
-import asc_saturn from './interpretations/data/transits/ascendant/saturn.json';
-import asc_uranus from './interpretations/data/transits/ascendant/uranus.json';
-import asc_neptune from './interpretations/data/transits/ascendant/neptune.json';
-import asc_pluto from './interpretations/data/transits/ascendant/pluto.json';
-
-// Imports for Lots
-import fortune from './interpretations/data/fortune.json';
-import spirit from './interpretations/data/spirit.json';
-import eros from './interpretations/data/eros.json';
-import necessity from './interpretations/data/necessity.json';
-import courage from './interpretations/data/courage.json';
-import victory from './interpretations/data/victory.json';
-import nemesis from './interpretations/data/nemesis.json';
-
-// Imports for Points
-import ascendente from './interpretations/data/ascendente.json';
-import medio_cielo from './interpretations/data/medio_cielo.json';
-
-// Imports for Profections
-import profection1 from './interpretations/data/profections/profection_house_1.json';
-import profection2 from './interpretations/data/profections/profection_house_2.json';
-import profection3 from './interpretations/data/profections/profection_house_3.json';
-import profection4 from './interpretations/data/profections/profection_house_4.json';
-import profection5 from './interpretations/data/profections/profection_house_5.json';
-import profection6 from './interpretations/data/profections/profection_house_6.json';
-import profection7 from './interpretations/data/profections/profection_house_7.json';
-import profection8 from './interpretations/data/profections/profection_house_8.json';
-import profection9 from './interpretations/data/profections/profection_house_9.json';
-import profection10 from './interpretations/data/profections/profection_house_10.json';
-import profection11 from './interpretations/data/profections/profection_house_11.json';
-import profection12 from './interpretations/data/profections/profection_house_12.json';
-
-// Import Definitions
+// Imports for Definitions (Keep synchronous as they are small and used in constants)
 import definitions from './interpretations/data/definitions.json';
 
-// Import Blog Links
-import blogLinks from './interpretations/data/blog_links.json';
-
-// Import Malefic Remedios
-import maleficoRemedios from './interpretations/data/malefico-remedios.json';
-import beneficoArmonizacion from './interpretations/data/benefico-armonizacion.json';
+// Import Loader functions
+import {
+    loadPlanetData,
+    loadPointData,
+    loadRulerData,
+    loadProfectionData,
+    loadLotData,
+    loadReturnData,
+    loadAscTransitData,
+    loadMaleficRemedies,
+    loadBeneficHarmonization,
+    loadBlogLinks
+} from './loader.ts';
 
 // --- DEFINITIONS EXPORTS ---
 // Cast to any to avoid strict index signature mismatches with JSON
@@ -86,154 +24,97 @@ export const HOUSE_DEFINITIONS = defs.HOUSE_DEFINITIONS as Record<number, string
 export const PLANET_MEANINGS = defs.PLANET_MEANINGS as Record<string, string>;
 export const SIGN_ADJECTIVES = defs.SIGN_ADJECTIVES as Record<string, string>;
 
+// --- ASYNC INTERPRETATION FUNCTIONS ---
 
-// --- DATA MAPPINGS ---
-// We use 'any' casting here because TypeScript's strict index signature checks
-// struggle with specific JSON structures being assigned to generic Records.
-// The structure is validated logically by the usage.
-
-const LOT_DATA: Record<string, any> = {
-    'fortune': fortune,
-    'spirit': spirit,
-    'eros': eros,
-    'necessity': necessity,
-    'courage': courage,
-    'victory': victory,
-    'nemesis': nemesis
-};
-
-const PLANET_DATA: Record<string, any> = {
-    'Sol': sol,
-    'Luna': luna,
-    'Mercurio': mercurio,
-    'Venus': venus,
-    'Marte': marte,
-    'Júpiter': jupiter,
-    'Saturno': saturno,
-    'Urano': urano,
-    'Neptuno': neptuno,
-    'Plutón': pluton,
-    'Quirón': quiron,
-    'Nodo Norte': nodo_norte,
-    'Nodo Sur': nodo_sur,
-};
-
-const RETURN_DATA: Record<string, any> = {
-    'Sol': null,
-    'Luna': null,
-    'Mercurio': null,
-    'Venus': null,
-    'Marte': null,
-    'Júpiter': return_jupiter,
-    'Saturno': return_saturn,
-    'Urano': return_uranus,
-    'Neptuno': null,
-    'Plutón': null,
-    'Quirón': null,
-    'Nodo Norte': return_nodes,
-    'Nodo Sur': null,
-};
-
-const ASC_TRANSIT_DATA: Record<string, any> = {
-    'Júpiter': asc_jupiter,
-    'Saturno': asc_saturn,
-    'Urano': asc_uranus,
-    'Neptuno': asc_neptune,
-    'Plutón': asc_pluto,
-};
-
-const POINT_DATA: Record<string, any> = {
-    'Ascendente': ascendente,
-    'Medio Cielo': medio_cielo
-};
-
-const BLOG_LINKS: Record<string, any> = blogLinks;
-
-const MALEFIC_REMEDIES: Record<string, any> = maleficoRemedios;
-const BENEFIC_HARMONIZATION: Record<string, any> = beneficoArmonizacion;
-
-const RULER_INTERPRETATIONS: Record<number, any> = {
-    1: ruler1,
-    2: ruler2,
-    3: ruler3,
-    4: ruler4,
-    5: ruler5,
-    6: ruler6,
-    7: ruler7,
-    8: ruler8,
-    9: ruler9,
-    10: ruler10,
-    11: ruler11,
-    12: ruler12
-};
-
-const PROFECTION_DATA: Record<number, any> = {
-    1: profection1,
-    2: profection2,
-    3: profection3,
-    4: profection4,
-    5: profection5,
-    6: profection6,
-    7: profection7,
-    8: profection8,
-    9: profection9,
-    10: profection10,
-    11: profection11,
-    12: profection12
-};
-
-
-// --- INTERPRETATION FUNCTIONS ---
-
-export const getRulerInterpretation = (sourceHouse: number, targetHouse: number): string => {
-    const sourceData = RULER_INTERPRETATIONS[sourceHouse];
+export const getRulerInterpretationAsync = async (sourceHouse: number, targetHouse: number): Promise<string> => {
+    const sourceData = await loadRulerData(sourceHouse);
     if (sourceData) {
         return sourceData[targetHouse.toString()] || "Interpretación no disponible.";
     }
     return "Interpretación no disponible.";
 };
 
-export const generateInterpretation = (
+// Deprecated: Synchronous access is removed. Components must use hooks or async.
+// Keeping a stub if needed for type compatibility during migration, but ideally we remove it.
+export const getRulerInterpretation = (sourceHouse: number, targetHouse: number): string => {
+    console.warn("getRulerInterpretation called synchronously. This function is deprecated. Use useRulerInterpretation hook.");
+    return "Cargando...";
+};
+
+export const generateInterpretationAsync = async (
     planet: string,
     sign: string,
-    house: number,
-    rulerName: string, // Kept for signature compatibility but unused
-    rulerHouse: number // Kept for signature compatibility but unused
-): string => {
-    // 1. Check if it's a Point (Ascendant/MC) - these files are keyed by Sign only
-    if (POINT_DATA[planet]) {
-        return POINT_DATA[planet][sign] || `Interpretación no disponible para ${planet} en ${sign}.`;
+    house: number
+): Promise<string> => {
+    // 1. Check if it's a Point (Ascendant/MC)
+    const pointData = await loadPointData(planet);
+    if (pointData) {
+        return pointData[sign] || `Interpretación no disponible para ${planet} en ${sign}.`;
     }
 
-    // 2. Check if it's a Planet - these files are keyed by Sign -> House
-    if (PLANET_DATA[planet]) {
-        const planetSignData = PLANET_DATA[planet][sign];
+    // 2. Check if it's a Planet
+    const planetData = await loadPlanetData(planet);
+    if (planetData) {
+        const planetSignData = planetData[sign];
         if (planetSignData) {
             return planetSignData[house.toString()] || `Interpretación no disponible para ${planet} en ${sign} casa ${house}.`;
         }
     }
 
-    // 3. Fallback
     return `Interpretación no disponible para ${planet} en ${sign} casa ${house}.`;
 };
 
+// Deprecated
+export const generateInterpretation = (
+    planet: string,
+    sign: string,
+    house: number,
+    rulerName: string,
+    rulerHouse: number
+): string => {
+    console.warn("generateInterpretation called synchronously. This function is deprecated. Use usePlanetInterpretation hook.");
+    return "Cargando...";
+};
+
+export const generateProfectionInterpretationAsync = async (
+    timeLord: string,
+    houseNumber: number,
+    signName: string,
+    isDayChart: boolean = true
+): Promise<string> => {
+    const houseData = await loadProfectionData(houseNumber);
+
+    if (!houseData) {
+        return `Interpretación de profección no disponible para la Casa ${houseNumber}.`;
+    }
+
+    const sectSuffix = isDayChart ? 'Day' : 'Night';
+    const key = `${signName}_${sectSuffix}`;
+
+    return houseData[key] || `Interpretación de profección no disponible para ${signName} (${sectSuffix}) en Casa ${houseNumber}.`;
+};
+
+// Deprecated
 export const generateProfectionInterpretation = (
     timeLord: string,
     houseNumber: number,
     signName: string,
     isDayChart: boolean = true
 ): string => {
-    const houseData = PROFECTION_DATA[houseNumber];
+    console.warn("generateProfectionInterpretation called synchronously. Use useProfectionInterpretation hook.");
+    return "Cargando...";
+};
 
-    if (!houseData) {
-        return `Interpretación de profección no disponible para la Casa ${houseNumber}.`;
+export const generateLotInterpretationAsync = async (
+    lotKey: string,
+    signName: string,
+    houseNumber: number
+): Promise<string> => {
+    const lotData = await loadLotData(lotKey);
+    if (lotData && lotData[signName]) {
+        return lotData[signName][houseNumber.toString()] || "";
     }
-
-    // Keys in JSON are like "Aries_Day", "Aries_Night"
-    const sectSuffix = isDayChart ? 'Day' : 'Night';
-    const key = `${signName}_${sectSuffix}`;
-
-    return houseData[key] || `Interpretación de profección no disponible para ${signName} (${sectSuffix}) en Casa ${houseNumber}.`;
+    return "";
 };
 
 export const generateLotInterpretation = (
@@ -241,49 +122,43 @@ export const generateLotInterpretation = (
     signName: string,
     houseNumber: number
 ): string => {
-    const lotData = LOT_DATA[lotKey];
-    if (lotData && lotData[signName]) {
-        return lotData[signName][houseNumber.toString()] || "";
-    }
+    console.warn("generateLotInterpretation called synchronously. Use useLotInterpretation hook.");
     return "";
 };
 
-export const generateReturnInterpretation = (
+export const generateReturnInterpretation = async (
     planetId: string,
     signId: number,
     house: number
-): string => {
-    // Map PlanetId (enum) to data keys if necessary, or just use Spanish names
-    // PlanetId enum values are Spanish names e.g. 'Saturno'
-
-    // signId to Name
+): Promise<string> => {
     const signs = ["Aries", "Tauro", "Géminis", "Cáncer", "Leo", "Virgo", "Libra", "Escorpio", "Sagitario", "Capricornio", "Acuario", "Piscis"];
     const signName = signs[signId];
 
-    const data = RETURN_DATA[planetId];
+    const data = await loadReturnData(planetId);
     if (data && data[signName]) {
         let text = data[signName][house.toString()] || "Descripción detallada próximamente.";
-        // Interpolate {sign} and {house}
         text = text.replace('{sign}', signName).replace('{house}', house.toString());
         return text;
     }
     return "Descripción detallada próximamente.";
 };
 
-export const getHarmonizationRemedy = (
+export const getHarmonizationRemedyAsync = async (
     planetName: string,
     house: number,
     signName: string
-): string => {
-    if (MALEFIC_REMEDIES[planetName]) {
-        const planetData = MALEFIC_REMEDIES[planetName];
+): Promise<string> => {
+    const malefics = await loadMaleficRemedies() as any;
+    if (malefics && malefics[planetName]) {
+        const planetData = malefics[planetName];
         if (planetData[house.toString()]) {
              return planetData[house.toString()][signName] || "Remedio no disponible.";
         }
     }
 
-    if (BENEFIC_HARMONIZATION[planetName]) {
-        const planetData = BENEFIC_HARMONIZATION[planetName];
+    const benefics = await loadBeneficHarmonization() as any;
+    if (benefics && benefics[planetName]) {
+        const planetData = benefics[planetName];
         if (planetData[house.toString()]) {
              return planetData[house.toString()][signName] || "Armonización no disponible.";
         }
@@ -291,26 +166,46 @@ export const getHarmonizationRemedy = (
     return "";
 };
 
-export const getBlogLink = (
+// Deprecated
+export const getHarmonizationRemedy = (
+    planetName: string,
+    house: number,
+    signName: string
+): string => {
+    console.warn("getHarmonizationRemedy called synchronously. Use Async version.");
+    return "Cargando...";
+};
+
+
+export const getBlogLinkAsync = async (
     planetName: string,
     signName: string
-): string | undefined => {
-    if (BLOG_LINKS[planetName]) {
-        return BLOG_LINKS[planetName][signName];
+): Promise<string | undefined> => {
+    const links = await loadBlogLinks() as any;
+    if (links && links[planetName]) {
+        return links[planetName][signName];
     }
     return undefined;
 };
 
-export const generateAscendantTransitInterpretation = (
+// Deprecated
+export const getBlogLink = (
+    planetName: string,
+    signName: string
+): string | undefined => {
+    console.warn("getBlogLink called synchronously.");
+    return undefined;
+};
+
+export const generateAscendantTransitInterpretation = async (
     planetId: string,
     signId: number
-): string => {
+): Promise<string> => {
     const signs = ["Aries", "Tauro", "Géminis", "Cáncer", "Leo", "Virgo", "Libra", "Escorpio", "Sagitario", "Capricornio", "Acuario", "Piscis"];
     const signName = signs[signId];
 
-    const data = ASC_TRANSIT_DATA[planetId];
+    const data = await loadAscTransitData(planetId);
     if (data && data[signName]) {
-        // We use "1" as the default house key for Ascendant transits
         let text = data[signName]["1"] || "Descripción detallada próximamente.";
         text = text.replace('{sign}', signName);
         return text;
