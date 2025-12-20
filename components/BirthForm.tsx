@@ -324,7 +324,7 @@ export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
             <button
                type="button"
                onClick={handleExportProfiles}
-               className="text-xs text-slate-700 hover:text-slate-500 transition-colors flex items-center gap-1 opacity-40 hover:opacity-100"
+               className="text-xs text-slate-400 hover:text-slate-200 font-medium transition-colors flex items-center gap-1 opacity-75 hover:opacity-100"
                title="Exportar perfiles a JSON"
             >
                <Download className="w-3 h-3" /> Exportar
@@ -332,7 +332,7 @@ export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
             <button
                type="button"
                onClick={handleImportClick}
-               className="text-xs text-slate-700 hover:text-slate-500 transition-colors flex items-center gap-1 opacity-40 hover:opacity-100"
+               className="text-xs text-slate-400 hover:text-slate-200 font-medium transition-colors flex items-center gap-1 opacity-75 hover:opacity-100"
                title="Importar perfiles desde JSON"
             >
                <Upload className="w-3 h-3" /> Importar
