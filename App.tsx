@@ -87,7 +87,7 @@ const App: React.FC = () => {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 relative z-10 max-w-7xl print:max-w-none print:px-0 print:py-0 mt-8 print:mt-0 print:block">
+      <main className="container mx-auto px-4 relative z-10 max-w-7xl print:max-w-none print:px-4 print:py-0 mt-8 print:mt-0 print:block">
         
         {!chartData && !loading && (
           <div className="flex flex-col items-center justify-center min-h-[60vh] animate-fade-in-up print:hidden">
@@ -106,13 +106,13 @@ const App: React.FC = () => {
         )}
 
         {chartData && !loading && (
-          <div className="animate-fade-in space-y-6 print:space-y-0 print:block">
+          <div className="animate-fade-in space-y-6 print:space-y-4 print:block">
             
             {/* Print Header */}
-            <div className="hidden print:block text-center mb-8 border-b-2 border-black pb-4 pt-4">
-                <h1 className="text-4xl font-bold text-black mb-2">METAREIKI.ORG</h1>
-                <h2 className="text-2xl font-serif text-gray-800">Reporte Astrológico de {chartData.name}</h2>
-                <p className="text-sm text-gray-600 mt-1">Generado el {new Date().toLocaleDateString()}</p>
+            <div className="hidden print:block text-center mb-4 border-b border-black pb-2 pt-2">
+                <h1 className="text-2xl font-bold text-black mb-1">METAREIKI.ORG</h1>
+                <h2 className="text-xl font-serif text-gray-800">Reporte Astrológico de {chartData.name}</h2>
+                <p className="text-xs text-gray-600 mt-1">Generado el {new Date().toLocaleDateString()}</p>
             </div>
 
             {/* Screen Header for Name */}
@@ -164,22 +164,22 @@ const App: React.FC = () => {
             
             {/* Natal Chart View */}
             {(activeTab === 'natal' || isPrintingFullReport || loading) && (
-               <div className={`space-y-6 ${activeTab !== 'natal' && !isPrintingFullReport ? 'hidden' : ''}`}>
+               <div className={`space-y-6 print:space-y-4 ${activeTab !== 'natal' && !isPrintingFullReport ? 'hidden' : ''}`}>
                    {/* Top: Big Three Report */}
                    <BigThreeReport data={chartData} />
 
                    {/* Middle: Summary Tables */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start print:block print:gap-0 print:space-y-8">
-                        <div className="print:border print:border-gray-300 print:rounded-none print:p-0 print:break-inside-avoid">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start print:block print:gap-0 print:space-y-4">
+                        <div className="print:break-inside-avoid print:mb-4">
                             <PlanetList data={chartData} />
                         </div>
-                        <div className="print:border print:border-gray-300 print:rounded-none print:p-0 print:break-inside-avoid">
+                        <div className="print:break-inside-avoid">
                             <HouseList data={chartData} />
                         </div>
                     </div>
 
                     {/* Bottom: Detailed Report */}
-                    <div className="print:mt-8">
+                    <div className="print:mt-4">
                         <DetailedReport data={chartData} />
                     </div>
                </div>
