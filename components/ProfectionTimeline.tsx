@@ -63,7 +63,7 @@ export const ProfectionTimeline: React.FC<Props> = ({ data }) => {
           Un mapa de tus ciclos de tiempo pasados y futuros. La Profección Anual resalta una casa específica cada año, activando sus temas y trayendo al frente a su regente como el "Señor del Tiempo".
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 print:grid-cols-1">
           {timelineItems.map((item) => {
               const isCurrent = item.age === currentAge;
 
