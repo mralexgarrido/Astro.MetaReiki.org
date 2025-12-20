@@ -62,7 +62,7 @@ export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
     }
 
     try {
-      await saveProfile({
+      const savedProfile = await saveProfile({
         name,
         date,
         time,
@@ -74,6 +74,7 @@ export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
         }
       });
       await loadProfiles();
+      setSelectedProfileId(savedProfile.id);
       setStatusMsg({ type: 'success', text: "Perfil guardado correctamente." });
       setTimeout(() => setStatusMsg(null), 3000);
     } catch (err) {
@@ -246,6 +247,16 @@ export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
           >
             <Save className="w-4 h-4" /> Guardar Perfil
           </button>
+
+          {selectedProfileId && (
+            <button
+              type="button"
+              onClick={handleDeleteProfile}
+              className="w-full flex items-center justify-center gap-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 font-medium py-3 rounded-xl border border-red-500/30 transition-all uppercase text-sm tracking-wider"
+            >
+              <Trash2 className="w-4 h-4" /> Eliminar Perfil
+            </button>
+          )}
         </div>
 
         {/* Status Message */}
