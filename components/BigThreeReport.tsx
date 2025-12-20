@@ -71,7 +71,7 @@ export const BigThreeReport: React.FC<Props> = ({ data }) => {
            <span className="text-lg font-bold text-black uppercase tracking-wider">Tus Tres Grandes</span>
        </div>
 
-       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 print:gap-3">
+       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 print:gap-3 print:grid-cols-1">
          {items.map((item) => (
            <div key={item.title} className={`relative overflow-hidden rounded-xl border ${item.border} bg-slate-900/40 backdrop-blur p-6 hover:bg-slate-900/60 transition-colors print:bg-white print:border-gray-300 print:text-black print:p-3 print:rounded-lg print:border-b`}>
               <div className="flex items-center justify-between mb-4 print:mb-2">

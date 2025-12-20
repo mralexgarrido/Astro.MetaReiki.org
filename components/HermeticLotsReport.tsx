@@ -17,7 +17,7 @@ export const HermeticLotsReport: React.FC<HermeticLotsReportProps> = ({ lots, zo
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 print:grid-cols-1">
         {lots.map((lot) => {
            const signName = zodiacSigns[lot.signId].name;
            const degree = Math.floor(lot.longitude % 30);
