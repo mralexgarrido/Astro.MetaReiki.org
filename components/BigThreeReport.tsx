@@ -90,7 +90,7 @@ export const BigThreeReport: React.FC<Props> = ({ data }) => {
             const blob = await toBlob(shareCardRef.current, {
                 cacheBust: true,
                 canvasWidth: 1080,
-                canvasHeight: 1080,
+                canvasHeight: 1920,
                 pixelRatio: 1
             });
 
