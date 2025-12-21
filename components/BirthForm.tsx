@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BirthData } from '../types';
-import { Calendar, Clock, Loader2, User, Save, History, Trash2, CheckCircle, Download, Upload } from 'lucide-react';
+import { Calendar, Clock, Loader2, User, Save, History, Trash2, CheckCircle, Download, Upload, Info } from 'lucide-react';
 import { CitySearch } from './CitySearch';
 import { saveProfile, getProfiles, deleteProfile, importProfile, StoredProfile } from '../services/storageService';
 
@@ -265,7 +265,17 @@ export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
 
         {/* Time */}
         <div className="relative">
-          <label className="block text-reiki-cyan text-xs uppercase tracking-widest font-bold mb-2">Hora de Nacimiento</label>
+          <label className="block text-reiki-cyan text-xs uppercase tracking-widest font-bold mb-2 flex items-center gap-2">
+            Hora de Nacimiento
+            <span className="text-[10px] italic text-orange-400 normal-case">(importante)</span>
+            <div className="relative group ml-1">
+              <Info className="w-3 h-3 text-slate-400 cursor-help hover:text-white transition-colors" />
+              <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-64 p-3 bg-slate-900 border border-slate-600 rounded-lg shadow-xl text-slate-200 text-xs normal-case tracking-normal z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pointer-events-none text-center">
+                La hora exacta determina tus Casas y áreas de vida. Una hora aproximada dará resultados incorrectos. Recomendamos consultar tu acta de nacimiento o familiares que pudiesen saber.
+                <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-slate-600"></div>
+              </div>
+            </div>
+          </label>
           <div className="flex items-center bg-slate-900/80 rounded-lg border border-slate-700 focus-within:border-reiki-cyan focus-within:shadow-[0_0_10px_rgba(0,242,255,0.2)] transition-all">
             <Clock className="w-5 h-5 text-reiki-magenta ml-3" />
             <input
