@@ -58,7 +58,7 @@ export const SocialShareCard = forwardRef<HTMLDivElement, SocialShareCardProps>(
         <div className="w-full text-center space-y-4 relative z-10 pt-20">
             <div className="flex items-center justify-center gap-3 opacity-80 mb-2">
                 <Sparkles className="w-6 h-6 text-reiki-cyan" />
-                <span className="text-xl uppercase tracking-[0.3em] font-light text-reiki-cyan/80">Carta de {userName}</span>
+                <span className="text-3xl uppercase tracking-[0.3em] font-light text-reiki-cyan/80">Carta de {userName}</span>
                 <Sparkles className="w-6 h-6 text-reiki-magenta" />
             </div>
 
@@ -74,7 +74,7 @@ export const SocialShareCard = forwardRef<HTMLDivElement, SocialShareCardProps>(
 
         {/* Main Content */}
         <div className="flex-grow flex flex-col justify-start pt-16 items-center w-full max-w-4xl relative z-10">
-            <h1 className="text-8xl font-serif font-bold text-white mb-2 drop-shadow-[0_0_25px_rgba(255,255,255,0.2)]">
+            <h1 className="text-7xl font-serif font-bold text-white mb-2 drop-shadow-[0_0_25px_rgba(255,255,255,0.2)]">
                 {signName}
             </h1>
 
@@ -87,7 +87,7 @@ export const SocialShareCard = forwardRef<HTMLDivElement, SocialShareCardProps>(
             <div className="relative px-8">
                  {/* Quote marks decorative */}
                  <span className="absolute -top-12 -left-4 text-9xl font-serif text-white/5 font-bold">“</span>
-                 <p className="text-4xl leading-relaxed text-slate-200 text-center font-light tracking-wide drop-shadow-md">
+                 <p className="text-4xl leading-snug text-slate-200 text-center font-light tracking-wide drop-shadow-md">
                     {text}
                  </p>
                  <span className="absolute -bottom-16 -right-4 text-9xl font-serif text-white/5 font-bold rotate-180">“</span>
