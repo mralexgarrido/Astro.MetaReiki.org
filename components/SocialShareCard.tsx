@@ -2,16 +2,17 @@ import React, { forwardRef } from 'react';
 import { Sun, Moon, ArrowUpCircle, Sparkles } from 'lucide-react';
 
 export interface SocialShareCardProps {
-  type: 'Sun' | 'Moon' | 'Ascendant';
+  type: string;
   signName: string;
   house?: number;
   text: string;
   userName: string;
   subtitle: string;
+  customSymbol?: string;
 }
 
 export const SocialShareCard = forwardRef<HTMLDivElement, SocialShareCardProps>(
-  ({ type, signName, house, text, userName, subtitle }, ref) => {
+  ({ type, signName, house, text, userName, subtitle, customSymbol }, ref) => {
 
     // Determine icon and colors based on type
     let Icon = Sun;
@@ -20,7 +21,13 @@ export const SocialShareCard = forwardRef<HTMLDivElement, SocialShareCardProps>(
     let gradientFrom = 'from-amber-500/20';
     let gradientTo = 'to-amber-900/10';
 
-    if (type === 'Moon') {
+    if (type === 'Sun') {
+      Icon = Sun;
+      title = 'SOL';
+      colorClass = 'text-amber-400';
+      gradientFrom = 'from-amber-500/20';
+      gradientTo = 'to-amber-900/10';
+    } else if (type === 'Moon') {
       Icon = Moon;
       title = 'LUNA';
       colorClass = 'text-slate-300';
@@ -32,6 +39,15 @@ export const SocialShareCard = forwardRef<HTMLDivElement, SocialShareCardProps>(
       colorClass = 'text-reiki-cyan';
       gradientFrom = 'from-cyan-500/20';
       gradientTo = 'to-cyan-900/10';
+    } else {
+      // Generic / Other Planets
+      // We don't set a specific Icon here as customSymbol will likely be used
+      // But we need a valid component for the JSX variable, so default to Sparkles or Sun
+      Icon = Sparkles;
+      title = type.toUpperCase();
+      colorClass = 'text-fuchsia-400';
+      gradientFrom = 'from-fuchsia-500/20';
+      gradientTo = 'to-fuchsia-900/10';
     }
 
     return (
@@ -63,7 +79,11 @@ export const SocialShareCard = forwardRef<HTMLDivElement, SocialShareCardProps>(
             </div>
 
             <div className={`inline-flex items-center justify-center p-5 rounded-full bg-slate-900/50 border border-white/10 backdrop-blur-md shadow-2xl ${colorClass}`}>
-                <Icon className="w-20 h-20" strokeWidth={1.5} />
+                {customSymbol ? (
+                    <span className="text-8xl font-serif leading-none flex items-center justify-center w-20 h-20 pt-2">{customSymbol}</span>
+                ) : (
+                    <Icon className="w-20 h-20" strokeWidth={1.5} />
+                )}
             </div>
 
             <div className="space-y-1">
