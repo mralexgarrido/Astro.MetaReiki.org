@@ -185,7 +185,7 @@ export const BigThreeReport: React.FC<Props> = ({ data }) => {
                  <button
                     onClick={() => handleShare(item)}
                     disabled={sharingCard !== null}
-                    className={`p-2 rounded-lg transition-all ${sharingCard === item.id ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'hover:bg-slate-800 text-slate-400 hover:text-white'}`}
+                    className={`flex items-center gap-2 p-2 px-3 rounded-lg transition-all ${sharingCard === item.id ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'hover:bg-slate-800 text-slate-400 hover:text-white'}`}
                     title="Compartir tarjeta"
                  >
                     {sharingCard === item.id ? (
@@ -193,6 +193,7 @@ export const BigThreeReport: React.FC<Props> = ({ data }) => {
                     ) : (
                         <Share2 className="w-5 h-5" />
                     )}
+                    <span className="text-xs font-bold uppercase tracking-wider">Compartir</span>
                  </button>
               </div>
            </div>
