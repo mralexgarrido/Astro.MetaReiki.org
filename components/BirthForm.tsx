@@ -330,15 +330,15 @@ export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
 
         {/* Action Buttons */}
         <div className="pt-2 flex flex-col gap-3 relative">
-          <div className="relative">
+          <button
+            type="submit"
+            disabled={isLoading || lat === null}
+            className={`w-full bg-gradient-to-r from-reiki-cyan to-blue-600 hover:from-white hover:to-reiki-cyan text-black font-bold py-4 rounded-xl shadow-lg transform transition hover:scale-[1.02] disabled:opacity-50 disabled:scale-100 tracking-widest uppercase text-lg relative z-10 overflow-visible ${isFormComplete ? 'animate-magical-glow' : ''}`}
+          >
             {isFormComplete && !isLoading && (
                <Sparkles />
             )}
-            <button
-              type="submit"
-              disabled={isLoading || lat === null}
-              className={`w-full bg-gradient-to-r from-reiki-cyan to-blue-600 hover:from-white hover:to-reiki-cyan text-black font-bold py-4 rounded-xl shadow-lg transform transition hover:scale-[1.02] disabled:opacity-50 disabled:scale-100 tracking-widest uppercase text-lg relative z-10 ${isFormComplete ? 'animate-magical-glow' : ''}`}
-            >
+            <span className="relative z-30 block">
               {isLoading ? (
                 <span className="flex items-center justify-center gap-2">
                   <Loader2 className="animate-spin" /> Calculando...
@@ -346,8 +346,8 @@ export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
               ) : (
                 'Revelar Carta'
               )}
-            </button>
-          </div>
+            </span>
+          </button>
           
           <button
             type="button"
