@@ -12,31 +12,39 @@ interface Props {
 const Sparkles = () => {
   return (
     <div className="absolute inset-0 pointer-events-none z-20 overflow-visible">
-      {[...Array(8)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute animate-twinkle-star"
-          style={{
-            top: `${Math.random() * 120 - 10}%`,
-            left: `${Math.random() * 120 - 10}%`,
-            animationDelay: `${Math.random() * 2}s`,
-            animationDuration: `${1.5 + Math.random()}s`
-          }}
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            className="text-reiki-magenta drop-shadow-[0_0_3px_rgba(255,255,255,0.8)]"
+      {[...Array(12)].map((_, i) => {
+        // Force stars to be on the left (0-25%) or right (75-100%)
+        const isLeft = Math.random() > 0.5;
+        const leftPos = isLeft
+           ? Math.random() * 25 - 5 // -5% to 20%
+           : Math.random() * 25 + 80; // 80% to 105%
+
+        return (
+          <div
+            key={i}
+            className="absolute animate-twinkle-star"
+            style={{
+              top: `${Math.random() * 140 - 20}%`, // -20% to 120% vertical range
+              left: `${leftPos}%`,
+              animationDelay: `${Math.random() * 2}s`,
+              animationDuration: `${1.5 + Math.random()}s`
+            }}
           >
-             <path
-               d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"
-               fill="currentColor"
-             />
-          </svg>
-        </div>
-      ))}
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              className="text-reiki-magenta drop-shadow-[0_0_3px_rgba(255,255,255,0.8)]"
+            >
+               <path
+                 d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"
+                 fill="currentColor"
+               />
+            </svg>
+          </div>
+        );
+      })}
     </div>
   );
 };
