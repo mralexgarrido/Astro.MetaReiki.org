@@ -9,6 +9,46 @@ interface Props {
   isLoading: boolean;
 }
 
+const Sparkles = () => {
+  return (
+    <div className="absolute inset-0 pointer-events-none z-20 overflow-visible">
+      {[...Array(12)].map((_, i) => {
+        // Force stars to be on the left (0-25%) or right (75-100%)
+        const isLeft = Math.random() > 0.5;
+        const leftPos = isLeft
+           ? Math.random() * 25 - 5 // -5% to 20%
+           : Math.random() * 25 + 80; // 80% to 105%
+
+        return (
+          <div
+            key={i}
+            className="absolute animate-twinkle-star"
+            style={{
+              top: `${Math.random() * 140 - 20}%`, // -20% to 120% vertical range
+              left: `${leftPos}%`,
+              animationDelay: `${Math.random() * 2}s`,
+              animationDuration: `${1.5 + Math.random()}s`
+            }}
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              className="text-reiki-magenta drop-shadow-[0_0_3px_rgba(255,255,255,0.8)]"
+            >
+               <path
+                 d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"
+                 fill="currentColor"
+               />
+            </svg>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
@@ -186,6 +226,8 @@ export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
       setTimezone(tz);
   };
 
+  const isFormComplete = name.trim() !== '' && date !== '' && time !== '' && lat !== null && lng !== null;
+
   return (
     <div className="w-full max-w-md mx-auto bg-reiki-card/90 backdrop-blur-md border border-reiki-cyan/20 p-8 rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.5)] animate-fade-in-up">
       <h2 className="text-3xl font-bold text-center text-white mb-6 font-sans tracking-wide">
@@ -295,19 +337,24 @@ export const BirthForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
         </div>
 
         {/* Action Buttons */}
-        <div className="pt-2 flex flex-col gap-3">
+        <div className="pt-2 flex flex-col gap-3 relative">
           <button
             type="submit"
             disabled={isLoading || lat === null}
-            className="w-full bg-gradient-to-r from-reiki-cyan to-blue-600 hover:from-white hover:to-reiki-cyan text-black font-bold py-4 rounded-xl shadow-lg transform transition hover:scale-[1.02] disabled:opacity-50 disabled:scale-100 tracking-widest uppercase text-lg"
+            className={`w-full bg-gradient-to-r from-reiki-cyan to-blue-600 hover:from-white hover:to-reiki-cyan text-black font-bold py-4 rounded-xl shadow-lg transform transition hover:scale-[1.02] disabled:opacity-50 disabled:scale-100 tracking-widest uppercase text-lg relative z-10 overflow-visible ${isFormComplete ? 'animate-magical-glow' : ''}`}
           >
-            {isLoading ? (
-              <span className="flex items-center justify-center gap-2">
-                <Loader2 className="animate-spin" /> Calculando...
-              </span>
-            ) : (
-              'Revelar Carta'
+            {isFormComplete && !isLoading && (
+               <Sparkles />
             )}
+            <span className="relative z-30 block">
+              {isLoading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <Loader2 className="animate-spin" /> Calculando...
+                </span>
+              ) : (
+                'Revelar Carta'
+              )}
+            </span>
           </button>
           
           <button
