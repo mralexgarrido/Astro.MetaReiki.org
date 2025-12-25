@@ -11,6 +11,12 @@ import { SignIndex } from './components/library/SignIndex';
 import { SignDetail } from './components/library/SignDetail';
 import { HouseIndex } from './components/library/HouseIndex';
 import { HouseDetail } from './components/library/HouseDetail';
+import { GuidesIndex } from './components/library/guides/GuidesIndex';
+import { NatalGuide } from './components/library/guides/NatalGuide';
+import { ProfectionGuide } from './components/library/guides/ProfectionGuide';
+import { LotsGuide } from './components/library/guides/LotsGuide';
+import { ReikiGuide } from './components/library/guides/ReikiGuide';
+import { TransitsGuide } from './components/library/guides/TransitsGuide';
 
 const App: React.FC = () => {
   return (
@@ -43,6 +49,14 @@ const App: React.FC = () => {
               {/* Casas */}
               <Route path="casas" element={<HouseIndex />} />
               <Route path="casas/:houseId" element={<HouseDetail />} />
+
+              {/* Guías */}
+              <Route path="guias" element={<GuidesIndex />} />
+              <Route path="guias/carta-natal" element={<NatalGuide />} />
+              <Route path="guias/profecciones" element={<ProfectionGuide />} />
+              <Route path="guias/partes-hermeticas" element={<LotsGuide />} />
+              <Route path="guias/reiki" element={<ReikiGuide />} />
+              <Route path="guias/transitos" element={<TransitsGuide />} />
 
               {/* Catch-all for sub-routes */}
               <Route path="*" element={<Navigate to="/biblioteca" replace />} />

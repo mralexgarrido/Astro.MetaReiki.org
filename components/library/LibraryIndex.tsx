@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { BookOpen, Map, Home, Star } from 'lucide-react';
+import { BookOpen, Map, Home, Star, Compass } from 'lucide-react';
 import { ZODIAC_SIGNS } from '../types';
 
 export const LibraryIndex: React.FC = () => {
@@ -77,6 +77,25 @@ export const LibraryIndex: React.FC = () => {
             </p>
             <span className="text-amber-500 font-medium text-sm uppercase tracking-wider group-hover:underline decoration-amber-500/50 underline-offset-4">
               Explorar Casas &rarr;
+            </span>
+          </div>
+        </Link>
+
+        {/* Guías */}
+        <Link to="/biblioteca/guias" className="group relative bg-slate-900/50 border border-slate-700 rounded-2xl p-8 hover:bg-slate-800/80 transition-all hover:border-white/50 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+          <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+            <Compass className="w-24 h-24" />
+          </div>
+          <div className="relative z-10">
+            <div className="w-12 h-12 bg-slate-700/50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-slate-600 transition-colors">
+               <Compass className="text-white w-6 h-6" />
+            </div>
+            <h2 className="text-2xl font-bold text-white mb-3 font-serif">Guías de Uso</h2>
+            <p className="text-slate-400 mb-6 line-clamp-3">
+              Aprende a interpretar tu Carta Natal, Profecciones, y más. Tutoriales paso a paso para sacar el máximo provecho al calculador.
+            </p>
+            <span className="text-white font-medium text-sm uppercase tracking-wider group-hover:underline decoration-white/50 underline-offset-4">
+              Ver Guías &rarr;
             </span>
           </div>
         </Link>

@@ -15,7 +15,8 @@ import { PositiveNegativeReport } from './PositiveNegativeReport';
 import { AboutSection } from './AboutSection';
 import { analyzePositiveNegative } from '../services/scoring';
 import { Printer, FileText, CalendarClock, Lock, HeartPulse, Hourglass, Scale, FileStack } from 'lucide-react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
+import { HelpCircle } from 'lucide-react';
 
 export const Calculator: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -118,7 +119,7 @@ export const Calculator: React.FC = () => {
             </div>
 
             {/* Tab Navigation (Screen Only) */}
-            <div className="print:hidden flex flex-wrap justify-center gap-2 mb-8">
+            <div className="print:hidden flex flex-wrap justify-center gap-2 mb-4">
                 <button
                     onClick={() => setActiveTab('natal')}
                     className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${activeTab === 'natal' ? 'bg-reiki-cyan text-slate-900 shadow-[0_0_15px_rgba(0,242,255,0.4)]' : 'bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700'}`}
@@ -155,6 +156,35 @@ export const Calculator: React.FC = () => {
                 >
                    <Scale className="w-4 h-4" /> Positivo / Negativo
                 </button>
+            </div>
+
+            {/* Guide Link for Active Tab */}
+            <div className="print:hidden flex justify-center mb-8">
+               {activeTab === 'natal' && (
+                 <Link to="/biblioteca/guias/carta-natal" className="text-xs text-reiki-cyan hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
+                    <HelpCircle className="w-3 h-3" /> ¿Cómo interpretar mi Carta Natal?
+                 </Link>
+               )}
+               {activeTab === 'profection' && (
+                 <Link to="/biblioteca/guias/profecciones" className="text-xs text-reiki-magenta hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
+                    <HelpCircle className="w-3 h-3" /> ¿Cómo funcionan las Profecciones?
+                 </Link>
+               )}
+               {activeTab === 'lots' && (
+                 <Link to="/biblioteca/guias/partes-hermeticas" className="text-xs text-amber-500 hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
+                    <HelpCircle className="w-3 h-3" /> ¿Qué son las Partes Herméticas?
+                 </Link>
+               )}
+               {activeTab === 'reiki' && (
+                 <Link to="/biblioteca/guias/reiki" className="text-xs text-green-500 hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
+                    <HelpCircle className="w-3 h-3" /> Astrología Médica y Chakras
+                 </Link>
+               )}
+               {activeTab === 'transits' && (
+                 <Link to="/biblioteca/guias/transitos" className="text-xs text-purple-400 hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
+                    <HelpCircle className="w-3 h-3" /> Guía de Tránsitos Importantes
+                 </Link>
+               )}
             </div>
 
             {/* Content Areas */}
