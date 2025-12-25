@@ -14,7 +14,7 @@ import ImportantTransits from './ImportantTransits';
 import { PositiveNegativeReport } from './PositiveNegativeReport';
 import { AboutSection } from './AboutSection';
 import { analyzePositiveNegative } from '../services/scoring';
-import { Sparkles, Printer, FileText, CalendarClock, Lock, HeartPulse, Hourglass, Scale, FileStack } from 'lucide-react';
+import { Printer, FileText, CalendarClock, Lock, HeartPulse, Hourglass, Scale, FileStack } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 
 export const Calculator: React.FC = () => {
@@ -81,23 +81,10 @@ export const Calculator: React.FC = () => {
   return (
     // 'print:bg-white print:text-black' overrides global body dark mode styles
     // IMPORTANT: print:h-auto and print:overflow-visible are crucial for multi-page printing
-    <div className="min-h-screen text-slate-200 font-sans selection:bg-reiki-cyan/30 pb-20 print:bg-white print:text-black print:pb-0 print:h-auto print:overflow-visible print:static print:w-full print:block">
-
-      {/* Header */}
-      <header className="p-6 text-center relative z-10 print:hidden border-b border-reiki-cyan/10 bg-reiki-dark/50 backdrop-blur-sm">
-        <div className="inline-flex items-center justify-center gap-3 mb-2">
-          {/* Logo Placeholder / Icon */}
-          <Sparkles className="text-reiki-cyan w-6 h-6 animate-pulse-slow" />
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-wider text-reiki-cyan font-sans drop-shadow-[0_0_10px_rgba(0,242,255,0.3)]">
-            METAREIKI.ORG
-          </h1>
-          <Sparkles className="text-reiki-magenta w-6 h-6 animate-pulse-slow" />
-        </div>
-        <p className="text-reiki-cyan text-xs md:text-sm tracking-[0.2em] uppercase font-medium">Astrología de Signos Enteros • Motor de Precisión</p>
-      </header>
+    <div className="animate-fade-in pb-20 print:bg-white print:text-black print:pb-0 print:h-auto print:overflow-visible print:static print:w-full print:block">
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 relative z-10 max-w-7xl print:max-w-none print:px-4 print:py-0 mt-8 print:mt-0 print:block">
+      <div className="container mx-auto px-4 relative z-10 max-w-7xl print:max-w-none print:px-4 print:py-0 mt-8 print:mt-0 print:block">
 
         {!chartData && !loading && (
           <div className="flex flex-col items-center justify-center min-h-[60vh] animate-fade-in-up print:hidden">
@@ -266,7 +253,7 @@ export const Calculator: React.FC = () => {
 
           </div>
         )}
-      </main>
+      </div>
 
       {/* SEO / About Section - Always visible at bottom, but hidden in print */}
       <AboutSection />
