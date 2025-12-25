@@ -7,6 +7,10 @@ import { LibraryIndex } from './components/library/LibraryIndex';
 import { PlanetIndex } from './components/library/PlanetIndex';
 import { PlanetSignIndex } from './components/library/PlanetSignIndex';
 import { InterpretationView } from './components/library/InterpretationView';
+import { SignIndex } from './components/library/SignIndex';
+import { SignDetail } from './components/library/SignDetail';
+import { HouseIndex } from './components/library/HouseIndex';
+import { HouseDetail } from './components/library/HouseDetail';
 
 const App: React.FC = () => {
   return (
@@ -26,11 +30,22 @@ const App: React.FC = () => {
             {/* Library Routes */}
             <Route path="biblioteca">
               <Route index element={<LibraryIndex />} />
+
+              {/* Planetas */}
               <Route path="planetas" element={<PlanetIndex />} />
               <Route path="planetas/:planetName" element={<PlanetSignIndex />} />
               <Route path="planetas/:planetName/:signName" element={<InterpretationView />} />
-              {/* Signos and Casas routes can be added similarly */}
-              <Route path="*" element={<div className="p-12 text-center text-slate-500">Sección en desarrollo.</div>} />
+
+              {/* Signos */}
+              <Route path="signos" element={<SignIndex />} />
+              <Route path="signos/:signName" element={<SignDetail />} />
+
+              {/* Casas */}
+              <Route path="casas" element={<HouseIndex />} />
+              <Route path="casas/:houseId" element={<HouseDetail />} />
+
+              {/* Catch-all for sub-routes */}
+              <Route path="*" element={<Navigate to="/biblioteca" replace />} />
             </Route>
           </Route>
         </Routes>
