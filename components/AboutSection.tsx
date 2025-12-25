@@ -3,7 +3,7 @@ import { Sparkles, Globe, BookOpen, Heart } from 'lucide-react';
 
 export const AboutSection: React.FC = () => {
   return (
-    <footer className="mt-20 py-12 px-4 border-t border-slate-800 bg-reiki-card/30 backdrop-blur-sm print:hidden">
+    <section className="mt-20 py-12 px-4 border-t border-slate-800 bg-reiki-card/30 backdrop-blur-sm print:hidden">
       <div className="max-w-4xl mx-auto space-y-12">
 
         {/* Main Introduction */}
@@ -63,7 +63,7 @@ export const AboutSection: React.FC = () => {
 
         </div>
 
-        {/* SEO Keywords & Footer Info */}
+        {/* SEO Keywords */}
         <div className="border-t border-slate-800 pt-8 text-center space-y-4">
           <p className="text-xs text-slate-500 uppercase tracking-widest font-medium">
             Herramientas Gratuitas de Astrología • Sin Registro • 100% Privado
@@ -74,12 +74,9 @@ export const AboutSection: React.FC = () => {
             Signo Solar, Lunar y Ascendente • Compatibilidad Astrológica • Efemérides Suizas •
             Metafísica y Espiritualidad
           </div>
-          <p className="text-sm text-slate-400 mt-4">
-            © {new Date().getFullYear()} <a href="https://metareiki.org" className="text-reiki-cyan hover:text-white transition-colors">MetaReiki</a>. Todos los derechos reservados.
-          </p>
         </div>
 
       </div>
-    </footer>
+    </section>
   );
 };

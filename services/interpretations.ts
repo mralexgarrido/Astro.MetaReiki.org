@@ -92,7 +92,7 @@ export const SIGN_ADJECTIVES = defs.SIGN_ADJECTIVES as Record<string, string>;
 // struggle with specific JSON structures being assigned to generic Records.
 // The structure is validated logically by the usage.
 
-const LOT_DATA: Record<string, any> = {
+export const LOT_DATA: Record<string, any> = {
     'fortune': fortune,
     'spirit': spirit,
     'eros': eros,
@@ -102,7 +102,7 @@ const LOT_DATA: Record<string, any> = {
     'nemesis': nemesis
 };
 
-const PLANET_DATA: Record<string, any> = {
+export const PLANET_DATA: Record<string, any> = {
     'Sol': sol,
     'Luna': luna,
     'Mercurio': mercurio,
@@ -118,7 +118,7 @@ const PLANET_DATA: Record<string, any> = {
     'Nodo Sur': nodo_sur,
 };
 
-const RETURN_DATA: Record<string, any> = {
+export const RETURN_DATA: Record<string, any> = {
     'Sol': null,
     'Luna': null,
     'Mercurio': null,
@@ -134,7 +134,7 @@ const RETURN_DATA: Record<string, any> = {
     'Nodo Sur': null,
 };
 
-const ASC_TRANSIT_DATA: Record<string, any> = {
+export const ASC_TRANSIT_DATA: Record<string, any> = {
     'Júpiter': asc_jupiter,
     'Saturno': asc_saturn,
     'Urano': asc_uranus,
@@ -142,17 +142,17 @@ const ASC_TRANSIT_DATA: Record<string, any> = {
     'Plutón': asc_pluto,
 };
 
-const POINT_DATA: Record<string, any> = {
+export const POINT_DATA: Record<string, any> = {
     'Ascendente': ascendente,
     'Medio Cielo': medio_cielo
 };
 
-const BLOG_LINKS: Record<string, any> = blogLinks;
+export const BLOG_LINKS: Record<string, any> = blogLinks;
 
 const MALEFIC_REMEDIES: Record<string, any> = maleficoRemedios;
 const BENEFIC_HARMONIZATION: Record<string, any> = beneficoArmonizacion;
 
-const RULER_INTERPRETATIONS: Record<number, any> = {
+export const RULER_INTERPRETATIONS: Record<number, any> = {
     1: ruler1,
     2: ruler2,
     3: ruler3,
@@ -167,7 +167,7 @@ const RULER_INTERPRETATIONS: Record<number, any> = {
     12: ruler12
 };
 
-const PROFECTION_DATA: Record<number, any> = {
+export const PROFECTION_DATA: Record<number, any> = {
     1: profection1,
     2: profection2,
     3: profection3,
