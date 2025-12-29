@@ -1,5 +1,6 @@
 import React from 'react';
 import { Sparkles, Globe, BookOpen, Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const AboutSection: React.FC = () => {
   return (
@@ -65,14 +66,25 @@ export const AboutSection: React.FC = () => {
 
         {/* SEO Keywords */}
         <div className="border-t border-slate-800 pt-8 text-center space-y-4">
-          <p className="text-xs text-slate-500 uppercase tracking-widest font-medium">
-            Herramientas Gratuitas de Astrología • Sin Registro • 100% Privado
-          </p>
+          <div className="flex justify-center gap-6 text-xs text-slate-500 font-medium uppercase tracking-wider">
+            <span>Herramientas Gratuitas de Astrología</span>
+            <span>•</span>
+            <span>Sin Registro</span>
+            <span>•</span>
+            <Link to="/privacidad" className="hover:text-reiki-cyan transition-colors">100% Privado</Link>
+          </div>
+
           <div className="text-xs text-slate-600 max-w-3xl mx-auto leading-loose">
             <span className="sr-only">Palabras clave: </span>
             Calculadora de Tránsitos Planetarios • Revolución Solar • Astrología Psicológica •
             Signo Solar, Lunar y Ascendente • Compatibilidad Astrológica • Efemérides Suizas •
             Metafísica y Espiritualidad
+          </div>
+
+          <div className="flex justify-center gap-4 text-[10px] text-slate-700">
+             <Link to="/privacidad" className="hover:text-slate-500 transition-colors">Política de Privacidad</Link>
+             <span>|</span>
+             <Link to="/terminos" className="hover:text-slate-500 transition-colors">Términos de Uso</Link>
           </div>
         </div>
 

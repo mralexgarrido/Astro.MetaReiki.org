@@ -58,8 +58,8 @@ export const Layout: React.FC = () => {
             <div>
                 <h3 className="text-reiki-cyan font-serif font-bold mb-4">Legal</h3>
                 <ul className="space-y-2 text-slate-400 text-sm">
-                    <li><a href="https://metareiki.org/privacidad" className="hover:text-white transition-colors">Política de Privacidad</a></li>
-                    <li><a href="https://metareiki.org/terminos" className="hover:text-white transition-colors">Términos de Uso</a></li>
+                    <li><Link to="/privacidad" className="hover:text-white transition-colors">Política de Privacidad</Link></li>
+                    <li><Link to="/terminos" className="hover:text-white transition-colors">Términos de Uso</Link></li>
                 </ul>
             </div>
             <div>

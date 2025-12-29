@@ -17,6 +17,8 @@ import { ProfectionGuide } from './components/library/guides/ProfectionGuide';
 import { LotsGuide } from './components/library/guides/LotsGuide';
 import { ReikiGuide } from './components/library/guides/ReikiGuide';
 import { TransitsGuide } from './components/library/guides/TransitsGuide';
+import { PrivacyPolicy } from './components/legal/PrivacyPolicy';
+import { TermsOfUse } from './components/legal/TermsOfUse';
 
 const App: React.FC = () => {
   return (
@@ -32,6 +34,10 @@ const App: React.FC = () => {
             <Route path="transitos" element={<Navigate to="/?tab=transits" replace />} />
             <Route path="partes-hermeticas" element={<Navigate to="/?tab=lots" replace />} />
             <Route path="reiki-salud" element={<Navigate to="/?tab=reiki" replace />} />
+
+            {/* Legal Routes */}
+            <Route path="privacidad" element={<PrivacyPolicy />} />
+            <Route path="terminos" element={<TermsOfUse />} />
 
             {/* Library Routes */}
             <Route path="biblioteca">
