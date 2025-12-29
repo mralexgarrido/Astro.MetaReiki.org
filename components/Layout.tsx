@@ -40,10 +40,10 @@ export const Layout: React.FC = () => {
             <div>
                 <h3 className="text-reiki-cyan font-serif font-bold mb-4">Calculadoras</h3>
                 <ul className="space-y-2 text-slate-400 text-sm">
-                    <li><Link to="/carta-natal" className="hover:text-white transition-colors">Carta Natal</Link></li>
-                    <li><Link to="/profecciones" className="hover:text-white transition-colors">Profecciones</Link></li>
-                    <li><Link to="/transitos" className="hover:text-white transition-colors">Tránsitos</Link></li>
-                    <li><Link to="/reiki-salud" className="hover:text-white transition-colors">Reiki y Salud</Link></li>
+                    <li><Link to="/biblioteca/guias/carta-natal" className="hover:text-white transition-colors">Carta Natal</Link></li>
+                    <li><Link to="/biblioteca/guias/profecciones" className="hover:text-white transition-colors">Profecciones</Link></li>
+                    <li><Link to="/biblioteca/guias/transitos" className="hover:text-white transition-colors">Tránsitos</Link></li>
+                    <li><Link to="/biblioteca/guias/reiki" className="hover:text-white transition-colors">Reiki y Salud</Link></li>
                 </ul>
             </div>
             <div>
